@@ -169,7 +169,6 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
   }
 
   _spinningResults() async {
-    // Vị trí index sau khi random
     final index = listItem.indexWhere((e) => e.code == initValue);
     controllerStream.add(index); // Cập nhật mục được chọ
     // Kiểm tra vị trí index. Check xem mã code có phải là thêm lượt không
