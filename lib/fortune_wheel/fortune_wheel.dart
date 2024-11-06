@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_sign_in.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_spin.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/widget/myInheritedWidget.dart';
+import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:provider/provider.dart';
 
 import 'data/model/account_model.dart';
@@ -42,17 +44,25 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   Future<void> getDeviceId() async {
-    deviceId = 'h';
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    if (Platform.isAndroid) {
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      deviceId = androidInfo.id; // Lấy ID thiết bị trên Android
-    } else if (Platform.isIOS) {
-      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-      deviceId = iosInfo.identifierForVendor ?? ''; // Lấy ID thiết bị trên iOS
+    // deviceId = 'y';
+    // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    // if (Platform.isAndroid) {
+    //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    //   deviceId = androidInfo.id; // Lấy ID thiết bị trên Android
+    // } else if (Platform.isIOS) {
+    //   IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    //   deviceId = iosInfo.identifierForVendor ?? ''; // Lấy ID thiết bị trên iOS
+    // }
+    // deviceId = '${DateTime.now().millisecondsSinceEpoch}$deviceId';
+    if (kIsWeb) {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      WebBrowserInfo webInfo = await deviceInfo.webBrowserInfo;
+      var deviceIdentifier = webInfo.vendor! +
+          webInfo.userAgent! +
+          webInfo.hardwareConcurrency.toString();
+      deviceId = deviceIdentifier;
+      print('Device ID: $deviceId');
     }
-    deviceId = '${DateTime.now().millisecondsSinceEpoch}$deviceId';
-    print('Device ID: $deviceId');
   }
 
   @override
@@ -113,7 +123,12 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                     ? ScreenSignIn(
                         onSignIn: onSignIn,
                       )
-                    : const SizedBox()
+                    : const SizedBox(),
+                Container(
+                    padding: EdgeInsets.all(40),
+                    color: Colors.white,
+                    width: 400,
+                    child: Text('deviceId:$deviceId'))
               ],
             );
           },

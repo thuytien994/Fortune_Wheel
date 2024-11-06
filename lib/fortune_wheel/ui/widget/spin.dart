@@ -24,7 +24,7 @@ class SpinWidget extends StatelessWidget {
         for (int i = 0; i < items.length; i++)
           FortuneItem(
             style: FortuneItemStyle(
-                borderColor:const Color(0x9E681A).withOpacity(1),
+                borderColor: const Color(0x9E681A).withOpacity(1),
                 borderWidth: 5,
                 textAlign: TextAlign.center,
                 color: i % 2 == 0
@@ -40,7 +40,7 @@ class SpinWidget extends StatelessWidget {
                     child: RotatedBox(
                       quarterTurns: 1,
                       child: Text(
-                        items[i].giftDescription ?? '',
+                        items[i].description ?? '',
                         style: TextStyle(
                             fontSize: 12,
                             color: i % 2 != 0
