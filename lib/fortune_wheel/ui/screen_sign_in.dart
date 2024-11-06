@@ -4,12 +4,12 @@ class ScreenSignIn extends StatefulWidget {
   final TextEditingController controllerName;
   final TextEditingController controllerPhone;
   final Function(String name, String phone) onSignIn;
-  const ScreenSignIn(
-      {super.key,
-      required this.onSignIn,
-      required this.controllerName,
-      required this.controllerPhone,
-     });
+  const ScreenSignIn({
+    super.key,
+    required this.onSignIn,
+    required this.controllerName,
+    required this.controllerPhone,
+  });
 
   @override
   State<ScreenSignIn> createState() => _ScreenSignInState();
@@ -20,58 +20,59 @@ class _ScreenSignInState extends State<ScreenSignIn> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        alignment: Alignment.center,
         width: MediaQuery.sizeOf(context).width * 0.8,
-        height: MediaQuery.of(context).size.height * 0.5,
         decoration: BoxDecoration(
             border: Border.all(
                 color: const Color.fromARGB(255, 8, 143, 253), width: 2),
             color: Colors.black.withOpacity(0.7),
             borderRadius: const BorderRadius.all(Radius.circular(20))),
-        child:  Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Đăng nhập',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium!
-                        .copyWith(color: Colors.amber),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  _inputInfo(
-                    context: context,
-                    labelText: 'Nhập tên',
-                    controller: widget.controllerName,
-                    textInput: TextInputType.name,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _inputInfo(
-                      context: context,
-                      labelText: 'Nhập số điện thoại',
-                      controller: widget.controllerPhone,
-                      textInput: TextInputType.phone),
-                  InkWell(
-                    child: ElevatedButton(
-                        onPressed: () {
-                          FocusScope.of(context).unfocus();
-                          widget.onSignIn(widget.controllerName.text,
-                              widget.controllerPhone.text);
-                        },
-                        child: Text('Đăng nhập')),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  )
-                ],
-              ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Đăng nhập',
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(color: Colors.amber),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            _inputInfo(
+              context: context,
+              labelText: 'Nhập tên',
+              controller: widget.controllerName,
+              textInput: TextInputType.name,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            _inputInfo(
+                context: context,
+                labelText: 'Nhập số điện thoại',
+                controller: widget.controllerPhone,
+                textInput: TextInputType.phone),
+            const SizedBox(
+              height: 10,
+            ),
+            InkWell(
+              child: ElevatedButton(
+                  onPressed: () {
+                    FocusScope.of(context).unfocus();
+                    widget.onSignIn(widget.controllerName.text,
+                        widget.controllerPhone.text);
+                  },
+                  child: Text('Đăng nhập')),
+            ),
+            const SizedBox(
+              height: 10,
+            )
+          ],
+        ),
       ),
     );
   }

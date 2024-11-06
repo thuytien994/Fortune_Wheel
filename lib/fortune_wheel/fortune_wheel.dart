@@ -29,8 +29,8 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   VoucherModel? voucherResult;
   final controllerName = TextEditingController();
   final controllerPhone = TextEditingController();
-  late bool isLogged = false;
-  SharedPreferences? prefs = null;
+  late bool isLoggedIn = false;
+  SharedPreferences? prefs;
 
   @override
   void initState() {
@@ -42,14 +42,15 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   initPreft() async {
     prefs = await SharedPreferences.getInstance();
+    if (prefs != null) {
+      isLoggedIn = prefs!.getBool(kerSaveLogin) ?? false;
+      setState(() {});
+    }
   }
 
   @override
   void didChangeDependencies() {
-    if (prefs != null) {
-      isLogged = prefs!.getBool(kerSaveLogin) ?? false;
-      setState(() {});
-    }
+    initPreft();
 
     super.didChangeDependencies();
   }
@@ -62,7 +63,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   Future<void> getDeviceId() async {
-    deviceId = 'dssdcww';
+    deviceId = DateTime.now().millisecondsSinceEpoch.toString();
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
@@ -85,10 +86,9 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   Future<void> onSignIn(String name, String phone) async {
-    await initPreft();
-    final bool isLoggedIn = (prefs!.getBool(kerSaveLogin) ?? false);
     if (isLoggedIn) {
       FlutterToastr.show("Thiet bi da dang nhap !", context);
+    } else {
       if (name.trim().isNotEmpty && phone.trim().isNotEmpty) {
         var user = SigninRequest();
         user
@@ -122,7 +122,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      //resizeToAvoidBottomInset: true,
       body: GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
