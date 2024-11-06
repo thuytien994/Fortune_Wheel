@@ -1,15 +1,13 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/fortune_wheel/data/model/voucher_model.dart';
-import 'package:flutter_application_1/fortune_wheel/ui/widget/animated/spin_anima_btn.dart';
-import 'package:flutter_application_1/fortune_wheel/ui/widget/gift.dart';
+import 'package:flutter_application_1/fortune_wheel/ui/widget/animated/btn_spin_anima_btn.dart';
+import 'package:flutter_application_1/fortune_wheel/ui/widget/result_spin.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/widget/spin.dart';
-import 'package:flutter_application_1/fortune_wheel/view_model/fortune_wheel_view_model.dart';
 
 class ScreenSpin extends StatefulWidget {
-  final String? initValue; // Giá trị khởi tạo
+  final String? initValue;
   final List<VoucherModel> vouchers; // Danh sách voucher
   final VoucherModel?
       spinResult; // Kết quả trả về. Nếu null thì quay tiếp, khác null là dừng
@@ -30,11 +28,8 @@ class ScreenSpin extends StatefulWidget {
 class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
   late Animation<double> animationBtnSpin;
   late AnimationController controllerAnimation;
-  late Animation<double> animationGift;
-  late AnimationController controllerGift;
   var controllerStream = StreamController<int>();
   VoucherModel? spinResult;
-  final List<String> items = ['🍎', '🍌', '🍒', '🍇', '🍉', '🍇', '🍉', '🍉'];
   List<VoucherModel> listItem = [];
   String? initValue;
 
@@ -63,7 +58,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
     }
     if (widget.spinResult != null) {
       spinResult = widget.spinResult;
-      //     controllerAnimation.dispose();
+      controllerAnimation.dispose(); 
     }
   }
 
@@ -77,30 +72,30 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
               if (status == AnimationStatus.completed) {
                 controllerAnimation.reverse();
               } else if (status == AnimationStatus.dismissed) {
-                //  controllerAnimation.forward();
+                controllerAnimation.forward();
               }
             },
           );
 
-    //   controllerAnimation.forward();
+    controllerAnimation.forward();
   }
 
-  _setAnimationGift() {
-    controllerGift =
-        AnimationController(duration: const Duration(seconds: 1), vsync: this);
-    animationGift =
-        CurvedAnimation(parent: controllerGift, curve: Curves.linear)
-          ..addStatusListener(
-            (status) {
-              if (status == AnimationStatus.completed) {
-                controllerGift.reverse();
-              } else if (status == AnimationStatus.dismissed) {
-                //    controllerGift.forward();
-              }
-            },
-          );
-    //   controllerGift.forward();
-  }
+  // _setAnimationGift() {
+  //   controllerGift =
+  //       AnimationController(duration: const Duration(seconds: 1), vsync: this);
+  //   animationGift =
+  //       CurvedAnimation(parent: controllerGift, curve: Curves.linear)
+  //         ..addStatusListener(
+  //           (status) {
+  //             if (status == AnimationStatus.completed) {
+  //               controllerGift.reverse();
+  //             } else if (status == AnimationStatus.dismissed) {
+  //               controllerGift.forward();
+  //             }
+  //           },
+  //         );
+  //   controllerGift.forward();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +149,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
                         ),
                 ),
                 spinResult != null && spinResult!.description != null
-                    ? Gift(
+                    ? ReslutSpin(
                         item: spinResult!.description!,
                         image: spinResult!.image!,
                       )
@@ -170,12 +165,10 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
 
   _spinningResults() async {
     final index = listItem.indexWhere((e) => e.code == initValue);
-    controllerStream.add(index); // Cập nhật mục được chọ
+    controllerStream.add(index); // update item selected
     // Kiểm tra vị trí index. Check xem mã code có phải là thêm lượt không
     // isSpin = listItem[spinResultt].code == codeMoreTurn;
     await Future.delayed(const Duration(seconds: 2), () {});
     widget.onSpinResult(index);
-
-    // controllerAnimation.dispose();
   }
 }

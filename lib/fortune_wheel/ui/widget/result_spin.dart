@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class Gift extends StatelessWidget {
+class ReslutSpin extends StatelessWidget {
   final String item;
   final String image;
-  const Gift({required this.item, required this.image, super.key});
+  const ReslutSpin({required this.item, required this.image, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
-      color: Colors.black.withOpacity(0.5),
+      color: Colors.black.withOpacity(0.6),
       child: Align(
         alignment: Alignment.center,
         child: Padding(
@@ -76,13 +76,11 @@ class Gift extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          //  left: MediaQuery.sizeOf(context).width,
           child: Image.asset(
             'assets/images/congrulation.gif',
             width: 100,
           ),
         ),
-        //   Image.asset('assets/images/gift-bgr.gif')
       ],
     );
   }

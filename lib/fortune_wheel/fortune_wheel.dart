@@ -1,11 +1,17 @@
-import 'package:client_information/client_information.dart';
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/fortune_wheel/data/model/signin_request.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_sign_in.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_spin.dart';
-
-import 'data/model/signin_request.dart';
+import 'package:flutter_toastr/flutter_toastr.dart';
 import 'data/model/voucher_model.dart';
 import 'view_model/fortune_wheel_view_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+enum keySaveLogin { deviceLogin }
 
 class MyFortuneWheel extends StatefulWidget {
   const MyFortuneWheel({super.key});
@@ -15,11 +21,16 @@ class MyFortuneWheel extends StatefulWidget {
 }
 
 class _MyFortuneWheelState extends State<MyFortuneWheel> {
+  static const kerSaveLogin = 'deviceLogin';
   late bool isShowSignInPopup;
   final vm = FortuneWheelViewModel();
   var vouchers = <VoucherModel>[];
   String deviceId = '';
   VoucherModel? voucherResult;
+  final controllerName = TextEditingController();
+  final controllerPhone = TextEditingController();
+  late bool isLogged = false;
+  SharedPreferences? prefs = null;
 
   @override
   void initState() {
@@ -27,6 +38,20 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
     getDeviceId();
     onLoadVoucher();
     isShowSignInPopup = vm.isShowSignIn;
+  }
+
+  initPreft() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (prefs != null) {
+      isLogged = prefs!.getBool(kerSaveLogin) ?? false;
+      setState(() {});
+    }
+
+    super.didChangeDependencies();
   }
 
   Future<void> onLoadVoucher() async {
@@ -37,47 +62,50 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   Future<void> getDeviceId() async {
-    // deviceId = 'y';
-    // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    // if (Platform.isAndroid) {
-    //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    //   deviceId = androidInfo.id; // Lấy ID thiết bị trên Android
-    // } else if (Platform.isIOS) {
-    //   IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    //   deviceId = iosInfo.identifierForVendor ?? ''; // Lấy ID thiết bị trên iOS
-    // }
-    // deviceId = '${DateTime.now().millisecondsSinceEpoch}$deviceId';
-    // if (kIsWeb) {
-    //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    //   WebBrowserInfo webInfo = await deviceInfo.webBrowserInfo;
-    //   var deviceIdentifier = webInfo.vendor! +
-    //       webInfo.userAgent! +
-    //       webInfo.hardwareConcurrency.toString();
-    //   deviceId = deviceIdentifier;
-
-    var basicInfo = await ClientInformation.fetch();
-    deviceId = basicInfo.deviceId;
-    setState(() {});
-    print('Device ID: $deviceId');
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+    deviceId = 'dssdcww';
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      deviceId = androidInfo.id; // Lấy ID thiết bị trên Android
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      deviceId = iosInfo.identifierForVendor ?? ''; // Lấy ID thiết bị trên iOS
+    }
+    deviceId = '${DateTime.now().millisecondsSinceEpoch}$deviceId';
+    if (kIsWeb) {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      WebBrowserInfo webInfo = await deviceInfo.webBrowserInfo;
+      var deviceIdentifier = webInfo.vendor! +
+          webInfo.userAgent! +
+          webInfo.hardwareConcurrency.toString();
+      deviceId = deviceIdentifier;
+      setState(() {});
+      print('Device ID: $deviceId');
+    }
   }
 
   Future<void> onSignIn(String name, String phone) async {
-    if (name.trim().isNotEmpty && phone.trim().isNotEmpty) {
-      var user = SigninRequest();
-      user
-        ..name = name
-        ..phoneNumber = phone
-        ..device = deviceId
-        ..ispinAgain = false;
-      await vm.signIn(user);
-      setState(() {
-        isShowSignInPopup = vm.isShowSignIn;
-      });
+    await initPreft();
+    final bool isLoggedIn = (prefs!.getBool(kerSaveLogin) ?? false);
+    if (isLoggedIn) {
+      FlutterToastr.show("Thiet bi da dang nhap !", context);
+      if (name.trim().isNotEmpty && phone.trim().isNotEmpty) {
+        var user = SigninRequest();
+        user
+          ..name = name
+          ..phoneNumber = phone
+          ..device = deviceId
+          ..ispinAgain = false;
+        await vm.signIn(user);
+        if (vm.isShowSignIn == false && prefs != null) {
+          prefs!.setBool(kerSaveLogin, true); // da login
+        }
+        setState(() {
+          isShowSignInPopup = vm.isShowSignIn;
+          // controllerName.dispose();
+          // controllerPhone.dispose();
+        });
+      }
     }
   }
 
@@ -96,40 +124,32 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: Builder(
-          builder: (context) {
-            return Stack(
-              children: [
-                Image.asset(
-                  'assets/images/vongquay.png',
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.fill,
-                ),
-                ScreenSpin(
-                  initValue: vm.user?.code,
-                  vouchers: vouchers,
-                  spinResult: voucherResult,
-                  onSpinResult: onSpinResult,
-                ),
-                isShowSignInPopup
-                    ? ScreenSignIn(
-                        onSignIn: onSignIn,
-                      )
-                    : const SizedBox(),
-                Container(
-                    padding: const EdgeInsets.all(40),
-                    color: Colors.white,
-                    width: 400,
-                    child: Text('deviceId:$deviceId'))
-              ],
-            );
+          onTap: () {
+            FocusScope.of(context).unfocus();
           },
-        ),
-      ),
+          child: Stack(
+            children: [
+              Image.asset(
+                'assets/images/vongquay.png',
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                fit: BoxFit.fill,
+              ),
+              ScreenSpin(
+                initValue: vm.user?.code,
+                vouchers: vouchers,
+                spinResult: voucherResult,
+                onSpinResult: onSpinResult,
+              ),
+              isShowSignInPopup
+                  ? ScreenSignIn(
+                      onSignIn: onSignIn,
+                      controllerName: controllerName,
+                      controllerPhone: controllerPhone,
+                    )
+                  : const SizedBox(),
+            ],
+          )),
     );
   }
 }
