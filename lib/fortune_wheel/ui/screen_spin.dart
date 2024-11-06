@@ -63,7 +63,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
     }
     if (widget.spinResult != null) {
       spinResult = widget.spinResult;
-      controllerAnimation.dispose();
+      //     controllerAnimation.dispose();
     }
   }
 
@@ -156,6 +156,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
                 spinResult != null && spinResult!.description != null
                     ? Gift(
                         item: spinResult!.description!,
+                        image: spinResult!.image!,
                       )
                     : const SizedBox()
               ],

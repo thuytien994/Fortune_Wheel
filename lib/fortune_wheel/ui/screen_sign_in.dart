@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/fortune_wheel/data/data_source/spin_data.dart';
-import 'package:flutter_application_1/fortune_wheel/data/model/account_model.dart';
-import 'package:flutter_application_1/fortune_wheel/view_model/fortune_wheel_view_model.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 
 class ScreenSignIn extends StatefulWidget {
   final Function(String name, String phone) onSignIn;

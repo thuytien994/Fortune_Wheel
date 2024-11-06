@@ -42,7 +42,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   Future<void> getDeviceId() async {
-    deviceId = '';
+    deviceId = 'h';
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
@@ -51,7 +51,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       deviceId = iosInfo.identifierForVendor ?? ''; // Lấy ID thiết bị trên iOS
     }
-    // deviceId = '${DateTime.now().millisecondsSinceEpoch}$deviceId';
+    deviceId = '${DateTime.now().millisecondsSinceEpoch}$deviceId';
     print('Device ID: $deviceId');
   }
 
