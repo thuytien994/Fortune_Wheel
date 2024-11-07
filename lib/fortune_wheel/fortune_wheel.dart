@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -42,8 +43,10 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   initPreft() async {
     prefs = await SharedPreferences.getInstance();
+    print('Login prefs moi vao ap : ${prefs}');
     if (prefs != null) {
       isLoggedIn = prefs!.getBool(kerSaveLogin) ?? false;
+      print('Login isLoggedIn kt bien: ${isLoggedIn}');
     }
   }
 
@@ -86,6 +89,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   Future<void> onSignIn(String name, String phone) async {
     var valid = validateMobile(phone);
+    print('Login wwhen click btn button: ${isLoggedIn}');
     if (isLoggedIn) {
       FlutterToastr.show("Thiet bi da dang nhap !", context);
     } else {

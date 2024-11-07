@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/fortune_wheel/data/model/voucher_model.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
