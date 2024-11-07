@@ -42,6 +42,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   initPreft() async {
     prefs = await SharedPreferences.getInstance();
+
     if (prefs != null) {
       isLoggedIn = prefs!.getBool(kerSaveLogin) ?? false;
       setState(() {});
@@ -86,10 +87,11 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   Future<void> onSignIn(String name, String phone) async {
+    var valid = validateMobile(phone);
     if (isLoggedIn) {
       FlutterToastr.show("Thiet bi da dang nhap !", context);
     } else {
-      if (name.trim().isNotEmpty && phone.trim().isNotEmpty) {
+      if (name.trim().isNotEmpty && valid == null) {
         var user = SigninRequest();
         user
           ..name = name
@@ -105,6 +107,8 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
           // controllerName.dispose();
           // controllerPhone.dispose();
         });
+      } else {
+        FlutterToastr.show(valid ?? 'Số điện thoạt chưa đúng', context);
       }
     }
   }
@@ -117,6 +121,17 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
         voucherResult = vouchers[index];
       });
     }
+  }
+
+  String? validateMobile(String value) {
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return 'vui lòng nhập số điện thoạt';
+    } else if (!regExp.hasMatch(value)) {
+      return 'số điện thoạt chưa đúng';
+    }
+    return null;
   }
 
   @override

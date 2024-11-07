@@ -58,7 +58,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
     }
     if (widget.spinResult != null) {
       spinResult = widget.spinResult;
-      controllerAnimation.dispose(); 
+      controllerAnimation.dispose();
     }
   }
 
@@ -110,15 +110,16 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
               children: [
                 //  Image.asset('assets/images/bgrsspins.png', fit: BoxFit.cover),
                 Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                   height: MediaQuery.sizeOf(context).height,
                   width: MediaQuery.sizeOf(context).width,
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/images/bgrsspins.png'),
+                          image: AssetImage('assets/images/mam.png'),
                           fit: BoxFit.contain)),
                   child: Padding(
-                    padding: const EdgeInsets.all(40),
+                    padding: const EdgeInsets.all(30),
                     child: listItem.isNotEmpty
                         ? SpinWidget(
                             controllerStream: controllerStream,
@@ -150,8 +151,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
                 ),
                 spinResult != null && spinResult!.description != null
                     ? ReslutSpin(
-                        item: spinResult!.description!,
-                        image: spinResult!.image!,
+                        resultSpin: spinResult?? VoucherModel(),
                       )
                     : const SizedBox()
               ],

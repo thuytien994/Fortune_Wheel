@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/fortune_wheel/data/model/voucher_model.dart';
 
 class ReslutSpin extends StatelessWidget {
-  final String item;
-  final String image;
-  const ReslutSpin({required this.item, required this.image, super.key});
+ final VoucherModel resultSpin;
+  const ReslutSpin({required this.resultSpin,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class ReslutSpin extends StatelessWidget {
                                 .copyWith(
                                   color: Colors.white,
                                 )),
-                        Text(item,
+                        Text(resultSpin.description??'',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
@@ -49,7 +49,7 @@ class ReslutSpin extends StatelessWidget {
                                     color: Colors.amber,
                                     fontWeight: FontWeight.w700)),
                         Image.network(
-                          image,
+                          resultSpin.image??'',
                           width: 100,
                           height: 100,
                         )
