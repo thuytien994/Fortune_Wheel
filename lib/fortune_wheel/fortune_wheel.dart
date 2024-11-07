@@ -21,7 +21,7 @@ class MyFortuneWheel extends StatefulWidget {
 }
 
 class _MyFortuneWheelState extends State<MyFortuneWheel> {
-  static const kerSaveLogin = 'deviceLogin';
+  static const kerSaveLogin = 'device-login';
   late bool isShowSignInPopup;
   final vm = FortuneWheelViewModel();
   var vouchers = <VoucherModel>[];
@@ -42,7 +42,6 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   initPreft() async {
     prefs = await SharedPreferences.getInstance();
-    //  await prefs?.remove(kerSaveLogin);
     if (prefs != null) {
       isLoggedIn = prefs!.getBool(kerSaveLogin) ?? false;
     }

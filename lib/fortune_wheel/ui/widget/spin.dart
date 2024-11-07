@@ -59,7 +59,7 @@ class SpinWidget extends StatelessWidget {
 
   _showImageGift({required VoucherModel item}) {
     var wb =
-        _imageVoucherDiscount(url: item.image ?? '', size: 37, position: 60);
+        _imageVoucherDiscount(url: item.image ?? '', size: 45, position: 55);
 
     switch (item.code) {
       case 'VOUCHER50' || 'VOUCHER20':
@@ -122,12 +122,12 @@ class SpinWidget extends StatelessWidget {
         break;
       default:
         widget = Container(
-          padding: const EdgeInsets.only(top: 9),
-          width: 60,
+          padding: const EdgeInsets.only(top: 4),
+          width: 65,
           child: Text(
             items[index].giftDescription ?? '',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: FontWeight.w900,
               color: index % 2 != 0
                   ? const Color(0x265EA9).withOpacity(1)
@@ -156,7 +156,7 @@ class SpinWidget extends StatelessWidget {
             height: 40,
             fit: BoxFit.fill,
           ),
-          Container(
+          SizedBox(
             width: 53,
             child: Text(
               description,

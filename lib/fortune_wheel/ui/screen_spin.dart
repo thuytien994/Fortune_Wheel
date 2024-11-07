@@ -93,9 +93,9 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
                 Align(
                   alignment: Alignment.center,
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    height: 380,
-                    width: 380,
+                    //   margin: const EdgeInsets.symmetric(horizontal: 10),
+                    height: MediaQuery.sizeOf(context).width * 0.9,
+                    width: MediaQuery.sizeOf(context).width * 0.9,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('assets/images/mam.png'),
