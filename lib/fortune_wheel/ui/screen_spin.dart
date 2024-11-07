@@ -5,6 +5,7 @@ import 'package:flutter_application_1/fortune_wheel/data/model/voucher_model.dar
 import 'package:flutter_application_1/fortune_wheel/ui/widget/animated/btn_spin_anima_btn.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/widget/result_spin.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/widget/spin.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final Uri _url = Uri.parse('https://flutter.dev');
@@ -16,12 +17,14 @@ class ScreenSpin extends StatefulWidget {
       spinResult; // Kết quả trả về. Nếu null thì quay tiếp, khác null là dừng
   final Function(int index) onSpinResult; // Function callback từ con sang cha
 
+ final  ScreenshotController screenshotController ;
   ScreenSpin({
     super.key,
     required this.initValue,
     required this.vouchers,
     required this.spinResult,
     required this.onSpinResult,
+    required this.screenshotController
   });
 
   @override
@@ -138,7 +141,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
                 spinResult != null && spinResult!.description != null
                     ? ReslutSpin(
                         resultSpin: spinResult ?? VoucherModel(),
-                        
+                        screenshotController: widget.screenshotController,
                       )
                     : const SizedBox()
               ],

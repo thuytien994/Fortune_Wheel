@@ -8,6 +8,7 @@ import 'package:flutter_application_1/fortune_wheel/data/model/signin_request.da
 import 'package:flutter_application_1/fortune_wheel/ui/screen_sign_in.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_spin.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
+import 'package:screenshot/screenshot.dart';
 import 'data/model/voucher_model.dart';
 import 'view_model/fortune_wheel_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -96,7 +97,10 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
         ..device = deviceId
         ..ispinAgain = false;
       await vm.signIn(user);
-      if (vm.isShowSignIn == false && prefs != null) {
+      if (vm.errorMessage != null) {
+        return FlutterToastr.show(vm.errorMessage!, context);
+      }
+      if (vm.isShowSignIn == false && prefs != null && !isLoggedIn) {
         prefs!.setBool(kerSaveLogin, true); // da login
       }
 
@@ -177,6 +181,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                 vouchers: vouchers,
                 spinResult: voucherResult,
                 onSpinResult: onSpinResult,
+                screenshotController: vm.screenshotController,
               ),
               isShowSignInPopup
                   ? ScreenSignIn(
@@ -219,5 +224,10 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
             ],
           ),
         ));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

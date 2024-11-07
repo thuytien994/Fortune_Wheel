@@ -46,6 +46,9 @@ dependencies:
   shared_preferences: ^2.2.3
   universal_html: ^2.2.4
   url_launcher: ^6.3.1
+  screenshot: ^3.0.0
+  image_gallery_saver_plus: ^3.0.5
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:
