@@ -14,6 +14,7 @@ class AccountModel {
   String? description;
   String? createdAt;
   String? common;
+  String? message;
 
   AccountModel(
       {this.id,
@@ -28,7 +29,7 @@ class AccountModel {
       this.endDate,
       this.description,
       this.createdAt,
-      this.common});
+      this.common, this.message});
 
   AccountModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int?;
@@ -44,6 +45,7 @@ class AccountModel {
     description = json['description'] as String?;
     createdAt = json['createdAt'] as String?;
     common = json['common'] as String?;
+     message = json['message'] as String?;
   }
 
   Map<String, dynamic> toJson() {
@@ -61,6 +63,7 @@ class AccountModel {
     data['description'] = description;
     data['createdAt'] = createdAt;
     data['common'] = common;
+     data['message'] = message;
     return data;
   }
 }

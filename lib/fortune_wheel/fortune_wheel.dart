@@ -88,30 +88,49 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   Future<void> onSignIn(String name, String phone) async {
     var valid = validateMobile(phone);
-    print('Login wwhen click btn button: ${isLoggedIn}');
-    if (isLoggedIn) {
-      FlutterToastr.show("Thiet bi da dang nhap !", context);
-    } else {
-      if (name.trim().isNotEmpty && valid == null) {
-        var user = SigninRequest();
-        user
-          ..name = name
-          ..phoneNumber = phone
-          ..device = deviceId
-          ..ispinAgain = false;
-        await vm.signIn(user);
-        if (vm.isShowSignIn == false && prefs != null) {
-          prefs!.setBool(kerSaveLogin, true); // da login
-        }
-        setState(() {
-          isShowSignInPopup = vm.isShowSignIn;
-          // controllerName.dispose();
-          // controllerPhone.dispose();
-        });
-      } else {
-        FlutterToastr.show(valid ?? 'Số điện thoạt chưa đúng', context);
+    if (name.trim().isNotEmpty && valid == null) {
+      var user = SigninRequest();
+      user
+        ..name = name
+        ..phoneNumber = phone
+        ..device = deviceId
+        ..ispinAgain = false;
+      await vm.signIn(user);
+      if (vm.isShowSignIn == false && prefs != null) {
+        prefs!.setBool(kerSaveLogin, true); // da login
       }
+
+      setState(() {
+        isShowSignInPopup = vm.isShowSignIn;
+        // controllerName.dispose();
+        // controllerPhone.dispose();
+      });
     }
+
+    // print('Login wwhen click btn button: ${isLoggedIn}');
+    // if (isLoggedIn) {
+    //   FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
+    // } else {
+    //   if (name.trim().isNotEmpty && valid == null) {
+    //     var user = SigninRequest();
+    //     user
+    //       ..name = name
+    //       ..phoneNumber = phone
+    //       ..device = deviceId
+    //       ..ispinAgain = false;
+    //     await vm.signIn(user);
+    //     if (vm.isShowSignIn == false && prefs != null) {
+    //       prefs!.setBool(kerSaveLogin, true); // da login
+    //     }
+    //     setState(() {
+    //       isShowSignInPopup = vm.isShowSignIn;
+    //       // controllerName.dispose();
+    //       // controllerPhone.dispose();
+    //     });
+    //   } else {
+    //     FlutterToastr.show(valid ?? 'Số điện thoạt chưa đúng', context);
+    //   }
+    // }
   }
 
   void onSpinResult(int index) {
@@ -144,7 +163,8 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
             FocusScope.of(context).unfocus();
           },
           child: Stack(
-            fit: StackFit.expand,
+            ///  fit: StackFit.expand,
+            alignment: Alignment.center,
             children: [
               Image.asset(
                 'assets/images/bgr-vongquay.png',
@@ -165,6 +185,37 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                       controllerPhone: controllerPhone,
                     )
                   : const SizedBox(),
+              isLoggedIn == true
+                  ? Positioned(
+                      top: 200,
+                      child: Container(
+                        width: 300,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.warning_amber_rounded,
+                              color: Colors.amber,
+                              size: 40,
+                            ),
+                            Text(
+                              ' Thiết bị này đã đăng nhập ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : SizedBox()
             ],
           ),
         ));

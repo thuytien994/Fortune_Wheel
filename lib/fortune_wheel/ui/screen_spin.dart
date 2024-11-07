@@ -5,6 +5,9 @@ import 'package:flutter_application_1/fortune_wheel/data/model/voucher_model.dar
 import 'package:flutter_application_1/fortune_wheel/ui/widget/animated/btn_spin_anima_btn.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/widget/result_spin.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/widget/spin.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final Uri _url = Uri.parse('https://flutter.dev');
 
 class ScreenSpin extends StatefulWidget {
   final String? initValue;
@@ -58,7 +61,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
     }
     if (widget.spinResult != null) {
       spinResult = widget.spinResult;
-      controllerAnimation.dispose();
+      //   controllerAnimation.dispose();
     }
   }
 
@@ -135,6 +138,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
                 spinResult != null && spinResult!.description != null
                     ? ReslutSpin(
                         resultSpin: spinResult ?? VoucherModel(),
+                        
                       )
                     : const SizedBox()
               ],
@@ -143,6 +147,12 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+
+  _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 
   _spinningResults() async {
