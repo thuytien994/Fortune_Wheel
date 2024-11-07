@@ -138,18 +138,19 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomInset: true,
-      body: GestureDetector(
+        resizeToAvoidBottomInset: false,
+        body: GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
           },
           child: Stack(
+            fit: StackFit.expand,
             children: [
               Image.asset(
                 'assets/images/bgr-vongquay.png',
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
               ScreenSpin(
                 initValue: vm.user?.code,
@@ -165,7 +166,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                     )
                   : const SizedBox(),
             ],
-          )),
-    );
+          ),
+        ));
   }
 }
