@@ -150,7 +150,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                 'assets/images/bgr-vongquay.png',
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
               ScreenSpin(
                 initValue: vm.user?.code,
