@@ -45,7 +45,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
     prefs = await SharedPreferences.getInstance();
     print('Login prefs moi vao ap : ${prefs}');
     if (prefs != null) {
-      isLoggedIn = prefs!.getBool(kerSaveLogin) ?? false;
+      isLoggedIn = await prefs!.getBool(kerSaveLogin) ?? false;
       print('Login isLoggedIn kt bien: ${isLoggedIn}');
     }
   }
@@ -53,7 +53,6 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   @override
   void didChangeDependencies() {
     initPreft();
-
     super.didChangeDependencies();
   }
 
