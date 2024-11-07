@@ -80,81 +80,68 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
     controllerAnimation.forward();
   }
 
-  // _setAnimationGift() {
-  //   controllerGift =
-  //       AnimationController(duration: const Duration(seconds: 1), vsync: this);
-  //   animationGift =
-  //       CurvedAnimation(parent: controllerGift, curve: Curves.linear)
-  //         ..addStatusListener(
-  //           (status) {
-  //             if (status == AnimationStatus.completed) {
-  //               controllerGift.reverse();
-  //             } else if (status == AnimationStatus.dismissed) {
-  //               controllerGift.forward();
-  //             }
-  //           },
-  //         );
-  //   controllerGift.forward();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
       child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                //  Image.asset('assets/images/bgrsspins.png', fit: BoxFit.cover),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  height: MediaQuery.sizeOf(context).height,
-                  width: MediaQuery.sizeOf(context).width,
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/mam.png'),
-                          fit: BoxFit.contain)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: listItem.isNotEmpty
-                        ? SpinWidget(
-                            controllerStream: controllerStream,
-                            items: listItem,
-                          )
-                        : const SizedBox.shrink(),
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height,
+              width: MediaQuery.sizeOf(context).width,
+              child: Stack(
+                children: [
+                  //  Image.asset('assets/images/bgrsspins.png', fit: BoxFit.cover),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      height: 350,
+                      width: 350,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/mam.png'),
+                            fit: BoxFit.fill),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(30),
+                        child: listItem.isNotEmpty
+                            ? SpinWidget(
+                                controllerStream: controllerStream,
+                                items: listItem,
+                              )
+                            : const SizedBox.shrink(),
+                      ),
+                    ),
                   ),
-                ),
 
-                Align(
-                  alignment: Alignment.center,
-                  child: spinResult == null
-                      ? GestureDetector(
-                          onTap: () {
-                            _spinningResults();
-                          },
-                          behavior: HitTestBehavior.opaque,
-                          child: SpinAnimaBtn(animation: animationBtnSpin),
+                  Align(
+                    alignment: Alignment.center,
+                    child: spinResult == null
+                        ? GestureDetector(
+                            onTap: () {
+                              _spinningResults();
+                            },
+                            behavior: HitTestBehavior.opaque,
+                            child: SpinAnimaBtn(animation: animationBtnSpin),
+                          )
+                        : Text(
+                            'Đã quay',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w900),
+                          ),
+                  ),
+                  spinResult != null && spinResult!.description != null
+                      ? ReslutSpin(
+                          resultSpin: spinResult ?? VoucherModel(),
                         )
-                      : Text(
-                          'Đã quay',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w900),
-                        ),
-                ),
-                spinResult != null && spinResult!.description != null
-                    ? ReslutSpin(
-                        resultSpin: spinResult?? VoucherModel(),
-                      )
-                    : const SizedBox()
-              ],
+                      : const SizedBox()
+                ],
+              ),
             ),
             const SizedBox(height: 20),
           ],
@@ -166,8 +153,6 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
   _spinningResults() async {
     final index = listItem.indexWhere((e) => e.code == initValue);
     controllerStream.add(index); // update item selected
-    // Kiểm tra vị trí index. Check xem mã code có phải là thêm lượt không
-    // isSpin = listItem[spinResultt].code == codeMoreTurn;
     await Future.delayed(const Duration(seconds: 2), () {});
     widget.onSpinResult(index);
   }

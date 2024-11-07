@@ -17,6 +17,7 @@ class FortuneWheelViewModel {
     var reponse = await data.getVoucher();
     return reponse;
   }
+  
 
 
 }
