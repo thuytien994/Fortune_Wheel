@@ -5,7 +5,7 @@ class SpinAnimaBtn extends AnimatedWidget {
     super.key,
     required Animation<double> animation,
   }) : super(listenable: animation);
-  var move = Tween<double>(begin: 100, end: 110);
+  var move = Tween<double>(begin: 90, end: 100);
   @override
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;

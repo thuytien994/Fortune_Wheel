@@ -25,8 +25,8 @@ class SpinWidget extends StatelessWidget {
       indicators: [],
       animateFirst: false,
       selected: controllerStream.stream,
-      duration: const Duration(seconds: 2),
-      rotationCount: 3,
+      duration: const Duration(seconds: 20),
+      //     rotationCount: 10,
       styleStrategy: FortuneBar.kDefaultStyleStrategy,
       items: [
         for (int i = 0; i < items.length; i++)
@@ -59,13 +59,13 @@ class SpinWidget extends StatelessWidget {
 
   _showImageGift({required VoucherModel item}) {
     var wb =
-        _imageVoucherDiscount(url: item.image ?? '', size: 45, position: 65);
+        _imageVoucherDiscount(url: item.image ?? '', size: 37, position: 60);
 
     switch (item.code) {
       case 'VOUCHER50' || 'VOUCHER20':
         {
           return wb = _imageVoucherDiscount(
-              url: item.image ?? '', size: 37, position: 80);
+              url: item.image ?? '', size: 29, position: 70);
         }
     }
     return wb;
@@ -122,12 +122,13 @@ class SpinWidget extends StatelessWidget {
         break;
       default:
         widget = Container(
-          padding: const EdgeInsets.only(top: 10),
-          width: 80,
+          padding: const EdgeInsets.only(top: 9),
+          width: 60,
           child: Text(
             items[index].giftDescription ?? '',
             style: TextStyle(
-              fontSize: 17,
+              fontSize: 14,
+              fontWeight: FontWeight.w900,
               color: index % 2 != 0
                   ? const Color(0x265EA9).withOpacity(1)
                   : Colors.white.withOpacity(1),
@@ -144,25 +145,25 @@ class SpinWidget extends StatelessWidget {
       required int index,
       required BuildContext context}) {
     return Padding(
-      padding: const EdgeInsets.only(top: 15),
+      padding: const EdgeInsets.only(top: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image.asset(
             color: const Color(0x265EA9).withOpacity(1),
             url,
-            width: 65,
+            width: 58,
             height: 40,
             fit: BoxFit.fill,
           ),
           Container(
-            width: 57,
+            width: 53,
             child: Text(
               description,
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!
-                  .copyWith(fontSize: 7, color: Color(0x265EA9).withOpacity(1)),
+                  .copyWith(fontSize: 5, color: Color(0x265EA9).withOpacity(1)),
             ),
           )
         ],

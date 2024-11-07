@@ -83,69 +83,64 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height,
-              width: MediaQuery.sizeOf(context).width,
-              child: Stack(
-                children: [
-                  //  Image.asset('assets/images/bgrsspins.png', fit: BoxFit.cover),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      height: 350,
-                      width: 350,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/mam.png'),
-                            fit: BoxFit.fill),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(30),
-                        child: listItem.isNotEmpty
-                            ? SpinWidget(
-                                controllerStream: controllerStream,
-                                items: listItem,
-                              )
-                            : const SizedBox.shrink(),
-                      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.sizeOf(context).height,
+            width: MediaQuery.sizeOf(context).width,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    height: 380,
+                    width: 380,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/mam.png'),
+                          fit: BoxFit.fill),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: listItem.isNotEmpty
+                          ? SpinWidget(
+                              controllerStream: controllerStream,
+                              items: listItem,
+                            )
+                          : const SizedBox.shrink(),
                     ),
                   ),
-
-                  Align(
-                    alignment: Alignment.center,
-                    child: spinResult == null
-                        ? GestureDetector(
-                            onTap: () {
-                              _spinningResults();
-                            },
-                            behavior: HitTestBehavior.opaque,
-                            child: SpinAnimaBtn(animation: animationBtnSpin),
-                          )
-                        : Text(
-                            'Đã quay',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w900),
-                          ),
-                  ),
-                  spinResult != null && spinResult!.description != null
-                      ? ReslutSpin(
-                          resultSpin: spinResult ?? VoucherModel(),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: spinResult == null
+                      ? GestureDetector(
+                          onTap: () {
+                            _spinningResults();
+                          },
+                          behavior: HitTestBehavior.opaque,
+                          child: SpinAnimaBtn(animation: animationBtnSpin),
                         )
-                      : const SizedBox()
-                ],
-              ),
+                      : Text(
+                          'Đã quay',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w900),
+                        ),
+                ),
+                spinResult != null && spinResult!.description != null
+                    ? ReslutSpin(
+                        resultSpin: spinResult ?? VoucherModel(),
+                      )
+                    : const SizedBox()
+              ],
             ),
-            const SizedBox(height: 20),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -153,7 +148,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
   _spinningResults() async {
     final index = listItem.indexWhere((e) => e.code == initValue);
     controllerStream.add(index); // update item selected
-    await Future.delayed(const Duration(seconds: 2), () {});
+    await Future.delayed(const Duration(seconds: 20), () {});
     widget.onSpinResult(index);
   }
 }

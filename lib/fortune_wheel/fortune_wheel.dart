@@ -45,7 +45,6 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
     //  await prefs?.remove(kerSaveLogin);
     if (prefs != null) {
       isLoggedIn = prefs!.getBool(kerSaveLogin) ?? false;
-      setState(() {});
     }
   }
 
@@ -126,7 +125,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   String? validateMobile(String value) {
     String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
     RegExp regExp = new RegExp(pattern);
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return 'vui lòng nhập số điện thoạt';
     } else if (!regExp.hasMatch(value)) {
       return 'số điện thoạt chưa đúng';
@@ -145,7 +144,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
           child: Stack(
             children: [
               Image.asset(
-                'assets/images/vongquay.png',
+                'assets/images/bgr-vongquay.png',
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.fill,
