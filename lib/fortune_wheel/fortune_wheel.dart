@@ -69,25 +69,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   Future<void> getDeviceId() async {
     deviceId = DateTime.now().millisecondsSinceEpoch.toString();
-    // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    // if (Platform.isAndroid) {
-    //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    //   deviceId = androidInfo.id; // Lấy ID thiết bị trên Android
-    // } else if (Platform.isIOS) {
-    //   IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    //   deviceId = iosInfo.identifierForVendor ?? ''; // Lấy ID thiết bị trên iOS
-    // }
-    // deviceId = '${DateTime.now().millisecondsSinceEpoch}$deviceId';
-    // if (kIsWeb) {
-    //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    //   WebBrowserInfo webInfo = await deviceInfo.webBrowserInfo;
-    //   var deviceIdentifier = webInfo.vendor! +
-    //       webInfo.userAgent! +
-    //       webInfo.hardwareConcurrency.toString();
-    //   deviceId = deviceIdentifier;
-    //   setState(() {});
-    //   print('Device ID: $deviceId');
-    // }
+   
   }
 
   Future<void> onSignIn(String name, String phone) async {
@@ -216,7 +198,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                         ),
                       ),
                     )
-                  : SizedBox(),
+                  :const  SizedBox(),
               !isLoad
                   ? const CircularProgressIndicator(
                       color: Colors.amber,

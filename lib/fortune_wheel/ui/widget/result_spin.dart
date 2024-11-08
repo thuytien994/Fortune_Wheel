@@ -13,7 +13,7 @@ import 'package:universal_html/html.dart' as html;
 
 final Uri _urlZaloAo = Uri.parse('https://zalo.me/4584621595816857802');
 
-final Uri _urlkenbar = Uri.parse('https://zalo.me/4584621595816857802');
+final Uri _urlkenbar = Uri.parse('https://kenbar.vn/');
 Map<int, String> codeVoucher = {20: ' VOUCHER50', 50: 'VOUCHER20,'};
 
 class ReslutSpin extends StatelessWidget {
@@ -34,7 +34,6 @@ class ReslutSpin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    resultSpin.voucherCode = 'HSAJDGKCA';
     return Container(
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
@@ -99,20 +98,37 @@ class ReslutSpin extends StatelessWidget {
                         ),
                         resultSpin.voucherCode == null
                             ? SizedBox()
-                            : Center(
-                                child: Text(
-                                  'Mã code của bạn là:  ${resultSpin.voucherCode}}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(fontWeight: FontWeight.w700),
-                                ),
-                              )
+                            : Container(
+                                alignment: Alignment.center,
+                                child: RichText(
+                                    text: TextSpan(children: [
+                                  TextSpan(
+                                    text: 'Mã code của bạn là: ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white),
+                                  ),
+                                  TextSpan(
+                                    text: resultSpin.voucherCode,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w900,
+                                            color: Colors.amber),
+                                  ),
+                                ])))
                       ],
                     ),
                     controller: screenshotController,
                   ),
-                  Container(
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  SizedBox(
                     width: 200,
                     height: 50,
                     child: SfBarcodeGenerator(
@@ -145,11 +161,10 @@ class ReslutSpin extends StatelessWidget {
                         onPressed: () => _launchUrlFLme(),
                         child: const Row(
                           children: [
-                            Text('Ghé thăm Kengruop'),
+                            Text('Ghé Website'),
                             SizedBox(
                               width: 10,
                             ),
-                            Icon(Icons.home)
                           ],
                         ),
                       ),
@@ -165,16 +180,14 @@ class ReslutSpin extends StatelessWidget {
   }
 
   Future<void> _launchUrlZaloOa() async {
-    print('tien');
     if (await launchUrl(_urlZaloAo)) {
       throw Exception('Could not launch $_urlZaloAo');
     }
   }
 
   Future<void> _launchUrlFLme() async {
-    print('tien');
     if (await launchUrl(_urlZaloAo)) {
-      throw Exception('Could not launch $_urlZaloAo');
+      throw Exception('Could not launch $_urlkenbar');
     }
   }
 
