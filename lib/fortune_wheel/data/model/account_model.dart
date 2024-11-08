@@ -16,6 +16,8 @@ class AccountModel {
   String? common;
   String? message;
   String? userName;
+  String? giftCode;
+  String? voucherCode;
 
   AccountModel(
       {this.id,
@@ -30,7 +32,10 @@ class AccountModel {
       this.endDate,
       this.description,
       this.createdAt,
-      this.common, this.message, this.userName});
+      this.common,
+      this.message,
+      this.userName,
+      this.voucherCode});
 
   AccountModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int?;
@@ -46,7 +51,10 @@ class AccountModel {
     description = json['description'] as String?;
     createdAt = json['createdAt'] as String?;
     common = json['common'] as String?;
-     message = json['message'] as String?;
+    message = json['message'] as String?;
+    giftCode = json['giftCode'] as String?;
+
+    voucherCode = json['voucherCode'] as String?;
   }
 
   Map<String, dynamic> toJson() {
@@ -64,7 +72,9 @@ class AccountModel {
     data['description'] = description;
     data['createdAt'] = createdAt;
     data['common'] = common;
-     data['message'] = message;
+    data['message'] = message;
+    data['giftCode'] = giftCode;
+    data['voucherCode'] = voucherCode;
     return data;
   }
 }

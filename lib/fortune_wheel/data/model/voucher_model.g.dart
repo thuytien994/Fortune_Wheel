@@ -20,7 +20,10 @@ VoucherModel _$VoucherModelFromJson(Map<String, dynamic> json) => VoucherModel()
       : DateTime.parse(json['startDate'] as String)
   ..endDate =
       json['endDate'] == null ? null : DateTime.parse(json['endDate'] as String)
-  ..description = json['description'] as String?;
+  ..description = json['description'] as String?
+  ..userName = json['userName'] as String?
+  ..giftCode = json['giftCode'] as String?
+  ..voucherCode = json['voucherCode'] as String?;
 
 Map<String, dynamic> _$VoucherModelToJson(VoucherModel instance) =>
     <String, dynamic>{
@@ -35,4 +38,7 @@ Map<String, dynamic> _$VoucherModelToJson(VoucherModel instance) =>
       'startDate': instance.startDate?.toIso8601String(),
       'endDate': instance.endDate?.toIso8601String(),
       'description': instance.description,
+      'userName': instance.userName,
+      'giftCode': instance.giftCode,
+      'voucherCode': instance.voucherCode,
     };

@@ -898,6 +898,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  syncfusion_flutter_barcodes:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_barcodes
+      sha256: "18b769e85307618a69aa2bacda537744b9d38dd5ff7f1dc7da0e02ddc046b36d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "27.1.58"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      sha256: "31d2ddf410ee41abb3ecf85b7b6e8e1563307ad52ee784ddd91337e30280f715"
+      url: "https://pub.dev"
+    source: hosted
+    version: "27.1.58"
   term_glyph:
     dependency: transitive
     description:

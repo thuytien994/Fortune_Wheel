@@ -7,27 +7,34 @@ import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:universal_html/html.dart' as html;
 
 final Uri _urlZaloAo = Uri.parse('https://zalo.me/4584621595816857802');
 
 final Uri _urlkenbar = Uri.parse('https://zalo.me/4584621595816857802');
+Map<int, String> codeVoucher = {20: ' VOUCHER50', 50: 'VOUCHER20,'};
 
 class ReslutSpin extends StatelessWidget {
   final VoucherModel resultSpin;
   VoidCallback? onLoadWeb;
+  String? valueBarcode;
+  VoidCallback onExit;
 
   ScreenshotController screenshotController;
   ReslutSpin({
     required this.resultSpin,
     this.onLoadWeb,
     required this.screenshotController,
+    this.valueBarcode,
+    required this.onExit,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    resultSpin.voucherCode = 'HSAJDGKCA';
     return Container(
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
@@ -40,6 +47,23 @@ class ReslutSpin extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
+              Positioned(
+                  top: 150,
+                  right: 50,
+                  child: GestureDetector(
+                    onTap: () => onExit(),
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.white),
+                      child: const Icon(
+                        Icons.close,
+                        size: 25,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )),
               Image.asset(
                 'assets/images/gift-bgr.gif',
                 width: 300,
@@ -50,13 +74,15 @@ class ReslutSpin extends StatelessWidget {
                   Screenshot(
                     child: Column(
                       children: [
-                        Text('Chúc mừng bạn: ${resultSpin.userName}',
-                            overflow: TextOverflow.clip,
-                            style:
-                                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    )),
+                        Text(
+                          'Chúc mừng bạn: ${resultSpin.userName}',
+                          overflow: TextOverflow.clip,
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                        ),
                         Text(
                           resultSpin.description ?? '',
                           style: Theme.of(context)
@@ -71,79 +97,38 @@ class ReslutSpin extends StatelessWidget {
                           width: 100,
                           height: 100,
                         ),
+                        resultSpin.voucherCode == null
+                            ? SizedBox()
+                            : Center(
+                                child: Text(
+                                  'Mã code của bạn là:  ${resultSpin.voucherCode}}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(fontWeight: FontWeight.w700),
+                                ),
+                              )
                       ],
                     ),
                     controller: screenshotController,
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      double pixelRatio =
-                          MediaQuery.of(context).devicePixelRatio;
-                      screenshotController
-                          .capture(pixelRatio: pixelRatio)
-                          .then((image) async {
-                        if (image != null) {
-                          if (kIsWeb) {
-                            final base64data = base64Encode(image.toList());
-                            // then we create and AnchorElement with the html package
-                            final a = html.AnchorElement(
-                                href: 'data:image/jpeg;base64,$base64data');
-                            // set the name of the file we want the image to get
-                            // downloaded to
-                            a.download = 'download.jpg';
-                            // and we click the AnchorElement which downloads the image
-                            a.click();
-                            // finally we remove the AnchorElement
-                            a.remove();
-                          } else {
-                            var permission = await Permission.photos.request();
-                            if (permission.isGranted) {
-                              await ImageGallerySaverPlus.saveImage(image);
-                            }
-                          }
-                          FlutterToastr.show('Save successful', context,
-                              duration: 2);
-                        }
-                      }).catchError((onError) {
-                        print('here $onError');
-                      });
-                    },
-                    child: IntrinsicWidth(
-                      child: Container(
-                        constraints: const BoxConstraints(minWidth: 0),
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Bấm lưu ảnh để nhận quà nhé: ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(1),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.downloading_sharp,
-                                color: Colors.black,
-                              ),
-                            )
-                          ],
-                        ),
+                  Container(
+                    width: 200,
+                    height: 50,
+                    child: SfBarcodeGenerator(
+                      symbology: Code128(),
+                      barColor: Colors.black,
+                      backgroundColor: Colors.white,
+                      textStyle: const TextStyle(
+                        fontSize: 80,
                       ),
+                      value: resultSpin.giftCode,
                     ),
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  _widgetSaveimage(context),
                   const SizedBox(
                     height: 30,
                   ),
@@ -161,7 +146,7 @@ class ReslutSpin extends StatelessWidget {
                         child: const Row(
                           children: [
                             Text('Ghé thăm Kengruop'),
-                            const SizedBox(
+                            SizedBox(
                               width: 10,
                             ),
                             Icon(Icons.home)
@@ -204,5 +189,75 @@ class ReslutSpin extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _widgetSaveimage(BuildContext context) {
+    if (resultSpin.code == codeVoucher[20] ||
+        resultSpin.code == codeVoucher[50]) {
+      return GestureDetector(
+        onTap: () async {
+          _onSaveImageVoucher(context);
+        },
+        child: IntrinsicWidth(
+          child: Container(
+            constraints: const BoxConstraints(minWidth: 0),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Bấm lưu ảnh để nhận quà nhé: ',
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w600, color: Colors.white),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(1),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.downloading_sharp,
+                    color: Colors.black,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    return SizedBox();
+  }
+
+  _onSaveImageVoucher(BuildContext context) {
+    double pixelRatio = MediaQuery.of(context).devicePixelRatio;
+    screenshotController.capture(pixelRatio: pixelRatio).then((image) async {
+      if (image != null) {
+        if (kIsWeb) {
+          final base64data = base64Encode(image.toList());
+          // then we create and AnchorElement with the html package
+          final a =
+              html.AnchorElement(href: 'data:image/jpeg;base64,$base64data');
+          // set the name of the file we want the image to get
+          // downloaded to
+          a.download = 'download.jpg';
+          // and we click the AnchorElement which downloads the image
+          a.click();
+          // finally we remove the AnchorElement
+          a.remove();
+        } else {
+          var permission = await Permission.photos.request();
+          if (permission.isGranted) {
+            await ImageGallerySaverPlus.saveImage(image);
+          }
+        }
+        FlutterToastr.show('Save successful', context, duration: 2);
+      }
+    }).catchError((onError) {
+      print('here $onError');
+    });
   }
 }

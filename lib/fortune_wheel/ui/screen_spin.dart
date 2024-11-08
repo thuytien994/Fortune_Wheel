@@ -37,7 +37,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
   VoucherModel? spinResult;
   List<VoucherModel> listItem = [];
   String? initValue;
-
+  Widget wb = Container();
   @override
   void initState() {
     super.initState();
@@ -65,6 +65,20 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
       spinResult = widget.spinResult;
       //   controllerAnimation.dispose();
     }
+    _showClickSpin();
+  }
+
+  _showClickSpin() {
+    wb = Container(
+      child: GestureDetector(
+        onTap: () {
+          _spinningResults();
+        },
+        behavior: HitTestBehavior.opaque,
+        child: SpinAnimaBtn(animation: animationBtnSpin),
+      ),
+    );
+    return wb;
   }
 
   _setAnimationBtnSpin() {
@@ -117,21 +131,23 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                Align(
-                    alignment: Alignment.center,
-                    child: spinResult == null
-                        ? GestureDetector(
-                            onTap: () {
-                              _spinningResults();
-                            },
-                            behavior: HitTestBehavior.opaque,
-                            child: SpinAnimaBtn(animation: animationBtnSpin),
-                          )
-                        : const SizedBox()),
+                Align(alignment: Alignment.center, child: wb),
                 spinResult != null && spinResult!.description != null
                     ? ReslutSpin(
                         resultSpin: spinResult ?? VoucherModel(),
                         screenshotController: widget.screenshotController,
+                        onExit: () {
+                          wb = Text(
+                            'Đã quay',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    fontWeight: FontWeight.w800, fontSize: 25),
+                          );
+                          spinResult = null;
+                          setState(() {});
+                        },
                       )
                     : const SizedBox()
               ],

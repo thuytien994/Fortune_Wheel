@@ -32,6 +32,9 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   final controllerPhone = TextEditingController();
   late bool isLoggedIn = false;
   SharedPreferences? prefs;
+  final GlobalKey<FormState> _formKeyName = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyPhone = GlobalKey<FormState>();
+  var isLoad = true;
 
   @override
   void initState() {
@@ -88,31 +91,37 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   Future<void> onSignIn(String name, String phone) async {
-    var valid = validateMobile(phone);
+    // var valid = validateMobile(phone);
+
     if (isLoggedIn) {
       FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
     } else {
-      if (name.trim().isNotEmpty && valid == null) {
+      if (_formKeyName.currentState!.validate() ||
+          _formKeyPhone.currentState!.validate()) {
+        setState(() {
+          isLoad = false;
+        });
         var user = SigninRequest();
         user
           ..name = name
           ..phoneNumber = phone
           ..device = deviceId
           ..ispinAgain = false;
-        await vm.signIn(user);
+        await vm.signIn(user, context);
         if (vm.isShowSignIn == false && prefs != null) {
           prefs!.setBool(kerSaveLogin, true); // da login
         }
         vm.user?.userName = name;
         setState(() {
           isShowSignInPopup = vm.isShowSignIn;
-          controllerName.dispose();
-          controllerPhone.dispose();
         });
-      } else {
-        FlutterToastr.show(valid ?? 'Số điện thoạt chưa đúng', context,
-            duration: 2);
       }
+      isLoad = true;
+
+      // else if (valid != null) {
+      //   FlutterToastr.show(valid ?? 'Số điện thoạt chưa đúng', context,
+      //       duration: 2);
+      // }
     }
   }
 
@@ -122,7 +131,10 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
       if (vm.user!.code == codeMoreTurn) return;
       setState(() {
         voucherResult = vouchers[index];
-        voucherResult?.userName = vm.user?.userName;
+        voucherResult
+          ?..userName = vm.user?.userName
+          ..giftCode = vm.user?.giftCode
+          ..voucherCode = vm.user?.voucherCode;
       });
     }
   }
@@ -133,6 +145,9 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
     if (value.isEmpty) {
       return 'vui lòng nhập số điện thoạt';
     } else if (!regExp.hasMatch(value)) {
+      return 'số điện thoạt chưa đúng';
+    }
+    if (value.length < 10 || value.length > 11) {
       return 'số điện thoạt chưa đúng';
     }
     return null;
@@ -168,7 +183,8 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                       onSignIn: onSignIn,
                       controllerName: controllerName,
                       controllerPhone: controllerPhone,
-                    )
+                      formKeyPhone: _formKeyPhone,
+                      formKeyName: _formKeyName)
                   : const SizedBox(),
               isLoggedIn == true
                   ? Positioned(
@@ -200,7 +216,12 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                         ),
                       ),
                     )
-                  : SizedBox()
+                  : SizedBox(),
+              !isLoad
+                  ? const CircularProgressIndicator(
+                      color: Colors.amber,
+                    )
+                  : const SizedBox()
             ],
           ),
         ));
