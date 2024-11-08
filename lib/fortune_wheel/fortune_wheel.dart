@@ -32,9 +32,9 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   final controllerPhone = TextEditingController();
   late bool isLoggedIn = false;
   SharedPreferences? prefs;
-  final GlobalKey<FormState> _formKeyName = GlobalKey<FormState>();
-  final GlobalKey<FormState> _formKeyPhone = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var isLoad = true;
+  AutovalidateMode validateMode = AutovalidateMode.disabled;
 
   @override
   void initState() {
@@ -46,10 +46,8 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   initPreft() async {
     prefs = await SharedPreferences.getInstance();
-    print('Login prefs moi vao ap : ${prefs}');
     if (prefs != null) {
-      isLoggedIn = await prefs!.getBool(kerSaveLogin) ?? false;
-      print('Login isLoggedIn kt bien: ${isLoggedIn}');
+      isLoggedIn = prefs!.getBool(kerSaveLogin) ?? false;
     }
   }
 
@@ -61,7 +59,6 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   Future<void> onLoadVoucher() async {
     var res = await vm.getVoucher();
-
     setState(() {
       vouchers = res;
     });
@@ -69,41 +66,36 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   Future<void> getDeviceId() async {
     deviceId = DateTime.now().millisecondsSinceEpoch.toString();
-   
   }
 
   Future<void> onSignIn(String name, String phone) async {
-    // var valid = validateMobile(phone);
-
     if (isLoggedIn) {
       FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
     } else {
-      if (_formKeyName.currentState!.validate() ||
-          _formKeyPhone.currentState!.validate()) {
+      if (!_formKey.currentState!.validate()) {
         setState(() {
-          isLoad = false;
+          validateMode = AutovalidateMode.always;
         });
-        var user = SigninRequest();
-        user
-          ..name = name
-          ..phoneNumber = phone
-          ..device = deviceId
-          ..ispinAgain = false;
-        await vm.signIn(user, context);
-        if (vm.isShowSignIn == false && prefs != null) {
-          prefs!.setBool(kerSaveLogin, true); // da login
-        }
-        vm.user?.userName = name;
-        setState(() {
-          isShowSignInPopup = vm.isShowSignIn;
-        });
+        return;
       }
-      isLoad = true;
-
-      // else if (valid != null) {
-      //   FlutterToastr.show(valid ?? 'Số điện thoạt chưa đúng', context,
-      //       duration: 2);
-      // }
+      setState(() {
+        isLoad = false;
+      });
+      var user = SigninRequest();
+      user
+        ..name = name
+        ..phoneNumber = phone
+        ..device = deviceId
+        ..ispinAgain = false;
+      await vm.signIn(user, context);
+      if (vm.isShowSignIn == false && prefs != null) {
+        prefs!.setBool(kerSaveLogin, true); // da login
+      }
+      vm.user?.userName = name;
+      setState(() {
+        isShowSignInPopup = vm.isShowSignIn;
+        isLoad = true;
+      });
     }
   }
 
@@ -144,7 +136,6 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
             FocusScope.of(context).unfocus();
           },
           child: Stack(
-            ///  fit: StackFit.expand,
             alignment: Alignment.center,
             children: [
               Image.asset(
@@ -161,18 +152,23 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                 screenshotController: vm.screenshotController,
               ),
               isShowSignInPopup
-                  ? ScreenSignIn(
-                      onSignIn: onSignIn,
-                      controllerName: controllerName,
-                      controllerPhone: controllerPhone,
-                      formKeyPhone: _formKeyPhone,
-                      formKeyName: _formKeyName)
+                  ? Form(
+                      key: _formKey,
+                      autovalidateMode: validateMode,
+                      child: ScreenSignIn(
+                        onSignIn: onSignIn,
+                        controllerName: controllerName,
+                        controllerPhone: controllerPhone,
+                        isLogging: !isLoad,
+                      ),
+                    )
                   : const SizedBox(),
               isLoggedIn == true
                   ? Positioned(
-                      top: 200,
+                      top: kToolbarHeight +
+                          MediaQuery.paddingOf(context).top +
+                          20,
                       child: Container(
-                        width: 300,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
@@ -198,7 +194,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                         ),
                       ),
                     )
-                  :const  SizedBox(),
+                  : const SizedBox(),
               !isLoad
                   ? const CircularProgressIndicator(
                       color: Colors.amber,
