@@ -15,6 +15,7 @@ class AccountModel {
   String? createdAt;
   String? common;
   String? message;
+  String? userName;
 
   AccountModel(
       {this.id,
@@ -29,7 +30,7 @@ class AccountModel {
       this.endDate,
       this.description,
       this.createdAt,
-      this.common, this.message});
+      this.common, this.message, this.userName});
 
   AccountModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int?;

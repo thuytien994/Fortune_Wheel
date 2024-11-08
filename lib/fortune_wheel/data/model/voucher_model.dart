@@ -16,6 +16,7 @@ class VoucherModel {
   DateTime? startDate;
   DateTime? endDate;
   String? description;
+  String? userName;
 VoucherModel();
   factory VoucherModel.fromJson(Map<String, dynamic> json) => _$VoucherModelFromJson(json);
 

@@ -8,7 +8,6 @@ import 'package:flutter_application_1/fortune_wheel/data/model/signin_request.da
 import 'package:flutter_application_1/fortune_wheel/ui/screen_sign_in.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_spin.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
-import 'package:screenshot/screenshot.dart';
 import 'data/model/voucher_model.dart';
 import 'view_model/fortune_wheel_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,6 +58,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   Future<void> onLoadVoucher() async {
     var res = await vm.getVoucher();
+
     setState(() {
       vouchers = res;
     });
@@ -66,75 +66,54 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   Future<void> getDeviceId() async {
     deviceId = DateTime.now().millisecondsSinceEpoch.toString();
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    if (Platform.isAndroid) {
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      deviceId = androidInfo.id; // Lấy ID thiết bị trên Android
-    } else if (Platform.isIOS) {
-      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-      deviceId = iosInfo.identifierForVendor ?? ''; // Lấy ID thiết bị trên iOS
-    }
-    deviceId = '${DateTime.now().millisecondsSinceEpoch}$deviceId';
-    if (kIsWeb) {
-      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-      WebBrowserInfo webInfo = await deviceInfo.webBrowserInfo;
-      var deviceIdentifier = webInfo.vendor! +
-          webInfo.userAgent! +
-          webInfo.hardwareConcurrency.toString();
-      deviceId = deviceIdentifier;
-      setState(() {});
-      print('Device ID: $deviceId');
-    }
+    // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    // if (Platform.isAndroid) {
+    //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    //   deviceId = androidInfo.id; // Lấy ID thiết bị trên Android
+    // } else if (Platform.isIOS) {
+    //   IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    //   deviceId = iosInfo.identifierForVendor ?? ''; // Lấy ID thiết bị trên iOS
+    // }
+    // deviceId = '${DateTime.now().millisecondsSinceEpoch}$deviceId';
+    // if (kIsWeb) {
+    //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    //   WebBrowserInfo webInfo = await deviceInfo.webBrowserInfo;
+    //   var deviceIdentifier = webInfo.vendor! +
+    //       webInfo.userAgent! +
+    //       webInfo.hardwareConcurrency.toString();
+    //   deviceId = deviceIdentifier;
+    //   setState(() {});
+    //   print('Device ID: $deviceId');
+    // }
   }
 
   Future<void> onSignIn(String name, String phone) async {
     var valid = validateMobile(phone);
-    if (name.trim().isNotEmpty && valid == null) {
-      var user = SigninRequest();
-      user
-        ..name = name
-        ..phoneNumber = phone
-        ..device = deviceId
-        ..ispinAgain = false;
-      await vm.signIn(user);
-      if (vm.errorMessage != null) {
-        return FlutterToastr.show(vm.errorMessage!, context);
+    if (isLoggedIn) {
+      FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
+    } else {
+      if (name.trim().isNotEmpty && valid == null) {
+        var user = SigninRequest();
+        user
+          ..name = name
+          ..phoneNumber = phone
+          ..device = deviceId
+          ..ispinAgain = false;
+        await vm.signIn(user);
+        if (vm.isShowSignIn == false && prefs != null) {
+          prefs!.setBool(kerSaveLogin, true); // da login
+        }
+        vm.user?.userName = name;
+        setState(() {
+          isShowSignInPopup = vm.isShowSignIn;
+          controllerName.dispose();
+          controllerPhone.dispose();
+        });
+      } else {
+        FlutterToastr.show(valid ?? 'Số điện thoạt chưa đúng', context,
+            duration: 2);
       }
-      if (vm.isShowSignIn == false && prefs != null && !isLoggedIn) {
-        prefs!.setBool(kerSaveLogin, true); // da login
-      }
-
-      setState(() {
-        isShowSignInPopup = vm.isShowSignIn;
-        // controllerName.dispose();
-        // controllerPhone.dispose();
-      });
     }
-
-    // print('Login wwhen click btn button: ${isLoggedIn}');
-    // if (isLoggedIn) {
-    //   FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
-    // } else {
-    //   if (name.trim().isNotEmpty && valid == null) {
-    //     var user = SigninRequest();
-    //     user
-    //       ..name = name
-    //       ..phoneNumber = phone
-    //       ..device = deviceId
-    //       ..ispinAgain = false;
-    //     await vm.signIn(user);
-    //     if (vm.isShowSignIn == false && prefs != null) {
-    //       prefs!.setBool(kerSaveLogin, true); // da login
-    //     }
-    //     setState(() {
-    //       isShowSignInPopup = vm.isShowSignIn;
-    //       // controllerName.dispose();
-    //       // controllerPhone.dispose();
-    //     });
-    //   } else {
-    //     FlutterToastr.show(valid ?? 'Số điện thoạt chưa đúng', context);
-    //   }
-    // }
   }
 
   void onSpinResult(int index) {
@@ -143,6 +122,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
       if (vm.user!.code == codeMoreTurn) return;
       setState(() {
         voucherResult = vouchers[index];
+        voucherResult?.userName = vm.user?.userName;
       });
     }
   }

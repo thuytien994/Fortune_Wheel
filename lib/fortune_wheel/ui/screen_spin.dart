@@ -17,15 +17,14 @@ class ScreenSpin extends StatefulWidget {
       spinResult; // Kết quả trả về. Nếu null thì quay tiếp, khác null là dừng
   final Function(int index) onSpinResult; // Function callback từ con sang cha
 
- final  ScreenshotController screenshotController ;
-  ScreenSpin({
-    super.key,
-    required this.initValue,
-    required this.vouchers,
-    required this.spinResult,
-    required this.onSpinResult,
-    required this.screenshotController
-  });
+  final ScreenshotController screenshotController;
+  ScreenSpin(
+      {super.key,
+      required this.initValue,
+      required this.vouchers,
+      required this.spinResult,
+      required this.onSpinResult,
+      required this.screenshotController});
 
   @override
   State<ScreenSpin> createState() => _ScreenSpinState();
@@ -119,25 +118,16 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
                   ),
                 ),
                 Align(
-                  alignment: Alignment.center,
-                  child: spinResult == null
-                      ? GestureDetector(
-                          onTap: () {
-                            _spinningResults();
-                          },
-                          behavior: HitTestBehavior.opaque,
-                          child: SpinAnimaBtn(animation: animationBtnSpin),
-                        )
-                      : Text(
-                          'Đã quay',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w900),
-                        ),
-                ),
+                    alignment: Alignment.center,
+                    child: spinResult == null
+                        ? GestureDetector(
+                            onTap: () {
+                              _spinningResults();
+                            },
+                            behavior: HitTestBehavior.opaque,
+                            child: SpinAnimaBtn(animation: animationBtnSpin),
+                          )
+                        : const SizedBox()),
                 spinResult != null && spinResult!.description != null
                     ? ReslutSpin(
                         resultSpin: spinResult ?? VoucherModel(),

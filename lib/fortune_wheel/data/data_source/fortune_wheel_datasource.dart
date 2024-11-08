@@ -1,14 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/core/gateway/remote/base_api_response.dart';
 import 'package:flutter_application_1/core/gateway/remote/base_result.dart';
 import 'package:flutter_application_1/fortune_wheel/data/model/account_model.dart';
 import 'package:flutter_application_1/fortune_wheel/data/model/voucher_model.dart';
-import 'dart:convert';
 
 import '../model/signin_request.dart';
 
@@ -40,10 +34,6 @@ class FortuneWheelDatasource {
     } catch (err) {
       rethrow;
     }
-    // if (response.statusCode == 200) {
-    //   return AccountModel.fromJson(
-    //       response.data['data'] as Map<String, dynamic>);
-    // }
   }
 
   Future<List<VoucherModel>> getVoucher() async {
