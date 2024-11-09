@@ -14,7 +14,7 @@ import 'package:universal_html/html.dart' as html;
 final Uri _urlZaloAo = Uri.parse('https://zalo.me/4584621595816857802');
 
 final Uri _urlkenbar = Uri.parse('https://kenbar.vn/');
-Map<int, String> codeVoucher = {20: 'VOUCHER50', 50: 'VOUCHER20,'};
+Map<int, String> codeVoucher = {20: 'VOUCHER50', 50: 'VOUCHER20'};
 
 class ReslutSpin extends StatelessWidget {
   final VoucherModel resultSpin;
