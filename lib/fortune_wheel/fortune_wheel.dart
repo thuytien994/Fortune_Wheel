@@ -65,49 +65,34 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   Future<void> onSignIn(String name, String phone) async {
-    user
-      ..name = name
-      ..phoneNumber = phone
-      ..device = deviceId
-      ..ispinAgain = false;
+    if (isLoggedIn) {
+      FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
+    } else {
+      if (!_formKey.currentState!.validate()) {
+        setState(() {
+          validateMode = AutovalidateMode.always;
+        });
+        return;
+      }
+      setState(() {
+        isLoad = false;
+      });
 
-    await vm.signIn(user, context);
-    if (vm.isShowSignIn == false && prefs != null) {
-      prefs!.setBool(kerSaveLogin, true); // da login
+      user
+        ..name = name
+        ..phoneNumber = phone
+        ..device = deviceId
+        ..ispinAgain = false;
+      await vm.signIn(user, context);
+      if (vm.isShowSignIn == false && prefs != null) {
+        prefs!.setBool(kerSaveLogin, true); // da login
+      }
+      vm.user?.userName = name;
+      setState(() {
+        isShowSignInPopup = vm.isShowSignIn;
+        isLoad = true;
+      });
     }
-    vm.user?.userName = name;
-    setState(() {
-      isShowSignInPopup = vm.isShowSignIn;
-      isLoad = true;
-    });
-    // if (isLoggedIn) {
-    //   FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
-    // } else {
-    //   if (!_formKey.currentState!.validate()) {
-    //     setState(() {
-    //       validateMode = AutovalidateMode.always;
-    //     });
-    //     return;
-    //   }
-    //   setState(() {
-    //     isLoad = false;
-    //   });
-
-    //   user
-    //     ..name = name
-    //     ..phoneNumber = phone
-    //     ..device = deviceId
-    //     ..ispinAgain = false;
-    //   await vm.signIn(user, context);
-    //   if (vm.isShowSignIn == false && prefs != null) {
-    //     prefs!.setBool(kerSaveLogin, true); // da login
-    //   }
-    //   vm.user?.userName = name;
-    //   setState(() {
-    //     isShowSignInPopup = vm.isShowSignIn;
-    //     isLoad = true;
-    //   });
-    // }
   }
 
   void onSpinResult(int index) {
