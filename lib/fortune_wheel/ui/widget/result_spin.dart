@@ -14,7 +14,7 @@ import 'package:universal_html/html.dart' as html;
 final Uri _urlZaloAo = Uri.parse('https://zalo.me/4584621595816857802');
 
 final Uri _urlkenbar = Uri.parse('https://kenbar.vn/');
-Map<int, String> codeVoucher = {20: ' VOUCHER50', 50: 'VOUCHER20,'};
+Map<int, String> codeVoucher = {20: 'VOUCHER50', 50: 'VOUCHER20,'};
 
 class ReslutSpin extends StatelessWidget {
   final VoucherModel resultSpin;
@@ -34,6 +34,7 @@ class ReslutSpin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //resultSpin.code = 'VOUCHER50';
     return Container(
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
@@ -73,14 +74,17 @@ class ReslutSpin extends StatelessWidget {
                   Screenshot(
                     child: Column(
                       children: [
-                        Text(
-                          'Chúc mừng bạn: ${resultSpin.userName}',
-                          overflow: TextOverflow.clip,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width * 0.8,
+                          child: Text(
+                            'Chúc mừng bạn: ${resultSpin.userName}',
+                            overflow: TextOverflow.clip,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
+                          ),
                         ),
                         Text(
                           resultSpin.description ?? '',

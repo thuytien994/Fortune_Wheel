@@ -63,7 +63,6 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
     }
     if (widget.spinResult != null) {
       spinResult = widget.spinResult;
-      //   controllerAnimation.dispose();
     }
     _showClickSpin();
   }

@@ -1,8 +1,3 @@
-import 'dart:io';
-import 'dart:math';
-
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/fortune_wheel/data/model/signin_request.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_sign_in.dart';
@@ -35,6 +30,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var isLoad = true;
   AutovalidateMode validateMode = AutovalidateMode.disabled;
+  var user = SigninRequest();
 
   @override
   void initState() {
@@ -69,62 +65,72 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   Future<void> onSignIn(String name, String phone) async {
-    if (isLoggedIn) {
-      FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
-    } else {
-      if (!_formKey.currentState!.validate()) {
-        setState(() {
-          validateMode = AutovalidateMode.always;
-        });
-        return;
-      }
-      setState(() {
-        isLoad = false;
-      });
-      var user = SigninRequest();
-      user
-        ..name = name
-        ..phoneNumber = phone
-        ..device = deviceId
-        ..ispinAgain = false;
-      await vm.signIn(user, context);
-      if (vm.isShowSignIn == false && prefs != null) {
-        prefs!.setBool(kerSaveLogin, true); // da login
-      }
-      vm.user?.userName = name;
-      setState(() {
-        isShowSignInPopup = vm.isShowSignIn;
-        isLoad = true;
-      });
+    user
+      ..name = name
+      ..phoneNumber = phone
+      ..device = deviceId
+      ..ispinAgain = false;
+
+    await vm.signIn(user, context);
+    if (vm.isShowSignIn == false && prefs != null) {
+      prefs!.setBool(kerSaveLogin, true); // da login
     }
+    vm.user?.userName = name;
+    setState(() {
+      isShowSignInPopup = vm.isShowSignIn;
+      isLoad = true;
+    });
+    // if (isLoggedIn) {
+    //   FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
+    // } else {
+    //   if (!_formKey.currentState!.validate()) {
+    //     setState(() {
+    //       validateMode = AutovalidateMode.always;
+    //     });
+    //     return;
+    //   }
+    //   setState(() {
+    //     isLoad = false;
+    //   });
+
+    //   user
+    //     ..name = name
+    //     ..phoneNumber = phone
+    //     ..device = deviceId
+    //     ..ispinAgain = false;
+    //   await vm.signIn(user, context);
+    //   if (vm.isShowSignIn == false && prefs != null) {
+    //     prefs!.setBool(kerSaveLogin, true); // da login
+    //   }
+    //   vm.user?.userName = name;
+    //   setState(() {
+    //     isShowSignInPopup = vm.isShowSignIn;
+    //     isLoad = true;
+    //   });
+    // }
   }
 
   void onSpinResult(int index) {
+    //   vm.user!.code = 'GIFTKG2024';
     if (vm.user != null) {
-      String codeMoreTurn = 'GIFTKG2024'; // Mã code thêm lượt từ API
-      if (vm.user!.code == codeMoreTurn) return;
-      setState(() {
-        voucherResult = vouchers[index];
-        voucherResult
-          ?..userName = vm.user?.userName
-          ..giftCode = vm.user?.giftCode
-          ..voucherCode = vm.user?.voucherCode;
-      });
+      String codeMoreTurn =
+          'GIFTKG2024'; // Mã code thêm lượt từ API //GIFTKG2024
+      if (vm.user!.code == codeMoreTurn) {
+        user.ispinAgain = true;
+        FlutterToastr.show("Bạn được nhận thêm một lượt quay ", context,
+            duration: 2);
+        vm.signIn(user, context);
+        setState(() {});
+      } else if (vm.user!.code != codeMoreTurn) {
+        setState(() {
+          voucherResult = vouchers[index];
+          voucherResult
+            ?..userName = user.name
+            ..giftCode = vm.user?.giftCode
+            ..voucherCode = vm.user?.voucherCode;
+        });
+      }
     }
-  }
-
-  String? validateMobile(String value) {
-    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-    RegExp regExp = new RegExp(pattern);
-    if (value.isEmpty) {
-      return 'vui lòng nhập số điện thoạt';
-    } else if (!regExp.hasMatch(value)) {
-      return 'số điện thoạt chưa đúng';
-    }
-    if (value.length < 10 || value.length > 11) {
-      return 'số điện thoạt chưa đúng';
-    }
-    return null;
   }
 
   @override
