@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/fortune_wheel/data/model/account_model.dart';
 import 'package:flutter_application_1/fortune_wheel/data/model/signin_request.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_sign_in.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_spin.dart';
@@ -31,6 +32,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   var isLoad = true;
   AutovalidateMode validateMode = AutovalidateMode.disabled;
   var user = SigninRequest();
+  AccountModel? getInfoGiftLocal = AccountModel();
 
   @override
   void initState() {
@@ -40,16 +42,29 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
     isShowSignInPopup = vm.isShowSignIn;
   }
 
+  getGift() async {}
+
+  savegift() {
+    if (prefs == null) return;
+    return vm.saveGiftonLocal(vm.user ?? AccountModel(), prefs!);
+  }
+
   initPreft() async {
     prefs = await SharedPreferences.getInstance();
     if (prefs != null) {
       isLoggedIn = prefs!.getBool(kerSaveLogin) ?? false;
+    }
+
+    if (prefs != null) {
+      getInfoGiftLocal = await vm.getGiftonLocal(prefs!);
+      print(getInfoGiftLocal);
     }
   }
 
   @override
   void didChangeDependencies() {
     initPreft();
+    getGift();
     super.didChangeDependencies();
   }
 
@@ -96,7 +111,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   void onSpinResult(int index) {
-    //   vm.user!.code = 'GIFTKG2024';
+    // vm.user!.code = 'GIFTKG2024';
     if (vm.user != null) {
       String codeMoreTurn =
           'GIFTKG2024'; // Mã code thêm lượt từ API //GIFTKG2024
@@ -105,17 +120,16 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
         FlutterToastr.show("Bạn được nhận thêm một lượt quay ", context,
             duration: 2);
         vm.signIn(user, context);
-        setState(() {});
       } else if (vm.user!.code != codeMoreTurn) {
-        setState(() {
-          voucherResult = vouchers[index];
-          voucherResult
-            ?..userName = user.name
-            ..giftCode = vm.user?.giftCode
-            ..voucherCode = vm.user?.voucherCode;
-        });
+        voucherResult = vouchers[index];
+        voucherResult
+          ?..userName = user.name
+          ..giftCode = vm.user?.giftCode
+          ..voucherCode = vm.user?.voucherCode;
       }
     }
+    setState(() {});
+    var a = savegift();
   }
 
   @override
@@ -135,6 +149,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.fill,
               ),
+
               ScreenSpin(
                 initValue: vm.user?.code,
                 vouchers: vouchers,
@@ -190,7 +205,29 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                   ? const CircularProgressIndicator(
                       color: Colors.amber,
                     )
-                  : const SizedBox()
+                  : const SizedBox(),
+              // getInfoGiftLocal != null
+              //     ? Positioned(
+              //         bottom: 100,
+              //         right: 100,
+              //         child: GestureDetector(
+              //           onTap: () {},
+              //           child: Container(
+              //             color: Colors.blue,
+              //             width: 200,
+              //             child: Text(
+              //               'Xem quà của bạn',
+              //               style: Theme.of(context)
+              //                   .textTheme
+              //                   .bodyLarge!
+              //                   .copyWith(
+              //                       color: Colors.black,
+              //                       fontWeight: FontWeight.w900),
+              //             ),
+              //           ),
+              //         ),
+              //       )
+              //     : const SizedBox()
             ],
           ),
         ));

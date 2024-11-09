@@ -15,6 +15,7 @@ final Uri _urlZaloAo = Uri.parse('https://zalo.me/4584621595816857802');
 
 final Uri _urlkenbar = Uri.parse('https://kenbar.vn/');
 Map<int, String> codeVoucher = {20: 'VOUCHER50', 50: 'VOUCHER20'};
+String descriptionVoucher = 'Áp dụng cho tất cả sản phẩm trà, cà phê...';
 
 class ReslutSpin extends StatelessWidget {
   final VoucherModel resultSpin;
@@ -34,7 +35,8 @@ class ReslutSpin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //resultSpin.code = 'VOUCHER50';
+    // resultSpin.code = 'VOUCHER50';
+    // resultSpin.voucherCode = 'hihi';
     return Container(
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
@@ -47,135 +49,29 @@ class ReslutSpin extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Positioned(
-                  top: 150,
-                  right: 50,
-                  child: GestureDetector(
-                    onTap: () => onExit(),
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.white),
-                      child: const Icon(
-                        Icons.close,
-                        size: 25,
-                        color: Colors.black,
-                      ),
-                    ),
-                  )),
+              // Positioned(
+              //   top: 150,
+              //   right: 50,
+              //   child: GestureDetector(
+              //     onTap: () => onExit(),
+              //     child: Container(
+              //       width: 30,
+              //       height: 30,
+              //       decoration: const BoxDecoration(
+              //           shape: BoxShape.circle, color: Colors.white),
+              //       child: const Icon(
+              //         Icons.close,
+              //         size: 25,
+              //         color: Colors.black,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Image.asset(
                 'assets/images/gift-bgr.gif',
                 width: 300,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Screenshot(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.8,
-                          child: Text(
-                            'Chúc mừng bạn: ${resultSpin.userName}',
-                            overflow: TextOverflow.clip,
-                            style:
-                                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ),
-                          ),
-                        ),
-                        Text(
-                          resultSpin.description ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  color: Colors.amber,
-                                  fontWeight: FontWeight.w700),
-                        ),
-                        Image.network(
-                          resultSpin.image ?? '',
-                          width: 100,
-                          height: 100,
-                        ),
-                        resultSpin.voucherCode == null
-                            ? SizedBox()
-                            : Container(
-                                alignment: Alignment.center,
-                                child: RichText(
-                                    text: TextSpan(children: [
-                                  TextSpan(
-                                    text: 'Mã code của bạn là: ',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.white),
-                                  ),
-                                  TextSpan(
-                                    text: resultSpin.voucherCode,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                            fontWeight: FontWeight.w900,
-                                            color: Colors.amber),
-                                  ),
-                                ])))
-                      ],
-                    ),
-                    controller: screenshotController,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  SizedBox(
-                    width: 200,
-                    height: 50,
-                    child: SfBarcodeGenerator(
-                      symbology: Code128(),
-                      barColor: Colors.black,
-                      backgroundColor: Colors.white,
-                      textStyle: const TextStyle(
-                        fontSize: 80,
-                      ),
-                      value: resultSpin.giftCode,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  _widgetSaveimage(context),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.amber),
-                        onPressed: () => _launchUrlZaloOa(),
-                        child: const Text('Quan tâm OA'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => _launchUrlFLme(),
-                        child: const Row(
-                          children: [
-                            Text('Ghé Website'),
-                            SizedBox(
-                              width: 10,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+              _widgetImageScreenShot(context)
             ],
           ),
         ),
@@ -190,7 +86,7 @@ class ReslutSpin extends StatelessWidget {
   }
 
   Future<void> _launchUrlFLme() async {
-    if (await launchUrl(_urlZaloAo)) {
+    if (await launchUrl(_urlkenbar)) {
       throw Exception('Could not launch $_urlkenbar');
     }
   }
@@ -208,7 +104,132 @@ class ReslutSpin extends StatelessWidget {
     );
   }
 
-  Widget _widgetSaveimage(BuildContext context) {
+  _widgetImageScreenShot(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Screenshot(
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.sizeOf(context).width * 0.8,
+                alignment: Alignment.center,
+                child: Text(
+                  'Chúc mừng bạn: ${resultSpin.userName}',
+                  overflow: TextOverflow.clip,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                ),
+              ),
+              Text(
+                'Nhận được ${resultSpin.description}' ?? '',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: Colors.amber, fontWeight: FontWeight.w700),
+              ),
+              Image.network(
+                resultSpin.image ?? '',
+                width: 100,
+                height: 100,
+              ),
+              resultSpin.voucherCode == null
+                  ? SizedBox()
+                  : Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Mã code của bạn là: ',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white),
+                                ),
+                                TextSpan(
+                                  text: resultSpin.voucherCode,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w900,
+                                          color: Colors.amber),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Text(
+                          descriptionVoucher,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    )
+            ],
+          ),
+          controller: screenshotController,
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        SizedBox(
+          width: 200,
+          height: 50,
+          child: SfBarcodeGenerator(
+            symbology: Code128(),
+            barColor: Colors.black,
+            backgroundColor: Colors.white,
+            textStyle: const TextStyle(
+              fontSize: 80,
+            ),
+            value: resultSpin.giftCode,
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        _btnSaveimage(context),
+        const SizedBox(
+          height: 30,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+              onPressed: () => _launchUrlZaloOa(),
+              child: const Text('Quan tâm OA'),
+            ),
+            ElevatedButton(
+              onPressed: () => _launchUrlFLme(),
+              child: const Row(
+                children: [
+                  Text('Ghé Website'),
+                  SizedBox(
+                    width: 10,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _btnSaveimage(BuildContext context) {
     if (resultSpin.code == codeVoucher[20] ||
         resultSpin.code == codeVoucher[50]) {
       return GestureDetector(

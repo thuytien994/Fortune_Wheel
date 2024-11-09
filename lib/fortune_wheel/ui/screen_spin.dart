@@ -64,6 +64,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
     if (widget.spinResult != null) {
       spinResult = widget.spinResult;
     }
+    setState(() {});
     _showClickSpin();
   }
 
@@ -168,5 +169,6 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
     controllerStream.add(index); // update item selected
     await Future.delayed(const Duration(seconds: 20), () {});
     widget.onSpinResult(index);
+    setState(() {});
   }
 }

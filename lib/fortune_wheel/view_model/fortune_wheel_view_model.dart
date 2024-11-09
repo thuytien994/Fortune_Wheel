@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/fortune_wheel/data/data_source/fortune_wheel_datasource.dart';
@@ -6,6 +8,9 @@ import 'package:flutter_application_1/fortune_wheel/data/model/signin_request.da
 import 'package:flutter_application_1/fortune_wheel/data/model/voucher_model.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+const String saveInfoGift = 'save_info_gift';
 
 class FortuneWheelViewModel {
   AccountModel? user;
@@ -40,5 +45,18 @@ class FortuneWheelViewModel {
   Future<List<VoucherModel>> getVoucher() async {
     var reponse = await api.getVoucher();
     return reponse;
+  }
+
+  Future saveGiftonLocal(AccountModel gift, SharedPreferences prefs) async {
+    var data = await jsonEncode(gift.toJson());
+    prefs.setString(saveInfoGift, data);
+  }
+
+  Future<AccountModel> getGiftonLocal(SharedPreferences prefs) async {
+    var data =await prefs.getString(saveInfoGift);
+    if (data != null) {
+      return await AccountModel.fromJson(jsonDecode(data));
+    } 
+    return  AccountModel();
   }
 }
