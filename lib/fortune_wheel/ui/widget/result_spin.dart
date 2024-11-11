@@ -110,6 +110,7 @@ class ReslutSpin extends StatelessWidget {
       children: [
         Screenshot(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 width: MediaQuery.sizeOf(context).width * 0.8,
@@ -213,10 +214,15 @@ class ReslutSpin extends StatelessWidget {
               child: const Text('Quan tâm OA'),
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
               onPressed: () => _launchUrlFLme(),
               child: const Row(
                 children: [
-                  Text('Ghé Website'),
+                  Text(
+                    'Ghé Website',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w700),
+                  ),
                   SizedBox(
                     width: 10,
                   ),

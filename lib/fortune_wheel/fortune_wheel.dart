@@ -110,7 +110,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
     }
   }
 
-  void onSpinResult(int index) {
+  void onSpinResult(int index) async {
     // vm.user!.code = 'GIFTKG2024';
     if (vm.user != null) {
       String codeMoreTurn =
@@ -119,7 +119,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
         user.ispinAgain = true;
         FlutterToastr.show("Bạn được nhận thêm một lượt quay ", context,
             duration: 2);
-        vm.signIn(user, context);
+        await vm.signIn(user, context);
       } else if (vm.user!.code != codeMoreTurn) {
         voucherResult = vouchers[index];
         voucherResult
