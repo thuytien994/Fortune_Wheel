@@ -81,7 +81,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
 
   Future<void> onSignIn(String name, String phone) async {
     if (isLoggedIn) {
-      FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
+      FlutterToastr.show("Bạn đã hết lượt quay !", context);
     } else {
       if (!_formKey.currentState!.validate()) {
         setState(() {
@@ -111,7 +111,6 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   void onSpinResult(int index) async {
-    // vm.user!.code = 'GIFTKG2024';
     if (vm.user != null) {
       String codeMoreTurn =
           'GIFTKG2024'; // Mã code thêm lượt từ API //GIFTKG2024
@@ -188,7 +187,7 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                               size: 40,
                             ),
                             Text(
-                              ' Thiết bị này đã đăng nhập ',
+                              ' Bạn đã hết lượt quay ',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!

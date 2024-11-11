@@ -32,14 +32,18 @@ class ScreenSignIn extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                'Đăng nhập',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .copyWith(color: Colors.amber, fontWeight: FontWeight.w700),
+                'Tham dự',
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                    color: Colors.amber,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 28),
+              ),
+              const Text(
+                'Vui lòng nhập thông tin để quay thưởng',
+                style: TextStyle(color: Colors.white),
               ),
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
               _inputInfo(
                 context: context,
@@ -85,13 +89,12 @@ class ScreenSignIn extends StatelessWidget {
                     foregroundColor: Colors.white,
                     textStyle: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  child: const Text('Đăng nhập'),
+                  child: const Text('Bắt đầu'),
                 ),
               ),
               const SizedBox(
                 height: 10,
               )
-              
             ],
           ),
         ),
