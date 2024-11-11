@@ -47,16 +47,16 @@ class FortuneWheelViewModel {
     return reponse;
   }
 
-  Future saveGiftonLocal(AccountModel gift, SharedPreferences prefs) async {
-    var data = await jsonEncode(gift.toJson());
+  void saveGiftonLocal(AccountModel gift, SharedPreferences prefs) {
+    var data = jsonEncode(gift.toJson());
     prefs.setString(saveInfoGift, data);
   }
 
-  Future<AccountModel> getGiftonLocal(SharedPreferences prefs) async {
-    var data =await prefs.getString(saveInfoGift);
+  AccountModel? getGiftonLocal(SharedPreferences prefs) {
+    var data = prefs.getString(saveInfoGift);
     if (data != null) {
-      return await AccountModel.fromJson(jsonDecode(data));
-    } 
-    return  AccountModel();
+      user = AccountModel.fromJson(jsonDecode(data));
+    }
+    return user;
   }
 }

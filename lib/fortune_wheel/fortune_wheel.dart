@@ -92,7 +92,6 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
       setState(() {
         isLoad = false;
       });
-
       user
         ..name = name
         ..phoneNumber = phone
@@ -108,9 +107,37 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
         isLoad = true;
       });
     }
+    // if (isLoggedIn) {
+    //   FlutterToastr.show("Thiết bị này đã đăng nhập !", context);
+    // } else {
+    //   if (!_formKey.currentState!.validate()) {
+    //     setState(() {
+    //       validateMode = AutovalidateMode.always;
+    //     });
+    //     return;
+    //   }
+    //   setState(() {
+    //     isLoad = false;
+    //   });
+    //   user
+    //     ..name = name
+    //     ..phoneNumber = phone
+    //     ..device = deviceId
+    //     ..ispinAgain = false;
+    //   await vm.signIn(user, context);
+    //   if (vm.isShowSignIn == false && prefs != null) {
+    //     prefs!.setBool(kerSaveLogin, true); // da login
+    //   }
+    //   vm.user?.userName = name;
+    //   setState(() {
+    //     isShowSignInPopup = vm.isShowSignIn;
+    //     isLoad = true;
+    //   });
+    // }
   }
 
   void onSpinResult(int index) async {
+    // vm.user!.code = 'GIFTKG2024';
     if (vm.user != null) {
       String codeMoreTurn =
           'GIFTKG2024'; // Mã code thêm lượt từ API //GIFTKG2024
@@ -119,16 +146,35 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
         FlutterToastr.show("Bạn được nhận thêm một lượt quay ", context,
             duration: 2);
         await vm.signIn(user, context);
-      } else if (vm.user!.code != codeMoreTurn) {
+      } else {
         voucherResult = vouchers[index];
         voucherResult
           ?..userName = user.name
           ..giftCode = vm.user?.giftCode
           ..voucherCode = vm.user?.voucherCode;
+        savegift();
       }
     }
     setState(() {});
-    var a = savegift();
+  }
+
+  void onViewGiftDetail() {
+    if (prefs == null) return;
+    var res = vm.getGiftonLocal(prefs!);
+    if (res != null) {
+      voucherResult = VoucherModel();
+      voucherResult!
+        ..code = res.code
+        ..giftDescription = res.giftDescription
+        ..description = res.description
+        ..image = res.image
+        ..userName = res.userName
+        ..giftCode = res.giftCode
+        ..voucherCode = res.voucherCode;
+      setState(() {
+        isShowSignInPopup = vm.isShowSignIn;
+      });
+    }
   }
 
   @override
@@ -148,7 +194,6 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.fill,
               ),
-
               ScreenSpin(
                 initValue: vm.user?.code,
                 vouchers: vouchers,
@@ -205,28 +250,28 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                       color: Colors.amber,
                     )
                   : const SizedBox(),
-              // getInfoGiftLocal != null
-              //     ? Positioned(
-              //         bottom: 100,
-              //         right: 100,
-              //         child: GestureDetector(
-              //           onTap: () {},
-              //           child: Container(
-              //             color: Colors.blue,
-              //             width: 200,
-              //             child: Text(
-              //               'Xem quà của bạn',
-              //               style: Theme.of(context)
-              //                   .textTheme
-              //                   .bodyLarge!
-              //                   .copyWith(
-              //                       color: Colors.black,
-              //                       fontWeight: FontWeight.w900),
-              //             ),
-              //           ),
-              //         ),
-              //       )
-              //     : const SizedBox()
+              getInfoGiftLocal != null
+                  ? Positioned(
+                      bottom: 100,
+                      right: 100,
+                      child: GestureDetector(
+                        onTap: onViewGiftDetail,
+                        child: Container(
+                          color: Colors.blue,
+                          width: 200,
+                          child: Text(
+                            'Xem quà của bạn',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w900),
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox()
             ],
           ),
         ));

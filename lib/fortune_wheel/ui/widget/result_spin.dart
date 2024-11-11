@@ -21,7 +21,7 @@ class ReslutSpin extends StatelessWidget {
   final VoucherModel resultSpin;
   VoidCallback? onLoadWeb;
   String? valueBarcode;
-  VoidCallback onExit;
+  VoidCallback? onExit;
 
   ScreenshotController screenshotController;
   ReslutSpin({
@@ -29,7 +29,7 @@ class ReslutSpin extends StatelessWidget {
     this.onLoadWeb,
     required this.screenshotController,
     this.valueBarcode,
-    required this.onExit,
+    this.onExit,
     super.key,
   });
 
@@ -49,24 +49,24 @@ class ReslutSpin extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // Positioned(
-              //   top: 150,
-              //   right: 50,
-              //   child: GestureDetector(
-              //     onTap: () => onExit(),
-              //     child: Container(
-              //       width: 30,
-              //       height: 30,
-              //       decoration: const BoxDecoration(
-              //           shape: BoxShape.circle, color: Colors.white),
-              //       child: const Icon(
-              //         Icons.close,
-              //         size: 25,
-              //         color: Colors.black,
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              Positioned(
+                top: 150,
+                right: 50,
+                child: GestureDetector(
+                  onTap: onExit,
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.white),
+                    child: const Icon(
+                      Icons.close,
+                      size: 25,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
               Image.asset(
                 'assets/images/gift-bgr.gif',
                 width: 300,

@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 final Uri _url = Uri.parse('https://flutter.dev');
 
 class ScreenSpin extends StatefulWidget {
-  final String? initValue;
+  final String? initValue; // Khởi tạo giá trị trúng thưởng
   final List<VoucherModel> vouchers; // Danh sách voucher
   final VoucherModel?
       spinResult; // Kết quả trả về. Nếu null thì quay tiếp, khác null là dừng
@@ -64,7 +64,6 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
     if (widget.spinResult != null) {
       spinResult = widget.spinResult;
     }
-    setState(() {});
     _showClickSpin();
   }
 

@@ -53,7 +53,7 @@ class AccountModel {
     common = json['common'] as String?;
     message = json['message'] as String?;
     giftCode = json['giftCode'] as String?;
-
+    userName = json['userName'] as String?;
     voucherCode = json['voucherCode'] as String?;
   }
 
@@ -74,6 +74,7 @@ class AccountModel {
     data['common'] = common;
     data['message'] = message;
     data['giftCode'] = giftCode;
+    data['userName'] = userName;
     data['voucherCode'] = voucherCode;
     return data;
   }
