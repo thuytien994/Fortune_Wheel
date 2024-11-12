@@ -124,12 +124,16 @@ class ReslutSpin extends StatelessWidget {
                       ),
                 ),
               ),
-              Text(
-                'Nhận được ${resultSpin.description}' ?? '',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: Colors.amber, fontWeight: FontWeight.w700),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  'Nhận được ${resultSpin.description}' ?? '',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.amber,
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
               ),
               Image.network(
                 resultSpin.image ?? '',
