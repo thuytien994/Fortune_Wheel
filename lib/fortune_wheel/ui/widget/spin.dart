@@ -3,19 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/fortune_wheel/data/model/voucher_model.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 
-List<String> codeVoucher = [' VOUCHER50', 'VOUCHER20,'];
-Map<String, String> mapVoucher = {
-  'VOUCHER50': 'Áp dụng cho tất cả sản phẩm trà, cà phê...',
-  'VOUCHER20': ''
-};
+var codeGoodluck = "B0B554C0";
 String description = 'Áp dụng cho tất cả sản phẩm trà, cà phê...';
 
 class SpinWidget extends StatelessWidget {
   final StreamController<int> controllerStream;
   final List<VoucherModel> items;
 
-  const SpinWidget(
-      {required this.controllerStream, required this.items, super.key});
+  SpinWidget({required this.controllerStream, required this.items, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +18,7 @@ class SpinWidget extends StatelessWidget {
       indicators: [],
       animateFirst: false,
       selected: controllerStream.stream,
-      duration: const Duration(seconds: 20),
+      duration: const Duration(seconds: 15),
       //     rotationCount: 10,
       styleStrategy: FortuneBar.kDefaultStyleStrategy,
       items: [
@@ -56,14 +51,17 @@ class SpinWidget extends StatelessWidget {
   }
 
   _showImageGift({required VoucherModel item}) {
-    var wb =
-        _imageVoucherDiscount(url: item.image ?? '', size: 45, position: 55);
+    var wb = _imageVoucherDiscount(
+        url:
+            item.image ?? 'https://pos.vinkingtea.com/uploads/ly-giu-nhiet.png',
+        size: 100,
+        position: 150);
 
     switch (item.code) {
-      case 'VOUCHER50' || 'VOUCHER20':
+      case 'B0B5670B':
         {
           return wb = _imageVoucherDiscount(
-              url: item.image ?? '', size: 29, position: 70);
+              url: item.image ?? '', size: 40, position: 150);
         }
     }
     return wb;
@@ -84,18 +82,14 @@ class SpinWidget extends StatelessWidget {
 
   Color _color({required String code, required int index}) {
     switch (code) {
-      case 'VOUCHER50':
-        {
-          return Colors.amber;
-        }
-      case 'VOUCHER20':
+      case 'B0B554C0':
         {
           return Colors.amber;
         }
     }
-    return index % 2 == 0
-        ? const Color(0x265EA9).withOpacity(1)
-        : Colors.white.withOpacity(1);
+    return index % 2 != 0
+        ? const Color(0x1DAC6E).withOpacity(1)
+        : Color(0xB9EFD7).withOpacity(1);
   }
 
   Widget _showNameGift(
@@ -112,25 +106,19 @@ class SpinWidget extends StatelessWidget {
               context: context);
           break;
         }
-      case 'VOUCHER20':
-        widget = _loadTextImageDiscount(
-            url: 'assets/images/discount20.png',
-            index: index,
-            context: context);
-        break;
+
       default:
         widget = Container(
-          padding: const EdgeInsets.only(top: 4),
-          width: 65,
+          padding: const EdgeInsets.only(top: 30),
+          width: 205,
           child: Text(
             items[index].giftDescription ?? '',
             style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w900,
-              color: index % 2 != 0
-                  ? const Color(0x265EA9).withOpacity(1)
-                  : Colors.white.withOpacity(1),
-            ),
+                fontSize: 35,
+                fontWeight: FontWeight.w900,
+                color: index % 2 == 0
+                    ? const Color(0x1BAD6F).withOpacity(1)
+                    : Colors.white.withOpacity(1)),
           ),
         );
     }

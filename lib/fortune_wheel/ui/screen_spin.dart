@@ -167,7 +167,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
   _spinningResults() async {
     final index = listItem.indexWhere((e) => e.code == initValue);
     controllerStream.add(index); // update item selected
-    await Future.delayed(const Duration(seconds: 20), () {});
+    await Future.delayed(const Duration(seconds: 15), () {});
     widget.onSpinResult(index);
     setState(() {});
   }

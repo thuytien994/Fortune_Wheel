@@ -77,4 +77,28 @@ class AccountModel {
     data['voucherCode'] = voucherCode;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is AccountModel &&
+            runtimeType == other.runtimeType &&
+            hashCode == other.hashCode &&
+            id == other.id &&
+            code == other.code &&
+            type == other.type &&
+            image == other.image &&
+            discount == other.discount &&
+            giftDescription == other.giftDescription &&
+            quantity == other.quantity &&
+            isActive == other.isActive &&
+            startDate == other.startDate &&
+            endDate == other.endDate &&
+            description == other.description &&
+            createdAt == other.createdAt &&
+            common == other.common &&
+            message == other.message &&
+            giftCode == other.giftCode &&
+            voucherCode == other.voucherCode;
+  }
 }

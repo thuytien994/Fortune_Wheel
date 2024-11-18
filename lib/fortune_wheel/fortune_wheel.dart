@@ -3,6 +3,7 @@ import 'package:flutter_application_1/fortune_wheel/data/model/account_model.dar
 import 'package:flutter_application_1/fortune_wheel/data/model/signin_request.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_sign_in.dart';
 import 'package:flutter_application_1/fortune_wheel/ui/screen_spin.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
 import 'data/model/voucher_model.dart';
 import 'view_model/fortune_wheel_view_model.dart';
@@ -10,14 +11,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 enum keySaveLogin { deviceLogin }
 
-class MyFortuneWheel extends StatefulWidget {
+class MyFortuneWheel extends ConsumerStatefulWidget {
   const MyFortuneWheel({super.key});
 
   @override
-  State<MyFortuneWheel> createState() => _MyFortuneWheelState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MyFortuneWheelState();
+
+  // @override
+  // State<MyFortuneWheel>() async => _MyFortuneWheelState();
 }
 
-class _MyFortuneWheelState extends State<MyFortuneWheel> {
+class _MyFortuneWheelState extends ConsumerState<MyFortuneWheel> {
   static const kerSaveLogin = 'device-login';
   late bool isShowSignInPopup;
   final vm = FortuneWheelViewModel();
@@ -26,14 +30,12 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   VoucherModel? voucherResult;
   final controllerName = TextEditingController();
   final controllerPhone = TextEditingController();
-  late bool isLoggedIn = false;
   SharedPreferences? prefs;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var isLoad = true;
   AutovalidateMode validateMode = AutovalidateMode.disabled;
   var user = SigninRequest();
   AccountModel? getInfoGiftLocal = AccountModel();
-
   @override
   void initState() {
     super.initState();
@@ -42,29 +44,8 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
     isShowSignInPopup = vm.isShowSignIn;
   }
 
-  getGift() async {}
-
-  savegift() {
-    if (prefs == null) return;
-    return vm.saveGiftonLocal(vm.user ?? AccountModel(), prefs!);
-  }
-
-  initPreft() async {
-    prefs = await SharedPreferences.getInstance();
-    if (prefs != null) {
-      isLoggedIn = prefs!.getBool(kerSaveLogin) ?? false;
-    }
-
-    if (prefs != null) {
-      getInfoGiftLocal = await vm.getGiftonLocal(prefs!);
-      print(getInfoGiftLocal);
-    }
-  }
-
   @override
   void didChangeDependencies() {
-    initPreft();
-    getGift();
     super.didChangeDependencies();
   }
 
@@ -80,34 +61,29 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
   }
 
   Future<void> onSignIn(String name, String phone) async {
-    if (isLoggedIn) {
-      FlutterToastr.show("Bạn đã hết lượt quay !", context);
-    } else {
-      if (!_formKey.currentState!.validate()) {
-        setState(() {
-          validateMode = AutovalidateMode.always;
-        });
-        return;
-      }
+    if (!_formKey.currentState!.validate()) {
       setState(() {
-        isLoad = false;
+        validateMode = AutovalidateMode.always;
       });
-
-      user
-        ..name = name
-        ..phoneNumber = phone
-        ..device = deviceId
-        ..ispinAgain = false;
-      await vm.signIn(user, context);
-      if (vm.isShowSignIn == false && prefs != null) {
-        prefs!.setBool(kerSaveLogin, true); // da login
-      }
-      vm.user?.userName = name;
-      setState(() {
-        isShowSignInPopup = vm.isShowSignIn;
-        isLoad = true;
-      });
+      return;
     }
+    setState(() {
+      isLoad = false;
+    });
+    user
+      ..name = name
+      ..phoneNumber = phone
+      ..device = deviceId
+      ..ispinAgain = false;
+    await vm.signIn(user, context);
+    if (vm.isShowSignIn == false && prefs != null) {
+      prefs!.setBool(kerSaveLogin, true); // da login
+    }
+    vm.user?.userName = name;
+    setState(() {
+      isShowSignInPopup = vm.isShowSignIn;
+      isLoad = true;
+    });
   }
 
   void onSpinResult(int index) async {
@@ -128,11 +104,11 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
       }
     }
     setState(() {});
-    var a = savegift();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(isShowSignInPopup);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: GestureDetector(
@@ -168,38 +144,30 @@ class _MyFortuneWheelState extends State<MyFortuneWheel> {
                       ),
                     )
                   : const SizedBox(),
-              isLoggedIn == true
-                  ? Positioned(
-                      top: kToolbarHeight +
-                          MediaQuery.paddingOf(context).top +
-                          20,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.8),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.warning_amber_rounded,
-                              color: Colors.amber,
-                              size: 40,
-                            ),
-                            Text(
-                              ' Bạn đã hết lượt quay ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : const SizedBox(),
+              // Positioned(
+              //   top: kToolbarHeight + MediaQuery.paddingOf(context).top + 20,
+              //   child: Container(
+              //     padding:
+              //         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              //     decoration: BoxDecoration(
+              //         color: Colors.black.withOpacity(0.8),
+              //         borderRadius: BorderRadius.circular(10)),
+              //     child: Row(
+              //       children: [
+              //         const Icon(
+              //           Icons.warning_amber_rounded,
+              //           color: Colors.amber,
+              //           size: 40,
+              //         ),
+              //         Text(
+              //           ' Bạn đã hết lượt quay ',
+              //           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              //               color: Colors.white, fontWeight: FontWeight.w700),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               !isLoad
                   ? const CircularProgressIndicator(
                       color: Colors.amber,

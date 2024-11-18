@@ -18,7 +18,7 @@ class ScreenSignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: MediaQuery.sizeOf(context).width * 0.8,
+        width: MediaQuery.sizeOf(context).width * 0.6,
         decoration: BoxDecoration(
             border: Border.all(
                 color: const Color.fromARGB(255, 8, 143, 253), width: 2),
@@ -29,21 +29,24 @@ class ScreenSignIn extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               Text(
                 'Tham dự',
                 style: Theme.of(context).textTheme.displaySmall!.copyWith(
                     color: Colors.amber,
                     fontWeight: FontWeight.w700,
-                    fontSize: 28),
-              ),
-              const Text(
-                'Vui lòng nhập thông tin để quay thưởng',
-                style: TextStyle(color: Colors.white),
+                    fontSize: 38),
               ),
               const SizedBox(
                 height: 10,
+              ),
+              const Text(
+                'Vui lòng nhập thông tin để quay thưởng',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               _inputInfo(
                 context: context,
@@ -75,8 +78,8 @@ class ScreenSignIn extends StatelessWidget {
                 height: 10,
               ),
               SizedBox(
-                width: 140,
-                height: 48,
+                width: 170,
+                height: 60,
                 child: ElevatedButton(
                   onPressed: isLogging
                       ? null
@@ -89,11 +92,14 @@ class ScreenSignIn extends StatelessWidget {
                     foregroundColor: Colors.white,
                     textStyle: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  child: const Text('Bắt đầu'),
+                  child: const Text(
+                    'Bắt đầu',
+                    style: TextStyle(fontSize: 25),
+                  ),
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               )
             ],
           ),
@@ -133,8 +139,8 @@ class ScreenSignIn extends StatelessWidget {
         keyboardType: textInput,
         controller: controller,
         inputFormatters: inputFormatters,
-        style: const TextStyle(color: Colors.white),
-        scrollPadding: const EdgeInsets.symmetric(vertical: 0),
+        style: const TextStyle(color: Colors.white, fontSize: 25),
+        scrollPadding: const EdgeInsets.symmetric(vertical: 10),
         decoration: InputDecoration(
           isDense: true,
           hintText: labelText,

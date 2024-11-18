@@ -118,6 +118,7 @@ class ReslutSpin extends StatelessWidget {
                 child: Text(
                   'Chúc mừng bạn: ${resultSpin.userName}',
                   overflow: TextOverflow.clip,
+                  textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 20,
                         color: Colors.white,
@@ -189,19 +190,20 @@ class ReslutSpin extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        SizedBox(
-          width: 200,
-          height: 50,
-          child: SfBarcodeGenerator(
-            symbology: Code128(),
-            barColor: Colors.black,
-            backgroundColor: Colors.white,
-            textStyle: const TextStyle(
-              fontSize: 80,
-            ),
-            value: resultSpin.giftCode,
-          ),
-        ),
+        // SizedBox(
+        //   width: 200,
+        //   height: 50,
+        //   child: SfBarcodeGenerator(
+        //     symbology: Code128(),
+        //     barColor: Colors.black,
+        //     backgroundColor: Colors.white,
+        //     textStyle: const TextStyle(
+        //       fontSize: 80,
+        //     ),
+        //     value: resultSpin.giftCode,
+        //   ),
+        // ),
+
         const SizedBox(
           height: 15,
         ),
