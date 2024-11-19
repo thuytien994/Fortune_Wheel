@@ -108,7 +108,6 @@ class _MyFortuneWheelState extends ConsumerState<MyFortuneWheel> {
 
   @override
   Widget build(BuildContext context) {
-    print(isShowSignInPopup);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: GestureDetector(
@@ -119,19 +118,21 @@ class _MyFortuneWheelState extends ConsumerState<MyFortuneWheel> {
             alignment: Alignment.center,
             children: [
               Image.asset(
-                'assets/images/bgr-vongquay.png',
+                'assets/images/bgr_fortune.png',
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.fill,
               ),
 
-              ScreenSpin(
-                initValue: vm.user?.code,
-                vouchers: vouchers,
-                spinResult: voucherResult,
-                onSpinResult: onSpinResult,
-                screenshotController: vm.screenshotController,
-              ),
+              vouchers.length > 1
+                  ? ScreenSpin(
+                      initValue: vm.user?.code,
+                      vouchers: vouchers,
+                      spinResult: voucherResult,
+                      onSpinResult: onSpinResult,
+                      screenshotController: vm.screenshotController,
+                    )
+                  : const SizedBox(),
               isShowSignInPopup
                   ? Form(
                       key: _formKey,

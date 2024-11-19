@@ -37,7 +37,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
   VoucherModel? spinResult;
   List<VoucherModel> listItem = [];
   String? initValue;
-  Widget wb = Container();
+  Widget btnSpin = Container();
   @override
   void initState() {
     super.initState();
@@ -69,7 +69,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
   }
 
   _showClickSpin() {
-    wb = Container(
+    btnSpin = Container(
       child: GestureDetector(
         onTap: () {
           _spinningResults();
@@ -78,7 +78,7 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
         child: SpinAnimaBtn(animation: animationBtnSpin),
       ),
     );
-    return wb;
+    return btnSpin;
   }
 
   _setAnimationBtnSpin() {
@@ -109,35 +109,36 @@ class _ScreenSpinState extends State<ScreenSpin> with TickerProviderStateMixin {
             width: MediaQuery.sizeOf(context).width,
             child: Stack(
               children: [
-                Align(
-                  alignment: Alignment.center,
+                Positioned(
+                  top: 50,
+                  right: 10,
                   child: Container(
-                    //   margin: const EdgeInsets.symmetric(horizontal: 10),
-                    height: MediaQuery.sizeOf(context).width * 0.9,
-                    width: MediaQuery.sizeOf(context).width * 0.9,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/mam.png'),
-                          fit: BoxFit.fill),
-                    ),
+                    height: MediaQuery.sizeOf(context).height * 0.81,
+                    width: MediaQuery.sizeOf(context).width * 0.5,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        image: const DecorationImage(
+                            image: AssetImage('assets/images/mam.png'))),
                     child: Padding(
-                      padding: const EdgeInsets.all(30),
-                      child: listItem.isNotEmpty
-                          ? SpinWidget(
-                              controllerStream: controllerStream,
-                              items: listItem,
-                            )
-                          : const SizedBox.shrink(),
+                      padding: const EdgeInsets.all(40),
+                      child: Stack(
+                        children: [
+                          SpinWidget(
+                            controllerStream: controllerStream,
+                            items: listItem,
+                          ),
+                          Align(alignment: Alignment.center, child: btnSpin),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Align(alignment: Alignment.center, child: wb),
                 spinResult != null && spinResult!.description != null
                     ? ReslutSpin(
                         resultSpin: spinResult ?? VoucherModel(),
                         screenshotController: widget.screenshotController,
                         onExit: () {
-                          wb = Text(
+                          btnSpin = Text(
                             'Đã quay',
                             style: Theme.of(context)
                                 .textTheme

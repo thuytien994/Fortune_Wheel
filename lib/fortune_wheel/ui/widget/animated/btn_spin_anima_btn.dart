@@ -5,13 +5,13 @@ class SpinAnimaBtn extends AnimatedWidget {
     super.key,
     required Animation<double> animation,
   }) : super(listenable: animation);
-  var move = Tween<double>(begin: 90, end: 100);
+  var move = Tween<double>(begin: 130, end: 140);
   @override
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;
     // TODO: implement build
     return Image.asset(
-      'assets/images/spin.png',
+      'assets/images/btn-spin.png',
       width: move.evaluate(animation),
       height: move.evaluate(animation),
     );

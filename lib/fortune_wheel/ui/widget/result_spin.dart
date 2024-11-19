@@ -120,10 +120,13 @@ class ReslutSpin extends StatelessWidget {
                   overflow: TextOverflow.clip,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 20,
+                        fontSize: 30,
                         color: Colors.white,
                       ),
                 ),
+              ),
+              const SizedBox(
+                height: 5,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -131,15 +134,18 @@ class ReslutSpin extends StatelessWidget {
                   'Nhận được ${resultSpin.description}' ?? '',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.amber,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      color: Colors.amber,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 25),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               Image.network(
                 resultSpin.image ?? '',
-                width: 100,
-                height: 100,
+                width: 170,
+                height: 170,
               ),
               resultSpin.voucherCode == null
                   ? SizedBox()
@@ -211,31 +217,39 @@ class ReslutSpin extends StatelessWidget {
         const SizedBox(
           height: 30,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
-              onPressed: () => _launchUrlZaloOa(),
-              child: const Text('Quan tâm OA'),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
-              onPressed: () => _launchUrlFLme(),
-              child: const Row(
-                children: [
-                  Text(
-                    'Ghé Website',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w700),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
+        SizedBox(
+          width: MediaQuery.sizeOf(context).width * 0.6,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                onPressed: () => _launchUrlZaloOa(),
+                child: const Text(
+                  'Quan tâm OA',
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-            ),
-          ],
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                onPressed: () => _launchUrlFLme(),
+                child: const Row(
+                  children: [
+                    Text(
+                      'Ghé Website',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         )
       ],
     );
