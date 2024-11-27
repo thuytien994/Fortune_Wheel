@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter_application_1/fortune_wheel_1/data/model/voucher_model.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/repository/lucky_wheel_repository_impl.dart';
+import 'package:flutter_application_1/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'lucky_wheel_state.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -20,6 +22,15 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   void init() {
     if (isInit) return;
     getGift();
+    // Đăng ký topic your/topic và lắng nghe khi có message tới
+    // Khi có message tới data sẽ trả về cho callback từ đó sex lấy data từ callback để mà xử lý cho từng subsribe cụ thể
+    mqttService.subscribe(
+      'your/topic',
+      callback: (data) {
+        GiftModel2 gift = GiftModel2.fromJson(data);
+        signInLuckyWheel222(gift);
+      },
+    );
     isInit = true;
   }
 
@@ -52,15 +63,12 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   Future signInLuckyWheel222(GiftModel2 data) async {
     try {
-      //  EasyLoading.show(status: "Loading...");
+      EasyLoading.show(status: "Loading...");
       data.discount = -1;
       data.voucherCode = '';
       data.giftCode = '';
-
       state = state.copyWith(gift: data);
-      print('aafafaf: ${state.gift?.giftDescription}');
-
-      //   EasyLoading.dismiss();
+      EasyLoading.dismiss();
     } catch (e) {
       log("error: $e", name: 'getGift');
     }

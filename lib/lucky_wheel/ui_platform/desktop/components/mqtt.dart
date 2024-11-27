@@ -41,7 +41,8 @@ class MQTTManager {
   }
 
   // Đăng ký vào một chủ đề
-  Future<void> subscribe(String topic) async {
+  Future<void> subscribe(String topic,
+      {required Function(Map<String, dynamic> data) callback}) async {
     // Kiểm tra xem client đã kết nối chưa
     if (client?.connectionStatus?.state != MqttConnectionState.connected) {
       print('Không thể đăng ký vì client chưa kết nối!');
@@ -62,14 +63,15 @@ class MQTTManager {
           final recMess = message.payload as MqttPublishMessage;
           final messageContent =
               MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-          print('Nhận tin nhắn từ $topic: $messageContent');
+          // print('Nhận tin nhắn từ $topic: $messageContent');
           Map<String, dynamic> valueMap = jsonDecode(messageContent);
-          GiftModel2 gift = GiftModel2.fromJson(valueMap);
-          print('hahahahah: ${gift.code}');
-          final container = ProviderContainer();
-          container
-              .read(luckyWheelViewModelProvider.notifier)
-              .signInLuckyWheel222(gift);
+          callback(valueMap);
+          // GiftModel2 gift = GiftModel2.fromJson(valueMap);
+          // print('z: ${gift.code}');
+          // final container = ProviderContainer();
+          // container
+          //     .read(luckyWheelViewModelProvider.notifier)
+          //     .signInLuckyWheel222(gift);
 
           //window.location.reload();
           // window.location.reload();

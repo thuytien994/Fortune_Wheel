@@ -10,10 +10,10 @@ void main() async {
   // HttpOverrides.global = MyHttpOverrides();
 
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(ProviderScope(child: MyApp()));
   await mqttService.connect();
+  runApp(ProviderScope(child: MyApp()));
   // mqttService.publish('your/topic', 'Van Linh');
-  await mqttService.subscribe('your/topic');
+  // await mqttService.subscribe('your/topic');
 }
 
 class MyApp extends StatelessWidget {
