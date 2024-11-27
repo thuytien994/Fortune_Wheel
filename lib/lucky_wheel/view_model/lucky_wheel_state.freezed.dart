@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LuckyWheelState {
-  List<GiftModel2> get listGift => throw _privateConstructorUsedError;
+  List<GiftModel> get listGift => throw _privateConstructorUsedError;
   bool get isLoadingGift => throw _privateConstructorUsedError;
   GiftModel2? get gift => throw _privateConstructorUsedError;
   bool get isShowGiftResult => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $LuckyWheelStateCopyWith<$Res> {
       _$LuckyWheelStateCopyWithImpl<$Res, LuckyWheelState>;
   @useResult
   $Res call(
-      {List<GiftModel2> listGift,
+      {List<GiftModel> listGift,
       bool isLoadingGift,
       GiftModel2? gift,
       bool isShowGiftResult,
@@ -68,7 +68,7 @@ class _$LuckyWheelStateCopyWithImpl<$Res, $Val extends LuckyWheelState>
       listGift: null == listGift
           ? _value.listGift
           : listGift // ignore: cast_nullable_to_non_nullable
-              as List<GiftModel2>,
+              as List<GiftModel>,
       isLoadingGift: null == isLoadingGift
           ? _value.isLoadingGift
           : isLoadingGift // ignore: cast_nullable_to_non_nullable
@@ -98,7 +98,7 @@ abstract class _$$LuckyWheelStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<GiftModel2> listGift,
+      {List<GiftModel> listGift,
       bool isLoadingGift,
       GiftModel2? gift,
       bool isShowGiftResult,
@@ -128,7 +128,7 @@ class __$$LuckyWheelStateImplCopyWithImpl<$Res>
       listGift: null == listGift
           ? _value._listGift
           : listGift // ignore: cast_nullable_to_non_nullable
-              as List<GiftModel2>,
+              as List<GiftModel>,
       isLoadingGift: null == isLoadingGift
           ? _value.isLoadingGift
           : isLoadingGift // ignore: cast_nullable_to_non_nullable
@@ -153,17 +153,17 @@ class __$$LuckyWheelStateImplCopyWithImpl<$Res>
 
 class _$LuckyWheelStateImpl implements _LuckyWheelState {
   const _$LuckyWheelStateImpl(
-      {final List<GiftModel2> listGift = const [],
+      {final List<GiftModel> listGift = const [],
       this.isLoadingGift = false,
       this.gift = null,
       this.isShowGiftResult = false,
       this.isSpinLuckyheel = false})
       : _listGift = listGift;
 
-  final List<GiftModel2> _listGift;
+  final List<GiftModel> _listGift;
   @override
   @JsonKey()
-  List<GiftModel2> get listGift {
+  List<GiftModel> get listGift {
     if (_listGift is EqualUnmodifiableListView) return _listGift;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_listGift);
@@ -223,14 +223,14 @@ class _$LuckyWheelStateImpl implements _LuckyWheelState {
 
 abstract class _LuckyWheelState implements LuckyWheelState {
   const factory _LuckyWheelState(
-      {final List<GiftModel2> listGift,
+      {final List<GiftModel> listGift,
       final bool isLoadingGift,
       final GiftModel2? gift,
       final bool isShowGiftResult,
       final bool isSpinLuckyheel}) = _$LuckyWheelStateImpl;
 
   @override
-  List<GiftModel2> get listGift;
+  List<GiftModel> get listGift;
   @override
   bool get isLoadingGift;
   @override

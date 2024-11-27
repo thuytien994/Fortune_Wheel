@@ -7,7 +7,7 @@ part 'lucky_wheel_state.freezed.dart';
 @freezed
 class LuckyWheelState with _$LuckyWheelState {
   const factory LuckyWheelState({
-    @Default([]) List<GiftModel2> listGift,
+    @Default([]) List<GiftModel> listGift,
     @Default(false) bool isLoadingGift,
     @Default(null) GiftModel2? gift,
     @Default(false) bool isShowGiftResult,

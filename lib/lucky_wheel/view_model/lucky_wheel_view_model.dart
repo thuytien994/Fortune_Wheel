@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_application_1/fortune_wheel_1/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/repository/lucky_wheel_repository_impl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'lucky_wheel_state.dart';
@@ -24,13 +25,12 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   void getGift() async {
     try {
+      print('showgift ${state.gift}');
       state = state.copyWith(isLoadingGift: true);
       final data = await repo.getGifts();
-      print('data: $data');
       state = state.copyWith(
         listGift: data,
         isLoadingGift: false,
-        gift: null,
       );
     } catch (e) {
       log("error: $e", name: 'getGift');
@@ -44,8 +44,23 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
       var data = await repo.signInLuckyWheel(phone);
       state = state.copyWith(gift: data);
-
       EasyLoading.dismiss();
+    } catch (e) {
+      log("error: $e", name: 'getGift');
+    }
+  }
+
+  Future signInLuckyWheel222(GiftModel2 data) async {
+    try {
+      //  EasyLoading.show(status: "Loading...");
+      data.discount = -1;
+      data.voucherCode = '';
+      data.giftCode = '';
+
+      state = state.copyWith(gift: data);
+      print('aafafaf: ${state.gift?.giftDescription}');
+
+      //   EasyLoading.dismiss();
     } catch (e) {
       log("error: $e", name: 'getGift');
     }

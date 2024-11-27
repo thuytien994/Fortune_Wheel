@@ -29,13 +29,13 @@ class LuckyWheelDataSource {
     return data;
   }
 
-  Future<List<GiftModel2>> getGifts() async {
+  Future<List<GiftModel>> getGifts() async {
     try {
       var response = await dio.get(urlgetVoucher);
       if (response.statusCode == 200) {
         Map<String, dynamic> userMap = response.data;
         return (userMap['data'] as List<dynamic>)
-            .map((item) => GiftModel2.fromJson(item))
+            .map((item) => GiftModel.fromJson(item))
             .toList();
       }
     } catch (e) {

@@ -10,7 +10,7 @@ import 'package:screenshot/screenshot.dart';
 import 'components.dart';
 
 class LuckyWidget extends ConsumerStatefulWidget {
-  final List<GiftModel2> vouchers;
+  final List<GiftModel> vouchers;
   const LuckyWidget({
     super.key,
     required this.vouchers,
@@ -25,8 +25,8 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   late Animation<double> animationBtnSpin;
   late AnimationController controllerAnimation;
   var controllerStream = StreamController<int>();
-  GiftModel? spinResult;
-  List<GiftModel2> listItem = [];
+  GiftModel2? spinResult;
+  List<GiftModel> listItem = [];
   Widget btnSpin = Container();
   int timeSpin = 15;
   ScreenshotController screenshotController = ScreenshotController();
@@ -119,45 +119,56 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                 padding: const EdgeInsets.all(50),
                 child: Stack(
                   children: [
-                    FortuneWheel(
-                      indicators: const [],
-                      animateFirst: false,
-                      selected: controllerStream.stream,
-                      duration: Duration(seconds: timeSpin),
-                      styleStrategy: FortuneBar.kDefaultStyleStrategy,
-                      onAnimationEnd: () {
-                        ref
-                            .read(luckyWheelViewModelProvider.notifier)
-                            .showGiftResult();
-                      },
-                      items: [
-                        for (int i = 0; i < listItem.length; i++)
-                          FortuneItem(
-                            style: FortuneItemStyle(
-                              borderColor: Colors.black,
-                              borderWidth: 0,
-                              textAlign: TextAlign.center,
-                              color: i % 2 != 0
-                                  ? const Color(0x02C731).withOpacity(1)
-                                  : const Color(0xFFF97F).withOpacity(1),
-                            ),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: RotatedBox(
-                                      quarterTurns: 1,
-                                      child: _showNameGift(
-                                          code: listItem[i].code ?? '',
-                                          index: i,
-                                          context: context)),
+                    Consumer(
+                      builder: (context, ref, child) {
+                        // var listItem =
+                        //     ref.watch(luckyWheelViewModelProvider.select(
+                        //   (value) => value.listGift,
+                        // ));
+                        return FortuneWheel(
+                          indicators: const [],
+                          animateFirst: false,
+                          selected: controllerStream.stream,
+                          duration: Duration(seconds: timeSpin),
+                          styleStrategy: FortuneBar.kDefaultStyleStrategy,
+                          onAnimationEnd: () {
+                            ref
+                                .read(luckyWheelViewModelProvider.notifier)
+                                .showGiftResult();
+                          },
+                          items: [
+                            for (int i = 0; i < listItem.length; i++)
+                              FortuneItem(
+                                style: FortuneItemStyle(
+                                  borderColor: Colors.black,
+                                  borderWidth: 0,
+                                  textAlign: TextAlign.center,
+                                  color: i % 2 != 0
+                                      ? const Color(0x02C731).withOpacity(1)
+                                      : const Color(0xFFF97F).withOpacity(1),
                                 ),
-                                _showImageGift(item: listItem[i])
-                              ],
-                            ),
-                          ),
-                      ],
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: RotatedBox(
+                                          quarterTurns: 1,
+                                          child: _showNameGift(
+                                              giftDescription:
+                                                  listItem[i].giftDescription ??
+                                                      '',
+                                              code: listItem[i].code ?? '',
+                                              index: i,
+                                              context: context)),
+                                    ),
+                                    _showImageGift(item: listItem[i])
+                                  ],
+                                ),
+                              ),
+                          ],
+                        );
+                      },
                     ),
                     Consumer(
                       builder: (context, ref, child) {
@@ -194,7 +205,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
 
               if (isShowGiftResult) {
                 return TabResultSpin(
-                  resultSpin: result.gift ?? GiftModel2 (),
+                  resultSpin: result.gift ?? GiftModel2(),
                   screenshotController: screenshotController,
                 );
               }
@@ -207,7 +218,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
     );
   }
 
-  _showImageGift({required GiftModel2 item}) {
+  _showImageGift({required GiftModel item}) {
     var wb = _showImageVoucher(url: item.image ?? '', size: 110, position: 110);
 
     switch (item.code) {
@@ -248,11 +259,12 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   Widget _showNameGift(
       {required String code,
       required int index,
+      required String giftDescription,
       required BuildContext context}) {
     return Container(
       padding: const EdgeInsets.only(top: 25),
       width: 160,
-      child: Text(listItem[index].giftDescription!.toUpperCase(),
+      child: Text((giftDescription).toUpperCase(),
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               fontSize: 22,
               fontWeight: FontWeight.bold,

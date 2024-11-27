@@ -51,6 +51,7 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
                   final gift = ref.watch(luckyWheelViewModelProvider
                       .select((value) => value.gift));
 
+                  print('datatatatta ${gift?.code}');
                   if (listGift.isEmpty) {
                     return const SizedBox();
                   }

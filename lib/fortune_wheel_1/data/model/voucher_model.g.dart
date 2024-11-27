@@ -7,38 +7,38 @@ part of 'voucher_model.dart';
 // **************************************************************************
 
 GiftModel2 _$GiftModel2FromJson(Map<String, dynamic> json) => GiftModel2()
-  ..id = (json['id'] as num?)?.toInt()
-  ..code = json['code'] as String?
-  ..type = json['type'] as String?
-  ..image = json['image'] as String?
-  ..discount = (json['discount'] as num?)?.toDouble()
-  ..giftDescription = json['giftDescription'] as String?
-  ..quantity = (json['quantity'] as num?)?.toInt()
-  ..isActive = json['isActive'] as bool?
-  ..startDate = json['startDate'] == null
+  ..id = (json['Id'] as num?)?.toInt()
+  ..code = json['Code'] as String?
+  ..type = (json['Type'] as num?)?.toInt()
+  ..image = json['Image'] as String?
+  ..discount = (json['Discount'] as num?)?.toDouble()
+  ..giftDescription = json['GiftDescription'] as String?
+  ..quantity = (json['Quantity'] as num?)?.toInt()
+  ..isActive = json['IsActive'] as bool?
+  ..startDate = json['StartDate'] == null
       ? null
-      : DateTime.parse(json['startDate'] as String)
+      : DateTime.parse(json['StartDate'] as String)
   ..endDate =
-      json['endDate'] == null ? null : DateTime.parse(json['endDate'] as String)
-  ..description = json['description'] as String?
-  ..userName = json['userName'] as String?
-  ..giftCode = json['giftCode'] as String?
-  ..voucherCode = json['voucherCode'] as String?;
+      json['EndDate'] == null ? null : DateTime.parse(json['EndDate'] as String)
+  ..description = json['Description'] as String?
+  ..userName = json['Name'] as String?
+  ..giftCode = json['GiftCode'] as String?
+  ..voucherCode = json['VoucherCode'] as String?;
 
 Map<String, dynamic> _$GiftModel2ToJson(GiftModel2 instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'code': instance.code,
-      'type': instance.type,
-      'image': instance.image,
-      'discount': instance.discount,
-      'giftDescription': instance.giftDescription,
-      'quantity': instance.quantity,
-      'isActive': instance.isActive,
-      'startDate': instance.startDate?.toIso8601String(),
-      'endDate': instance.endDate?.toIso8601String(),
-      'description': instance.description,
-      'userName': instance.userName,
-      'giftCode': instance.giftCode,
-      'voucherCode': instance.voucherCode,
+      'Id': instance.id,
+      'Code': instance.code,
+      'Type': instance.type,
+      'Image': instance.image,
+      'Discount': instance.discount,
+      'GiftDescription': instance.giftDescription,
+      'Quantity': instance.quantity,
+      'IsActive': instance.isActive,
+      'StartDate': instance.startDate?.toIso8601String(),
+      'EndDate': instance.endDate?.toIso8601String(),
+      'Description': instance.description,
+      'Name': instance.userName,
+      'GiftCode': instance.giftCode,
+      'VoucherCode': instance.voucherCode,
     };

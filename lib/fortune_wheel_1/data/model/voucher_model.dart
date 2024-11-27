@@ -6,19 +6,46 @@ part 'voucher_model.g.dart';
 
 @JsonSerializable()
 class GiftModel2 {
+  @JsonKey(name: "Id")
   int? id;
+
+  @JsonKey(name: "Code")
   String? code;
-  String? type;
+
+  @JsonKey(name: "Type")
+  int? type;
+
+  @JsonKey(name: "Image")
   String? image;
+
+  @JsonKey(name: "Discount")
   double? discount;
+
+  @JsonKey(name: "GiftDescription")
   String? giftDescription;
+
+  @JsonKey(name: "Quantity")
   int? quantity;
+
+  @JsonKey(name: "IsActive")
   bool? isActive;
+
+  @JsonKey(name: "StartDate")
   DateTime? startDate;
+
+  @JsonKey(name: "EndDate")
   DateTime? endDate;
+
+  @JsonKey(name: "Description")
   String? description;
+
+  @JsonKey(name: "Name")
   String? userName;
+
+  @JsonKey(name: "GiftCode")
   String? giftCode;
+
+  @JsonKey(name: "VoucherCode")
   String? voucherCode;
   GiftModel2();
   factory GiftModel2.fromJson(Map<String, dynamic> json) =>

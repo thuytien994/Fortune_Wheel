@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/mqtt.dart';
 import 'package:flutter_application_1/lucky_wheel/ui_platform/mobile/lucky_wheel_mobile_page.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_application_1/responsive_layout.dart';
@@ -19,12 +20,17 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
     with AutomaticKeepAliveClientMixin {
   // TextEditingController controllerName = TextEditingController();
   TextEditingController controllerPhone = TextEditingController();
+  final MQTTManager mqttService = MQTTManager();
   @override
   void initState() {
     super.initState();
+     
     Future.delayed(Duration.zero, () {
       ref.read(luckyWheelViewModelProvider.notifier).init();
     });
+  }
+  connect()async{
+ 
   }
 
   @override

@@ -10,11 +10,10 @@ class LuckyWheelRepository extends BaseRepository {
   LuckyWheelRepository();
 
   @override
-  Future<List<GiftModel2>> getGifts() async {
+  Future<List<GiftModel>> getGifts() async {
     return await getResponseData(
       () async {
         final data = await dataSource.getGifts();
-        print('hear $data');
         return data;
       },
     );

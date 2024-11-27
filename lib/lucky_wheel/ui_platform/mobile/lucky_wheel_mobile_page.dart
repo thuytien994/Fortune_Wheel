@@ -66,10 +66,9 @@ class LuckyWheelMobilePage extends ConsumerWidget {
               builder: (context, ref, child) {
                 final listGift = ref.watch(luckyWheelViewModelProvider
                     .select((value) => value.listGift));
-
                 final gift = ref.watch(
                     luckyWheelViewModelProvider.select((value) => value.gift));
-
+                
                 if (listGift.isEmpty) {
                   return const SizedBox();
                 }

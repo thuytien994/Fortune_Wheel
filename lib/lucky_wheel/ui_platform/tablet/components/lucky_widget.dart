@@ -10,7 +10,7 @@ import 'package:screenshot/screenshot.dart';
 import 'components.dart';
 
 class LuckyWidget extends ConsumerStatefulWidget {
-  final List<GiftModel2> vouchers;
+  final List<GiftModel> vouchers;
   const LuckyWidget({
     super.key,
     required this.vouchers,
@@ -26,7 +26,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   late AnimationController controllerAnimation;
   var controllerStream = StreamController<int>();
   GiftModel? spinResult;
-  List<GiftModel2> listItem = [];
+  List<GiftModel> listItem = [];
   String? initValueGift;
   Widget btnSpin = Container();
   int timeSpin = 15;
@@ -226,7 +226,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
     );
   }
 
-  _showImageGift({required GiftModel2 item}) {
+  _showImageGift({required GiftModel item}) {
     var wb = _showImageVoucher(
       url: item.image ?? '',
       size: 80,

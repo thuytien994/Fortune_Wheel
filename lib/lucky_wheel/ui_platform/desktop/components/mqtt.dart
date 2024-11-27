@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:flutter_application_1/fortune_wheel_1/data/model/voucher_model.dart';
+import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mqtt_client/mqtt_browser_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:universal_html/html.dart';
@@ -48,15 +53,27 @@ class MQTTManager {
     print("Đã đăng ký vào chủ đề: $topic");
 
     // Lắng nghe các tin nhắn từ chủ đề đã đăng ký
-    client?.updates
+
+    await client?.updates
         ?.listen((List<MqttReceivedMessage<MqttMessage?>>? messages) {
+      print('messages: $messages');
       if (messages != null && messages.isNotEmpty) {
         for (var message in messages) {
           final recMess = message.payload as MqttPublishMessage;
           final messageContent =
               MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
           print('Nhận tin nhắn từ $topic: $messageContent');
-          window.location.reload();
+          Map<String, dynamic> valueMap = jsonDecode(messageContent);
+          GiftModel2 gift = GiftModel2.fromJson(valueMap);
+          print('hahahahah: ${gift.code}');
+          final container = ProviderContainer();
+          container
+              .read(luckyWheelViewModelProvider.notifier)
+              .signInLuckyWheel222(gift);
+
+          //window.location.reload();
+          // window.location.reload();
+          return;
         }
       }
     });

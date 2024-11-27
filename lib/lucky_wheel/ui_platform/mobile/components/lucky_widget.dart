@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/fortune_wheel_1/data/model/voucher_model.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +10,7 @@ import 'package:screenshot/screenshot.dart';
 import 'components.dart';
 
 class LuckyWidget extends ConsumerStatefulWidget {
-  final List<GiftModel2> vouchers;
+  final List<GiftModel> vouchers;
   const LuckyWidget({
     super.key,
     required this.vouchers,
@@ -24,7 +25,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   late Animation<double> animationBtnSpin;
   late AnimationController controllerAnimation;
   StreamController<int> controllerStream = StreamController<int>();
-  List<GiftModel2> listItem = [];
+  List<GiftModel> listItem = [];
   String? initValueGift;
   Widget btnSpin = Container();
   int timeSpin = 10;
@@ -190,7 +191,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
     );
   }
 
-  Widget _showImageGift({required GiftModel2 item}) {
+  Widget _showImageGift({required GiftModel item}) {
     var wb = _imageVoucherWidget(url: item.image ?? '', size: 60);
 
     switch (item.code) {

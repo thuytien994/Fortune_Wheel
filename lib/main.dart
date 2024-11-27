@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/fortune_wheel_1/fortune_wheel.dart';
 import 'package:flutter_application_1/lucky_wheel/lucky_wheel_page.dart';
 import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/mqtt.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
