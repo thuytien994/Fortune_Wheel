@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter_application_1/fortune_wheel_1/data/model/voucher_model.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/repository/lucky_wheel_repository_impl.dart';
 import 'package:flutter_application_1/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:universal_html/html.dart';
 import 'lucky_wheel_state.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 part 'lucky_wheel_view_model.g.dart';
@@ -13,24 +16,39 @@ part 'lucky_wheel_view_model.g.dart';
 class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   final repo = LuckyWheelRepository();
   bool isInit = false;
-
+  final String keyLocal = 'save_gift_local';
+  late final SharedPreferences prefs;
   @override
   LuckyWheelState build() {
     return const LuckyWheelState();
   }
 
-  void init() {
+  void init() async {
+    prefs = await SharedPreferences.getInstance();
     if (isInit) return;
     getGift();
     // Đăng ký topic your/topic và lắng nghe khi có message tới
-    // Khi có message tới data sẽ trả về cho callback từ đó sex lấy data từ callback để mà xử lý cho từng subsribe cụ thể
+    // Khi có message tới data sẽ trả về cho callback từ đó se lấy data từ callback để mà xử lý cho từng subsribe
     mqttService.subscribe(
-      'your/topic',
-      callback: (data) {
+      'KENBAR/Q6',
+      callback: (data) async {
+        await getListGiftReceived();
+        print('here connect oke');
         GiftModel2 gift = GiftModel2.fromJson(data);
-        signInLuckyWheel222(gift);
+        await getInfoWhenReloadPage(gift);
+        if (state.isShowGiftResult == true) {
+          reloadPageLuckWheel();
+          return;
+        }
+        // else {
+        //   await Future.delayed(const Duration(milliseconds: 0), () {
+        //     reloadPageLuckWheel();
+        //     return;
+        //   });
+        // }
       },
     );
+    // getGiftLocal();
     isInit = true;
   }
 
@@ -61,13 +79,16 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     }
   }
 
-  Future signInLuckyWheel222(GiftModel2 data) async {
+  Future getInfoWhenReloadPage(GiftModel2 data) async {
     try {
+      print('here viewmodel ${data}');
       EasyLoading.show(status: "Loading...");
       data.discount = -1;
       data.voucherCode = '';
       data.giftCode = '';
       state = state.copyWith(gift: data);
+
+      //   await saveGiftLocal();
       EasyLoading.dismiss();
     } catch (e) {
       log("error: $e", name: 'getGift');
@@ -98,5 +119,36 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   void onSpinLuckyheel() {
     state = state.copyWith(isSpinLuckyheel: true);
+  }
+
+  Future<void> saveGiftLocal() async {
+    var jsonGift = jsonEncode(state.gift);
+    await prefs.setString(keyLocal, jsonGift);
+  }
+
+  Future<void> getGiftLocal() async {
+    final String? action = prefs.getString(keyLocal);
+    if (action != null) {
+      Map<String, dynamic> valueMap = jsonDecode(action);
+      GiftModel2 gift = GiftModel2.fromJson(valueMap);
+      state = state.copyWith(gift: gift);
+      return;
+    }
+    return;
+  }
+
+  void reloadPage() {
+    window.location.reload();
+  }
+
+  Future<void> getListGiftReceived() async {
+    try {
+      var data = await repo.getGiftReceived();
+
+      state = state.copyWith(listGiftReceived: data);
+      print('heredata view model ${state.listGiftReceived}');
+    } catch (e) {
+      log("error: $e", name: 'getGift');
+    }
   }
 }

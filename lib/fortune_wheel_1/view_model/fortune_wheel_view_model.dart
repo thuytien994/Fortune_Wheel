@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/fortune_wheel_1/data/data_source/fortune_wheel_datasource.dart';
 import 'package:flutter_application_1/fortune_wheel_1/data/model/account_model.dart';
 import 'package:flutter_application_1/fortune_wheel_1/data/model/signin_request.dart';
-import 'package:flutter_application_1/fortune_wheel_1/data/model/voucher_model.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:shared_preferences/shared_preferences.dart';

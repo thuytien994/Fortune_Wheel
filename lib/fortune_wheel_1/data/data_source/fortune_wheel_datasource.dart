@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_application_1/core/gateway/remote/base_api_response.dart';
 import 'package:flutter_application_1/core/gateway/remote/base_result.dart';
 import 'package:flutter_application_1/fortune_wheel_1/data/model/account_model.dart';
-import 'package:flutter_application_1/fortune_wheel_1/data/model/voucher_model.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 
 import '../model/signin_request.dart';
 

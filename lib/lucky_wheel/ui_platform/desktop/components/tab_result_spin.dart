@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/fortune_wheel_1/data/model/voucher_model.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
-import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -34,7 +32,7 @@ class TabResultSpin extends ConsumerWidget {
             children: [
               Image.asset(
                 'assets/mobile/gift-bgr.gif',
-                width: 100,
+                width: 200,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +57,7 @@ class TabResultSpin extends ConsumerWidget {
                             textAlign: TextAlign.center,
                             style:
                                 Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      fontSize: 40,
+                                      fontSize: 50,
                                       color: Colors.white,
                                     ),
                           ),
@@ -80,7 +78,7 @@ class TabResultSpin extends ConsumerWidget {
                                       .copyWith(
                                           color: Colors.amber,
                                           fontWeight: FontWeight.w700,
-                                          fontSize: 35),
+                                          fontSize: 45),
                                 ),
                               )
                             : Padding(
@@ -95,7 +93,7 @@ class TabResultSpin extends ConsumerWidget {
                                       .copyWith(
                                           color: Colors.amber,
                                           fontWeight: FontWeight.w700,
-                                          fontSize: 35),
+                                          fontSize: 45),
                                 ),
                               ),
                         const SizedBox(
@@ -103,8 +101,8 @@ class TabResultSpin extends ConsumerWidget {
                         ),
                         Image.network(
                           resultSpin.image ?? '',
-                          width: 140,
-                          height: 140,
+                          width: 200,
+                          height: 200,
                         ),
                       ],
                     ),
@@ -129,81 +127,81 @@ class TabResultSpin extends ConsumerWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      // double pixelRatio =
-                      //     MediaQuery.of(context).devicePixelRatio;
-                      // screenshotController.capture(pixelRatio: pixelRatio).then(
-                      //   (image) async {
-                      //     SaveImageUtil.saveImageToGallery(
-                      //       context: context,
-                      //       image: image,
-                      //     );
-                      //   },
-                      // );
-                    },
-                    child: IntrinsicWidth(
-                      child: Container(
-                        constraints: const BoxConstraints(minWidth: 0),
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Bấm lưu ảnh để nhận quà nhé: ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(1),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.downloading_sharp,
-                                color: Colors.black,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () async {
+                  //     // double pixelRatio =
+                  //     //     MediaQuery.of(context).devicePixelRatio;
+                  //     // screenshotController.capture(pixelRatio: pixelRatio).then(
+                  //     //   (image) async {
+                  //     //     SaveImageUtil.saveImageToGallery(
+                  //     //       context: context,
+                  //     //       image: image,
+                  //     //     );
+                  //     //   },
+                  //     // );
+                  //   },
+                  //   child: IntrinsicWidth(
+                  //     child: Container(
+                  //       constraints: const BoxConstraints(minWidth: 0),
+                  //       alignment: Alignment.center,
+                  //       padding: const EdgeInsets.symmetric(
+                  //           horizontal: 10, vertical: 5),
+                  //       decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(10)),
+                  //       child: Row(
+                  //         mainAxisSize: MainAxisSize.min,
+                  //         children: [
+                  //           Text(
+                  //             'Bấm lưu ảnh để nhận quà nhé: ',
+                  //             style: Theme.of(context)
+                  //                 .textTheme
+                  //                 .bodyLarge!
+                  //                 .copyWith(
+                  //                     fontSize: 25,
+                  //                     fontWeight: FontWeight.w600,
+                  //                     color: Colors.white),
+                  //           ),
+                  //           Container(
+                  //             padding: const EdgeInsets.all(1),
+                  //             decoration: const BoxDecoration(
+                  //               color: Colors.white,
+                  //               shape: BoxShape.circle,
+                  //             ),
+                  //             child: const Icon(
+                  //               Icons.downloading_sharp,
+                  //               color: Colors.black,
+                  //             ),
+                  //           )
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
 
                   const SizedBox(
                     height: 30,
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),
-                    onPressed: ref
-                        .read(luckyWheelViewModelProvider.notifier)
-                        .reloadPageLuckWheel,
-                    child: Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Text(
-                        'Quay tiếp',
-                        textAlign: TextAlign.center,
-                        style:
-                            Theme.of(context).textTheme.displaySmall!.copyWith(
-                                  fontSize: 27,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
-                                ),
-                      ),
-                    ),
-                  ),
+                  // ElevatedButton(
+                  //   style: ElevatedButton.styleFrom(
+                  //     backgroundColor: Colors.white,
+                  //   ),
+                  //   onPressed: ref
+                  //       .read(luckyWheelViewModelProvider.notifier)
+                  //       .reloadPageLuckWheel,
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(6.0),
+                  //     child: Text(
+                  //       'Quay tiếp',
+                  //       textAlign: TextAlign.center,
+                  //       style:
+                  //           Theme.of(context).textTheme.displaySmall!.copyWith(
+                  //                 fontSize: 30,
+                  //                 fontWeight: FontWeight.w600,
+                  //                 color: Colors.black,
+                  //               ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               )
             ],

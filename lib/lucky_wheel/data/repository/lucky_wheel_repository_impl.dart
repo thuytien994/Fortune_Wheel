@@ -1,5 +1,6 @@
 import 'package:flutter_application_1/core/gateway/remote/remote/base_repository.dart';
-import 'package:flutter_application_1/fortune_wheel_1/data/model/voucher_model.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 
 import '../data_source/fortune_wheel_datasource.dart';
@@ -19,11 +20,19 @@ class LuckyWheelRepository extends BaseRepository {
     );
   }
 
-
   Future<GiftModel2> signInLuckyWheel(String phone) async {
     return await getResponseData(
       () async {
         final data = await dataSource.singInLuckyWheel(phone);
+        return data;
+      },
+    );
+  }
+
+  Future<List<GiftReceivedModel>> getGiftReceived() async {
+    return await getResponseData(
+      () async {
+        final data = await dataSource.getGiftReceived();
         return data;
       },
     );

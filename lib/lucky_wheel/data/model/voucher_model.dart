@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 // optional: Since our Person class is serializable, we must add this line.
 // But if Person was not serializable, we could skip it.
-part 'voucher_model.g.dart';
+part '../../../fortune_wheel_1/data/model/voucher_model.g.dart';
 
 @JsonSerializable()
 class GiftModel2 {

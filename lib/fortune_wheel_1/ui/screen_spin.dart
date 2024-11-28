@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/fortune_wheel_1/data/model/voucher_model.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/fortune_wheel_1/ui/widget/animated/btn_spin_anima_btn.dart';
 import 'package:flutter_application_1/fortune_wheel_1/ui/widget/result_spin.dart';
 import 'package:flutter_application_1/fortune_wheel_1/ui/widget/spin.dart';

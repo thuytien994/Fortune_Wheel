@@ -5,7 +5,7 @@ import 'package:flutter_application_1/fortune_wheel_1/ui/screen_sign_in.dart';
 import 'package:flutter_application_1/fortune_wheel_1/ui/screen_spin.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
-import 'data/model/voucher_model.dart';
+import '../lucky_wheel/data/model/voucher_model.dart';
 import 'view_model/fortune_wheel_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

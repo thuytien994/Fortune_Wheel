@@ -20,7 +20,6 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
     with AutomaticKeepAliveClientMixin {
   // TextEditingController controllerName = TextEditingController();
   TextEditingController controllerPhone = TextEditingController();
-  final MQTTManager mqttService = MQTTManager();
   @override
   void initState() {
     super.initState();

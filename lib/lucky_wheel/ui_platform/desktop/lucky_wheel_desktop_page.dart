@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/tab_list_gift_received.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'components/components.dart';
@@ -10,9 +11,10 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
+          alignment: Alignment.center,
+          width: MediaQuery.sizeOf(context).width,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             image: DecorationImage(
@@ -23,7 +25,7 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
             ),
           ),
           child: Stack(
-            alignment: Alignment.center,
+            //alignment: Alignment.center,
             children: [
               Consumer(
                 builder: (context, ref, child) {
@@ -43,29 +45,30 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
                   );
                 },
               ),
-              Consumer(
-                builder: (context, ref, child) {
-                  final listGift = ref.watch(luckyWheelViewModelProvider
-                      .select((value) => value.listGift));
+              // Consumer(
+              //   builder: (context, ref, child) {
+              //     final listGift = ref.watch(luckyWheelViewModelProvider
+              //         .select((value) => value.listGift));
 
-                  final gift = ref.watch(luckyWheelViewModelProvider
-                      .select((value) => value.gift));
+              //     final gift = ref.watch(luckyWheelViewModelProvider
+              //         .select((value) => value.gift));
 
-                  print('datatatatta ${gift?.code}');
-                  if (listGift.isEmpty) {
-                    return const SizedBox();
-                  }
+              //     print('hear UI ${gift}');
+              //     if (listGift.isEmpty) {
+              //       return const SizedBox();
+              //     }
 
-                  if (gift == null) {
-                    controllerPhone.text = '';
-                    return TabScreenSignIn(
-                      //controllerName: controllerName,
-                      controllerPhone: controllerPhone,
-                    );
-                  }
-                  return const SizedBox();
-                },
-              ),
+              //     if (gift == null) {
+              //       controllerPhone.text = '';
+              //       return TabScreenSignIn(
+              //         //controllerName: controllerName,
+              //         controllerPhone: controllerPhone,
+              //       );
+              //     }
+              //     return const SizedBox();
+              //   },
+              // ),
+              Positioned(bottom: 80, left: 80, child: TabListGiftReceived())
             ],
           ),
         ),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'voucher_model.dart';
+part of '../../../lucky_wheel/data/model/voucher_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

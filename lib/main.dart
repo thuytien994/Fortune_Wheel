@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/lucky_wheel/lucky_wheel_page.dart';
 import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/mqtt.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final MQTTManager mqttService = MQTTManager();
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      builder: EasyLoading.init(),
       home: LuckyWheelPage(),
     );
   }
