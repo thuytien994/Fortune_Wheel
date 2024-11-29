@@ -1,10 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_application_1/core/gateway/remote/base_api_response.dart';
-import 'package:flutter_application_1/core/gateway/remote/base_result.dart';
-import 'package:flutter_application_1/fortune_wheel_1/data/model/account_model.dart';
-import 'package:flutter_application_1/fortune_wheel_1/data/model/signin_request.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 
 final dio = Dio();
@@ -25,9 +20,9 @@ class LuckyWheelDataSource {
     ));
   }
 
-  Future<GiftModel2> singInLuckyWheel(String phone) async {
+  Future<GiftReceivedModel> singInLuckyWheel(String phone) async {
     final response = await dio.post(urlSign, data: {"phoneNumber": phone});
-    GiftModel2 data = GiftModel2.fromJson(response.data['data']);
+    GiftReceivedModel data = GiftReceivedModel.fromJson(response.data['data']);
     return data;
   }
 

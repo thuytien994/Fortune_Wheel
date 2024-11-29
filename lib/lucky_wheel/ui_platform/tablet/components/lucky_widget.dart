@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
@@ -138,20 +139,20 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                     : const Color(0xFFF97F).withOpacity(1),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     top: 50, bottom: 50, right: 5),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    SizedBox(
+                                  const  SizedBox(
                                       width: 40,
                                     ),
                                     _showImageGift(item: listItem[i]),
                                     RotatedBox(
                                         quarterTurns: 1,
                                         child: _showNameGift(
-                                            code: listItem[i].code ?? '',
+                                            id: listItem[i].id ?? 0,
                                             index: i,
                                             context: context)),
                                   ],
@@ -165,7 +166,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                               //       child: RotatedBox(
                               //           quarterTurns: 1,
                               //           child: _showNameGift(
-                              //               code: listItem[i].code,
+                              //               code: listItem[i].kenbarVoucherId,
                               //               index: i,
                               //               context: context)),
                               //     ),
@@ -213,7 +214,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
 
               if (isShowGiftResult) {
                 return TabResultSpin(
-                  resultSpin: gift ?? GiftModel2(),
+                  resultSpin: gift ?? GiftReceivedModel(),
                   screenshotController: screenshotController,
                 );
               }
@@ -232,22 +233,6 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
       size: 80,
     );
 
-    switch (item.code) {
-      case 'B0B5670B': // mayman
-        {
-          return wb = _showImageVoucher(
-            url: item.image ?? '',
-            size: 50,
-          );
-        }
-      case 'B0B554C0': // ly kenbar
-        {
-          return wb = _showImageVoucher(
-            url: item.image ?? '',
-            size: 70,
-          );
-        }
-    }
     return wb;
   }
 
@@ -265,17 +250,15 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   }
 
   _onSpinLuckyheel() async {
-    var code = ref
-        .read(luckyWheelViewModelProvider.select((value) => value.gift?.code));
-    final index = listItem.indexWhere((e) => e.code == code);
+    var id = ref.read(luckyWheelViewModelProvider
+        .select((value) => value.gift?.kenbarVoucherId));
+    final index = listItem.indexWhere((e) => e.id == id);
     controllerStream.add(index); // update item selected
     ref.read(luckyWheelViewModelProvider.notifier).onSpinLuckyheel();
   }
 
   Widget _showNameGift(
-      {required String code,
-      required int index,
-      required BuildContext context}) {
+      {required int id, required int index, required BuildContext context}) {
     return Text(listItem[index].giftDescription!.toUpperCase(),
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             fontSize: 15,

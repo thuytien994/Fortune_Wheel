@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
@@ -141,7 +142,8 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                       RotatedBox(
                                           quarterTurns: 1,
                                           child: _showNameGift(
-                                              code: listItem[i].code ?? '',
+                                              id:
+                                                  listItem[i].id??0,
                                               index: i,
                                               context: context)),
                                     ],
@@ -152,12 +154,12 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                       Consumer(
                         builder: (context, ref, child) {
                           var giftCode = ref.watch(luckyWheelViewModelProvider
-                              .select((value) => value.gift?.code));
+                              .select((value) => value.gift?.kenbarVoucherId));
                           return Align(
                             alignment: Alignment.center,
                             child: GestureDetector(
                               onTap: () {
-                                _onSpinLuckyheel(giftCode ?? '');
+                                _onSpinLuckyheel(giftCode ?? 0);
                               },
                               behavior: HitTestBehavior.opaque,
                               child: SpinAnimaBtn(animation: animationBtnSpin),
@@ -178,7 +180,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                     luckyWheelViewModelProvider.select((value) => value.gift));
                 if (isShowGiftResult == true) {
                   return TabResultSpin(
-                    resultSpin: gift ?? GiftModel2(),
+                    resultSpin: gift ?? GiftReceivedModel(),
                     screenshotController: screenshotController,
                   );
                 }
@@ -194,16 +196,8 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   Widget _showImageGift({required GiftModel item}) {
     var wb = _imageVoucherWidget(url: item.image ?? '', size: 60);
 
-    switch (item.code) {
-      case 'B0B5670B': // may man lan sau
-        {
-          return wb = _imageVoucherWidget(url: item.image ?? '', size: 30);
-        }
-      case 'B0B554C0': // ly kenbar
-        {
-          return wb = _imageVoucherWidget(url: item.image ?? '', size: 50);
-        }
-    }
+
+  
     return wb;
   }
 
@@ -220,25 +214,16 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
         ));
   }
 
-  void _onSpinLuckyheel(String code) async {
-    final index = listItem.indexWhere((e) => e.code == code);
+  void _onSpinLuckyheel(int id) async {
+    final index = listItem.indexWhere((e) => e.id == id);
     controllerStream.add(index); // update item selected
   }
 
   Widget _showNameGift(
-      {required String code,
+      {required int id,
       required int index,
       required BuildContext context}) {
-    if (code == 'B0B564B9' || code == 'B0B565F7') {
-      // chuc may man
-      return Text(listItem[index].giftDescription!.toUpperCase(),
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: index % 2 == 0
-                  ? const Color(0x1BAD6F).withOpacity(1)
-                  : Colors.white.withOpacity(1)));
-    }
+   
     return Text(listItem[index].giftDescription!.toUpperCase(),
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 14,

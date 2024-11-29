@@ -61,7 +61,6 @@ class MQTTManager {
 
           Map<String, dynamic> valueMap = jsonDecode(messageContent);
           callback(valueMap);
-          print('here reload pape');
 
           return;
         }

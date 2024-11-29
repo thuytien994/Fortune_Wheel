@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screenshot/screenshot.dart';
 
 class TabResultSpin extends ConsumerWidget {
-  final GiftModel2 resultSpin;
+  final GiftReceivedModel resultSpin;
   final VoidCallback? onLoadWeb;
   final String? valueBarcode;
   final ScreenshotController screenshotController;
@@ -56,11 +57,11 @@ class TabResultSpin extends ConsumerWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    resultSpin.code == 'B0B5670B'
+                    resultSpin.kenbarVoucherId == 'B0B5670B'
                         ? Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
-                              resultSpin.description ?? '',
+                              '',
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -74,7 +75,7 @@ class TabResultSpin extends ConsumerWidget {
                         : Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
-                              'Đã nhận được: ${resultSpin.description}',
+                              'Đã nhận được: ${resultSpin.gift}',
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme

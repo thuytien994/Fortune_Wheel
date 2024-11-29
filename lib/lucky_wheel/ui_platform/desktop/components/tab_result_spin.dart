@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screenshot/screenshot.dart';
 
 class TabResultSpin extends ConsumerWidget {
-  final GiftModel2 resultSpin;
+  final GiftReceivedModel resultSpin;
   final VoidCallback? onLoadWeb;
   final String? valueBarcode;
   final ScreenshotController screenshotController;
@@ -52,7 +53,7 @@ class TabResultSpin extends ConsumerWidget {
                           width: MediaQuery.sizeOf(context).width * 0.8,
                           alignment: Alignment.center,
                           child: Text(
-                            'Chúc mừng bạn: ${resultSpin.userName}',
+                            'Chúc mừng bạn: ${resultSpin.orderName}',
                             overflow: TextOverflow.clip,
                             textAlign: TextAlign.center,
                             style:
@@ -65,12 +66,12 @@ class TabResultSpin extends ConsumerWidget {
                         const SizedBox(
                           height: 8,
                         ),
-                        resultSpin.code == 'B0B5670B'
+                        resultSpin.kenbarVoucherId == 'B0B5670B'
                             ? Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
-                                  '${resultSpin.description}',
+                                  '${resultSpin.orderName}',
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .textTheme
@@ -85,7 +86,7 @@ class TabResultSpin extends ConsumerWidget {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
-                                  'Nhận được: ${resultSpin.description}',
+                                  'Nhận được: ${resultSpin.orderName}',
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .textTheme

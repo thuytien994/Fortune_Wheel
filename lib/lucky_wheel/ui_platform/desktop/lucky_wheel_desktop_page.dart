@@ -68,7 +68,7 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
               //     return const SizedBox();
               //   },
               // ),
-              Positioned(bottom: 80, left: 80, child: TabListGiftReceived())
+              Positioned(bottom: 40, left: 40, child: TabListGiftReceived())
             ],
           ),
         ),

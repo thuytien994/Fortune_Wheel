@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
@@ -25,7 +26,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   late Animation<double> animationBtnSpin;
   late AnimationController controllerAnimation;
   var controllerStream = StreamController<int>();
-  GiftModel2? spinResult;
+  GiftReceivedModel? spinResult;
   List<GiftModel> listItem = [];
   Widget btnSpin = Container();
   int timeSpin = 15;
@@ -157,7 +158,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                                 giftDescription: listItem[i]
                                                         .giftDescription ??
                                                     '',
-                                                code: listItem[i].code ?? '',
+                                                code: listItem[i].id ?? 0,
                                                 index: i,
                                                 context: context)),
                                       ),
@@ -192,7 +193,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
 
               if (isShowGiftResult) {
                 return TabResultSpin(
-                  resultSpin: result.gift ?? GiftModel2(),
+                  resultSpin: result.gift ?? GiftReceivedModel(),
                   screenshotController: screenshotController,
                 );
               }
@@ -208,7 +209,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   _showImageGift({required GiftModel item}) {
     var wb = _showImageVoucher(url: item.image ?? '', size: 110, position: 110);
 
-    switch (item.code) {
+    switch (item.id) {
       case 'B0B5670B': // mayman
         {
           return wb =
@@ -237,14 +238,15 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   }
 
   _onSpinLuckyheel() async {
-    var gift = ref.watch(luckyWheelViewModelProvider).gift?.code;
-    final index = listItem.indexWhere((e) => e.code == gift);
+    var id = ref.watch(luckyWheelViewModelProvider).gift?.kenbarVoucherId;
+    final index = listItem.indexWhere((e) => e.id == id);
+    print('here idSpin : $id');
     controllerStream.add(index); // update item selected
     ref.read(luckyWheelViewModelProvider.notifier).onSpinLuckyheel();
   }
 
   Widget _showNameGift(
-      {required String code,
+      {required int code,
       required int index,
       required String giftDescription,
       required BuildContext context}) {

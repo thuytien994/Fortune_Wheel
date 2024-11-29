@@ -10,9 +10,11 @@ class LuckyWheelState with _$LuckyWheelState {
   const factory LuckyWheelState({
     @Default([]) List<GiftModel> listGift,
     @Default(false) bool isLoadingGift,
-    @Default(null) GiftModel2? gift,
+    @Default(null) GiftReceivedModel? gift,
     @Default(false) bool isShowGiftResult,
-    @Default(false) bool isSpinLuckyheel, 
-     @Default([]) List<GiftReceivedModel> listGiftReceived, //  spin when click enter  in keyboard
+    @Default(false) bool isSpinLuckyheel,
+    @Default([])
+    List<GiftReceivedModel>
+        listGiftReceived, //  spin when click enter  in keyboard
   }) = _LuckyWheelState;
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/repository/lucky_wheel_repository_impl.dart';
@@ -30,11 +31,11 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     // Đăng ký topic your/topic và lắng nghe khi có message tới
     // Khi có message tới data sẽ trả về cho callback từ đó se lấy data từ callback để mà xử lý cho từng subsribe
     mqttService.subscribe(
-      'KENBAR/Q6',
+      'KENBAR/1',
       callback: (data) async {
         await getListGiftReceived();
         print('here connect oke');
-        GiftModel2 gift = GiftModel2.fromJson(data);
+        GiftReceivedModel gift = GiftReceivedModel.fromJson(data);
         await getInfoWhenReloadPage(gift);
         if (state.isShowGiftResult == true) {
           reloadPageLuckWheel();
@@ -79,13 +80,11 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     }
   }
 
-  Future getInfoWhenReloadPage(GiftModel2 data) async {
+  Future getInfoWhenReloadPage(GiftReceivedModel data) async {
     try {
       print('here viewmodel ${data}');
       EasyLoading.show(status: "Loading...");
-      data.discount = -1;
-      data.voucherCode = '';
-      data.giftCode = '';
+
       state = state.copyWith(gift: data);
 
       //   await saveGiftLocal();
@@ -130,7 +129,7 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     final String? action = prefs.getString(keyLocal);
     if (action != null) {
       Map<String, dynamic> valueMap = jsonDecode(action);
-      GiftModel2 gift = GiftModel2.fromJson(valueMap);
+      GiftReceivedModel gift = GiftReceivedModel.fromJson(valueMap);
       state = state.copyWith(gift: gift);
       return;
     }
@@ -144,9 +143,9 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   Future<void> getListGiftReceived() async {
     try {
       var data = await repo.getGiftReceived();
-
+      print(data);
       state = state.copyWith(listGiftReceived: data);
-      print('heredata view model ${state.listGiftReceived}');
+      print(' view model ${state.listGiftReceived}');
     } catch (e) {
       log("error: $e", name: 'getGift');
     }

@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LuckyWheelState {
   List<GiftModel> get listGift => throw _privateConstructorUsedError;
   bool get isLoadingGift => throw _privateConstructorUsedError;
-  GiftModel2? get gift => throw _privateConstructorUsedError;
+  GiftReceivedModel? get gift => throw _privateConstructorUsedError;
   bool get isShowGiftResult => throw _privateConstructorUsedError;
   bool get isSpinLuckyheel => throw _privateConstructorUsedError;
   List<GiftReceivedModel> get listGiftReceived =>
@@ -40,7 +40,7 @@ abstract class $LuckyWheelStateCopyWith<$Res> {
   $Res call(
       {List<GiftModel> listGift,
       bool isLoadingGift,
-      GiftModel2? gift,
+      GiftReceivedModel? gift,
       bool isShowGiftResult,
       bool isSpinLuckyheel,
       List<GiftReceivedModel> listGiftReceived});
@@ -80,7 +80,7 @@ class _$LuckyWheelStateCopyWithImpl<$Res, $Val extends LuckyWheelState>
       gift: freezed == gift
           ? _value.gift
           : gift // ignore: cast_nullable_to_non_nullable
-              as GiftModel2?,
+              as GiftReceivedModel?,
       isShowGiftResult: null == isShowGiftResult
           ? _value.isShowGiftResult
           : isShowGiftResult // ignore: cast_nullable_to_non_nullable
@@ -108,7 +108,7 @@ abstract class _$$LuckyWheelStateImplCopyWith<$Res>
   $Res call(
       {List<GiftModel> listGift,
       bool isLoadingGift,
-      GiftModel2? gift,
+      GiftReceivedModel? gift,
       bool isShowGiftResult,
       bool isSpinLuckyheel,
       List<GiftReceivedModel> listGiftReceived});
@@ -146,7 +146,7 @@ class __$$LuckyWheelStateImplCopyWithImpl<$Res>
       gift: freezed == gift
           ? _value.gift
           : gift // ignore: cast_nullable_to_non_nullable
-              as GiftModel2?,
+              as GiftReceivedModel?,
       isShowGiftResult: null == isShowGiftResult
           ? _value.isShowGiftResult
           : isShowGiftResult // ignore: cast_nullable_to_non_nullable
@@ -190,7 +190,7 @@ class _$LuckyWheelStateImpl implements _LuckyWheelState {
   final bool isLoadingGift;
   @override
   @JsonKey()
-  final GiftModel2? gift;
+  final GiftReceivedModel? gift;
   @override
   @JsonKey()
   final bool isShowGiftResult;
@@ -253,7 +253,7 @@ abstract class _LuckyWheelState implements LuckyWheelState {
   const factory _LuckyWheelState(
       {final List<GiftModel> listGift,
       final bool isLoadingGift,
-      final GiftModel2? gift,
+      final GiftReceivedModel? gift,
       final bool isShowGiftResult,
       final bool isSpinLuckyheel,
       final List<GiftReceivedModel> listGiftReceived}) = _$LuckyWheelStateImpl;
@@ -263,7 +263,7 @@ abstract class _LuckyWheelState implements LuckyWheelState {
   @override
   bool get isLoadingGift;
   @override
-  GiftModel2? get gift;
+  GiftReceivedModel? get gift;
   @override
   bool get isShowGiftResult;
   @override
