@@ -28,12 +28,13 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     prefs = await SharedPreferences.getInstance();
     if (isInit) return;
     getGift();
-    getListGiftReceived();
+
     // Đăng ký topic your/topic và lắng nghe khi có message tới
     // Khi có message tới data sẽ trả về cho callback từ đó se lấy data từ callback để mà xử lý cho từng subsribe
     mqttService.subscribe(
       'KENBAR/1',
       callback: (data) async {
+        getListGiftReceived();
         print('here connect oke');
         GiftReceivedModel gift = GiftReceivedModel.fromJson(data);
         await getInfoWhenReloadPage(gift);

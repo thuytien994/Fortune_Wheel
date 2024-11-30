@@ -9,7 +9,7 @@ class ShowGiftReceived extends AnimatedWidget {
   final GiftReceivedModel gift;
   final sizeText = Tween<double>(begin: 0, end: 15);
   final opacity = Tween<double>(begin: 0, end: 1);
-  final sizeImage = Tween<double>(begin: 0, end: 50);
+  final sizeImage = Tween<double>(begin: 0, end: 60);
   @override
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;
@@ -17,7 +17,7 @@ class ShowGiftReceived extends AnimatedWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       // width: MediaQuery.sizeOf(context).height * 0.4,
-      padding: const EdgeInsets.only(bottom: 8, left: 24, right: 24, top: 8),
+      padding: const EdgeInsets.only(bottom: 8, left: 36, right: 36, top: 8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9),
           color: Colors.white.withOpacity(0.8),
@@ -39,7 +39,7 @@ class ShowGiftReceived extends AnimatedWidget {
               width: sizeImage.evaluate(animation),
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 20),
           Padding(
             padding: const EdgeInsets.only(right: 8),
             child: Column(
@@ -68,54 +68,49 @@ class ShowGiftReceived extends AnimatedWidget {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 4,
+                ),
                 Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 103, 227, 157)
-                            .withOpacity(opacity.evaluate(animation)),
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Text(
-                      'ID hóa đơn: ${gift.giftId ?? 'HD001'}',
-                      style: TextStyle(
-                          color: Colors.black
-                              .withOpacity(opacity.evaluate(animation))),
-                    ))
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 103, 227, 157)
+                          .withOpacity(opacity.evaluate(animation)),
+                      borderRadius: BorderRadius.circular(8)),
+                  child: RichText(
+                    selectionColor: Colors.black.withOpacity(
+                      opacity.evaluate(animation),
+                    ),
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                            text: 'Người nhận: ',
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.black
+                                    .withOpacity(opacity.evaluate(animation)))),
+                        TextSpan(
+                            text: gift.orderName ?? 'Tieen',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black.withOpacity(
+                                    opacity.evaluate(animation),
+                                  ),
+                                ))
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 4,
+                )
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16, bottom: 3, top: 3),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  color: Colors.amber.withOpacity(opacity.evaluate(animation)),
-                  borderRadius: BorderRadius.circular(8)),
-              child: RichText(
-                selectionColor: Colors.black.withOpacity(
-                  opacity.evaluate(animation),
-                ),
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                        text: 'Người nhận: ',
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.black
-                                .withOpacity(opacity.evaluate(animation)))),
-                    TextSpan(
-                        text: gift.orderName ?? 'Tieen',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black.withOpacity(
-                                opacity.evaluate(animation),
-                              ),
-                            ))
-                  ],
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );

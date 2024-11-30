@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
+import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/lucky_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screenshot/screenshot.dart';
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TabResultSpin extends ConsumerWidget {
   final GiftReceivedModel resultSpin;
@@ -33,17 +36,12 @@ class TabResultSpin extends ConsumerWidget {
             children: [
               Image.asset(
                 'assets/mobile/gift-bgr.gif',
-                width: 200,
+                width: 500.r,
+                height: 500.r,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   Screenshot(
                     controller: screenshotController,
                     child: Column(
@@ -53,12 +51,12 @@ class TabResultSpin extends ConsumerWidget {
                           width: MediaQuery.sizeOf(context).width * 0.8,
                           alignment: Alignment.center,
                           child: Text(
-                            'Chúc mừng bạn: ${resultSpin.orderName}',
+                            'Chúc mừng bạn: ${resultSpin.customerName ?? 'Thuy Tien'}',
                             overflow: TextOverflow.clip,
                             textAlign: TextAlign.center,
                             style:
                                 Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      fontSize: 50,
+                                      fontSize: 15.sp,
                                       color: Colors.white,
                                     ),
                           ),
@@ -79,14 +77,14 @@ class TabResultSpin extends ConsumerWidget {
                                       .copyWith(
                                           color: Colors.amber,
                                           fontWeight: FontWeight.w700,
-                                          fontSize: 45),
+                                          fontSize: 12.sp),
                                 ),
                               )
                             : Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
-                                  'Nhận được: ${resultSpin.orderName}',
+                                  'Nhận được: ${resultSpin.gift}',
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .textTheme
@@ -94,7 +92,7 @@ class TabResultSpin extends ConsumerWidget {
                                       .copyWith(
                                           color: Colors.amber,
                                           fontWeight: FontWeight.w700,
-                                          fontSize: 45),
+                                          fontSize: 12.sp),
                                 ),
                               ),
                         const SizedBox(
@@ -102,14 +100,14 @@ class TabResultSpin extends ConsumerWidget {
                         ),
                         Image.network(
                           resultSpin.image ?? '',
-                          width: 200,
-                          height: 200,
+                          width: 250.r,
+                          height: 250.r,
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: 20.r,
                   ),
                   // SizedBox(
                   //   width: 200,
@@ -125,63 +123,6 @@ class TabResultSpin extends ConsumerWidget {
                   //   ),
                   // ),
 
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  // GestureDetector(
-                  //   onTap: () async {
-                  //     // double pixelRatio =
-                  //     //     MediaQuery.of(context).devicePixelRatio;
-                  //     // screenshotController.capture(pixelRatio: pixelRatio).then(
-                  //     //   (image) async {
-                  //     //     SaveImageUtil.saveImageToGallery(
-                  //     //       context: context,
-                  //     //       image: image,
-                  //     //     );
-                  //     //   },
-                  //     // );
-                  //   },
-                  //   child: IntrinsicWidth(
-                  //     child: Container(
-                  //       constraints: const BoxConstraints(minWidth: 0),
-                  //       alignment: Alignment.center,
-                  //       padding: const EdgeInsets.symmetric(
-                  //           horizontal: 10, vertical: 5),
-                  //       decoration: BoxDecoration(
-                  //           borderRadius: BorderRadius.circular(10)),
-                  //       child: Row(
-                  //         mainAxisSize: MainAxisSize.min,
-                  //         children: [
-                  //           Text(
-                  //             'Bấm lưu ảnh để nhận quà nhé: ',
-                  //             style: Theme.of(context)
-                  //                 .textTheme
-                  //                 .bodyLarge!
-                  //                 .copyWith(
-                  //                     fontSize: 25,
-                  //                     fontWeight: FontWeight.w600,
-                  //                     color: Colors.white),
-                  //           ),
-                  //           Container(
-                  //             padding: const EdgeInsets.all(1),
-                  //             decoration: const BoxDecoration(
-                  //               color: Colors.white,
-                  //               shape: BoxShape.circle,
-                  //             ),
-                  //             child: const Icon(
-                  //               Icons.downloading_sharp,
-                  //               color: Colors.black,
-                  //             ),
-                  //           )
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-
-                  const SizedBox(
-                    height: 30,
-                  ),
                   // ElevatedButton(
                   //   style: ElevatedButton.styleFrom(
                   //     backgroundColor: Colors.white,

@@ -115,16 +115,10 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                     fit: BoxFit.contain),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(50),
+                padding: EdgeInsets.all(38.r),
                 child: Stack(
                   children: [
-                    Consumer(
-                      builder: (context, ref, child) {
-                        // var listItem =
-                        //     ref.watch(luckyWheelViewModelProvider.select(
-                        //   (value) => value.listGift,
-                        // ));
-                        return Positioned(
+                        Positioned(
                           child: FortuneWheel(
                             indicators: const [],
                             animateFirst: false,
@@ -149,16 +143,18 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                               .withOpacity(1),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 50, bottom: 50, right: 5),
+                                      padding: EdgeInsets.only(
+                                          top: 50.r, bottom: 50.r, right: 0.r),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          SizedBox(
-                                            width: 40.r,
-                                          ),
-                                          _showImageGift(item: listItem[i]),
+                                          Expanded(
+                                              child: Container(
+                                            alignment: Alignment.centerRight,
+                                            child: _showImageGift(
+                                                item: listItem[i]),
+                                          )),
                                           RotatedBox(
                                               quarterTurns: 1,
                                               child: _showNameGift(
@@ -193,9 +189,8 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                     ),
                             ],
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                     
                     Align(
                       alignment: Alignment.center,
                       child: GestureDetector(
@@ -232,26 +227,28 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   }
 
   _showImageGift({required GiftModel item}) {
-    var wb =
-        _showImageVoucher(url: item.image ?? '', size: 70.r, position: 110);
+    var wb = _showImageVoucher(
+      url: item.image ?? '',
+      size: 75.r,
+    );
 
     switch (item.id) {
       case 'B0B5670B': // mayman
         {
-          return wb =
-              _showImageVoucher(url: item.image ?? '', size: 50, position: 140);
+          return wb = _showImageVoucher(url: item.image ?? '', size: 50);
         }
       case 'B0B554C0': // ly kenbar
         {
-          return wb =
-              _showImageVoucher(url: item.image ?? '', size: 90, position: 120);
+          return wb = _showImageVoucher(url: item.image ?? '', size: 90);
         }
     }
     return wb;
   }
 
-  _showImageVoucher(
-      {required String url, required double size, required double position}) {
+  _showImageVoucher({
+    required String url,
+    required double size,
+  }) {
     return RotatedBox(
         quarterTurns: 1,
         child: Image.network(
@@ -263,8 +260,9 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
 
   _onSpinLuckyheel() async {
     var id = ref.watch(luckyWheelViewModelProvider).gift?.kenbarVoucherId;
+    print('hear gift recieved:  ${id}');
     final index = listItem.indexWhere((e) => e.id == id);
-    print('here idSpin : $id');
+    print('here idSpin : $index');
     controllerStream.add(index); // update item selected
     ref.read(luckyWheelViewModelProvider.notifier).onSpinLuckyheel();
   }
@@ -278,7 +276,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
       padding: EdgeInsets.only(top: 15.r),
       child: Text((giftDescription).toUpperCase(),
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontSize: 5.sp,
+              fontSize: 5.5.sp,
               fontWeight: FontWeight.bold,
               color: index % 2 == 0
                   ? const Color(0x1BAD6F).withOpacity(1)

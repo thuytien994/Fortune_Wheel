@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         builder: EasyLoading.init(),
-        home: LuckyWheelPage(),
+        home: const LuckyWheelPage(),
       ),
     );
   }
