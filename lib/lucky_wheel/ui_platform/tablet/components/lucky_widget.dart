@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';

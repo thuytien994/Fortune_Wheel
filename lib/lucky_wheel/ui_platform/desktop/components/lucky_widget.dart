@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:screenshot/screenshot.dart';
 import 'components.dart';
 
@@ -139,33 +139,58 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                             items: [
                               for (int i = 0; i < listItem.length; i++)
                                 FortuneItem(
-                                  style: FortuneItemStyle(
-                                    borderColor: Colors.black,
-                                    borderWidth: 0,
-                                    textAlign: TextAlign.center,
-                                    color: i % 2 != 0
-                                        ? const Color(0x02C731).withOpacity(1)
-                                        : const Color(0xFFF97F).withOpacity(1),
-                                  ),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: RotatedBox(
-                                            quarterTurns: 1,
-                                            child: _showNameGift(
-                                                giftDescription: listItem[i]
-                                                        .giftDescription ??
-                                                    '',
-                                                code: listItem[i].id ?? 0,
-                                                index: i,
-                                                context: context)),
+                                    style: FortuneItemStyle(
+                                      borderColor: Colors.black,
+                                      borderWidth: 0,
+                                      textAlign: TextAlign.center,
+                                      color: i % 2 != 0
+                                          ? const Color(0x02C731).withOpacity(1)
+                                          : const Color(0xFFF97F)
+                                              .withOpacity(1),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 50, bottom: 50, right: 5),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(
+                                            width: 40.r,
+                                          ),
+                                          _showImageGift(item: listItem[i]),
+                                          RotatedBox(
+                                              quarterTurns: 1,
+                                              child: _showNameGift(
+                                                  giftDescription: listItem[i]
+                                                          .giftDescription ??
+                                                      '',
+                                                  code: listItem[i].id ?? 0,
+                                                  index: i,
+                                                  context: context)),
+                                        ],
                                       ),
-                                      _showImageGift(item: listItem[i])
-                                    ],
-                                  ),
-                                ),
+                                    )
+
+                                    // Stack(
+                                    //   alignment: Alignment.center,
+                                    //   children: [
+                                    //     Align(
+                                    //       alignment: Alignment.centerRight,
+                                    //       child: RotatedBox(
+                                    //           quarterTurns: 1,
+                                    //           child: _showNameGift(
+                                    //               giftDescription: listItem[i]
+                                    //                       .giftDescription ??
+                                    //                   '',
+                                    //               code: listItem[i].id ?? 0,
+                                    //               index: i,
+                                    //               context: context)),
+                                    //     ),
+                                    //     _showImageGift(item: listItem[i])
+                                    //   ],
+                                    // ),
+                                    ),
                             ],
                           ),
                         );
@@ -207,7 +232,8 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   }
 
   _showImageGift({required GiftModel item}) {
-    var wb = _showImageVoucher(url: item.image ?? '', size: 110, position: 110);
+    var wb =
+        _showImageVoucher(url: item.image ?? '', size: 70.r, position: 110);
 
     switch (item.id) {
       case 'B0B5670B': // mayman
@@ -226,15 +252,13 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
 
   _showImageVoucher(
       {required String url, required double size, required double position}) {
-    return Positioned(
-        right: position,
-        child: RotatedBox(
-            quarterTurns: 1,
-            child: Image.network(
-              url,
-              width: size,
-              height: size,
-            )));
+    return RotatedBox(
+        quarterTurns: 1,
+        child: Image.network(
+          url,
+          width: size,
+          height: size,
+        ));
   }
 
   _onSpinLuckyheel() async {
@@ -250,12 +274,11 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
       required int index,
       required String giftDescription,
       required BuildContext context}) {
-    return Container(
-      padding: const EdgeInsets.only(top: 25),
-      width: 160,
+    return Padding(
+      padding: EdgeInsets.only(top: 15.r),
       child: Text((giftDescription).toUpperCase(),
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontSize: 25,
+              fontSize: 5.sp,
               fontWeight: FontWeight.bold,
               color: index % 2 == 0
                   ? const Color(0x1BAD6F).withOpacity(1)

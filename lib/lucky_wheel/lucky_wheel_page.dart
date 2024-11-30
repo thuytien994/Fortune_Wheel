@@ -23,14 +23,13 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
   @override
   void initState() {
     super.initState();
-     
+
     Future.delayed(Duration.zero, () {
       ref.read(luckyWheelViewModelProvider.notifier).init();
     });
   }
-  connect()async{
- 
-  }
+
+  connect() async {}
 
   @override
   void didChangeDependencies() {
@@ -52,7 +51,7 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
         //  controllerName: controllerName,
         controllerPhone: controllerPhone,
       ),
-      tabletLayout: LuckyWheelTabletPage(
+      tabletLayout: LuckyWheelDesktopPage(
         //   controllerName: controllerName,
         controllerPhone: controllerPhone,
       ),
