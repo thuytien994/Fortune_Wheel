@@ -14,7 +14,8 @@ GiftReceivedModel _$GiftReceivedModelFromJson(Map<String, dynamic> json) =>
       ..phoneNumber = json['phoneNumber'] as String?
       ..image = json['image'] as String?
       ..giftId = (json['giftId'] as num?)?.toInt()
-      ..kenbarVoucherId = (json['kenbarVoucherId'] as num?)?.toInt();
+      ..kenbarVoucherId = (json['kenbarVoucherId'] as num?)?.toInt()
+      ..shopId = (json['shopId'] as num?)?.toInt();
 
 Map<String, dynamic> _$GiftReceivedModelToJson(GiftReceivedModel instance) =>
     <String, dynamic>{
@@ -25,4 +26,5 @@ Map<String, dynamic> _$GiftReceivedModelToJson(GiftReceivedModel instance) =>
       'image': instance.image,
       'giftId': instance.giftId,
       'kenbarVoucherId': instance.kenbarVoucherId,
+      'shopId': instance.shopId,
     };

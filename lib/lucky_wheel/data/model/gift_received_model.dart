@@ -10,6 +10,7 @@ class GiftReceivedModel {
   String? image;
   int? giftId;
   int? kenbarVoucherId;
+  int? shopId;
   GiftReceivedModel();
   factory GiftReceivedModel.fromJson(Map<String, dynamic> json) =>
       _$GiftReceivedModelFromJson(json);

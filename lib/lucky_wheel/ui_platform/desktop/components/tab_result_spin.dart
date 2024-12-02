@@ -46,19 +46,35 @@ class TabResultSpin extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: MediaQuery.sizeOf(context).width * 0.8,
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Chúc mừng bạn: ${resultSpin.customerName ?? 'Thuy Tien'}',
-                            overflow: TextOverflow.clip,
-                            textAlign: TextAlign.center,
-                            style:
-                                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      fontSize: 15.sp,
-                                      color: Colors.white,
-                                    ),
-                          ),
-                        ),
+                            width: MediaQuery.sizeOf(context).width * 0.8,
+                            alignment: Alignment.center,
+                            child: RichText(
+                                overflow: TextOverflow.clip,
+                                textAlign: TextAlign.center,
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                    text: 'Chúc mừng bạn: ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: 15.sp,
+                                          color: Colors.white,
+                                        ),
+                                  ),
+                                  TextSpan(
+                                    text: (resultSpin.customerName)
+                                            ?.toUpperCase() ??
+                                        '',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: 15.sp,
+                                          color: Colors.red,
+                                        ),
+                                  )
+                                ]))),
                         const SizedBox(
                           height: 8,
                         ),

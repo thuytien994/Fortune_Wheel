@@ -59,6 +59,7 @@ dependencies:
   flutter_barcode_listener: ^0.1.4
   visibility_detector: ^0.4.0+2
   fluttertoast: ^8.2.8
+  just_audio: ^0.9.42
 
 dev_dependencies:
   flutter_test:

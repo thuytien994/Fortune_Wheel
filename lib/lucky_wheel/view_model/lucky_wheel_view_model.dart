@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/repository/lucky_wheel_repository_impl.dart';
+import 'package:flutter_application_1/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'lucky_wheel_state.dart';
@@ -85,6 +86,7 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   showGiftResult() {
     if (state.gift != null) {
       state = state.copyWith(isShowGiftResult: true);
+      connectMQTT();
     }
   }
 
@@ -145,11 +147,21 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     if (data != null) {
       state = state.copyWith(gift: data, isCheckBarcode: true);
     } else {
-      state = state.copyWith(errorMessage: 'Phần quà đã được nhận!!!');
+      state = state.copyWith(errorMessage: 'Hóa đơn đã tham gia vòng quay!');
     }
   }
 
   setOnCheckBarcode() {
     state = state.copyWith(isCheckBarcode: false);
+  }
+
+  connectMQTT() {
+    //  print(state.gift.toString());
+    print('shopid: ${state.gift?.shopId}');
+    GiftReceivedModel a = GiftReceivedModel();
+
+    // a.shopId = 1;
+    // a.gift = 'Thuy Tien';
+    mqttService.publishMessage(state.gift ?? GiftReceivedModel());
   }
 }

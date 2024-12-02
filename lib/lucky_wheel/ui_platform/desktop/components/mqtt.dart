@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:mqtt_client/mqtt_browser_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
@@ -35,6 +36,22 @@ class MQTTManager {
     }
   }
 
+  Future<void> publishMessage(GiftReceivedModel gift) async {
+    final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
+    String jsonGift = jsonEncode(gift.toJson());
+    builder.addString(jsonGift);
+    print('haha${jsonEncode(gift.toJson())} ');
+    Map<String, dynamic> valueMap = jsonDecode(jsonEncode(gift.toJson()));
+    GiftReceivedModel giftt = GiftReceivedModel.fromJson(valueMap);
+    print('oke ${giftt.gift}');
+    client.publishMessage(
+        "KENBAR/${gift.shopId}", // Topic
+        MqttQos.atMostOnce, // QoS level
+        builder.payload! // Payload
+        );
+    print('Message sent: $gift');
+  }
+
   // Đăng ký vào một chủ đề
   Future<void> subscribe(String topic,
       {required Function(Map<String, dynamic> data) callback}) async {
@@ -61,7 +78,6 @@ class MQTTManager {
 
           Map<String, dynamic> valueMap = jsonDecode(messageContent);
           callback(valueMap);
-
           return;
         }
       }

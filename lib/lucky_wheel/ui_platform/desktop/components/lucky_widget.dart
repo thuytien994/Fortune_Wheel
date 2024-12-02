@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:screenshot/screenshot.dart';
 import 'components.dart';
+import 'package:just_audio/just_audio.dart';
 
 class LuckyWidget extends ConsumerStatefulWidget {
   final List<GiftModel> vouchers;
@@ -31,7 +32,8 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   Widget btnSpin = Container();
   int timeSpin = 15;
   ScreenshotController screenshotController = ScreenshotController();
-  bool onSpinLuckyheel = false;
+  bool onSpinLuckyheel = false; // Create a player
+
   @override
   void initState() {
     super.initState();
