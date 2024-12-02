@@ -43,10 +43,8 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
 
   bool _handlerBoardKey(KeyEvent event) {
     var result = ref.watch(luckyWheelViewModelProvider);
-    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.enter) {
-      if (result.gift != null &&
-          result.isSpinLuckyheel == false &&
-          result.isCheckBarcode == false) {
+    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.space) {
+      if (result.gift != null && result.isSpinLuckyheel == false) {
         _onSpinLuckyheel();
       }
     }
@@ -129,7 +127,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                         selected: controllerStream.stream,
                         duration: Duration(seconds: timeSpin),
                         styleStrategy: FortuneBar.kDefaultStyleStrategy,
-                        rotationCount: timeSpin,
+                        rotationCount: 70,
                         onAnimationEnd: () {
                           ref
                               .read(luckyWheelViewModelProvider.notifier)

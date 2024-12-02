@@ -86,12 +86,8 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
               ),
               Consumer(
                 builder: (context, ref, child) {
-                  return VisibilityDetector(
-                    onVisibilityChanged: (VisibilityInfo info) {
-                      visible.value = info.visibleFraction > 0;
-                    },
-                    key: Key('visible-detector-key'),
-                    child: BarcodeKeyboardListener(
+                  return 
+                 BarcodeKeyboardListener(
                       bufferDuration: const Duration(milliseconds: 200),
                       onBarcodeScanned: (barcode) {
                         //    if (!visible.value) return;
@@ -99,18 +95,17 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
                             ref.watch(luckyWheelViewModelProvider.select(
                           (value) => value.isCheckBarcode,
                         ));
-                        print('isCheckBarcode: $isCheckBarcode');
                         if (isCheckBarcode == false) {
                           print('isCheckBarcode: $isCheckBarcode');
                           return ref
                               .read(luckyWheelViewModelProvider.notifier)
                               .getBarcode(barcode);
                         }
-                        return Fluttertoast.showToast(msg: 'đợi chút');
+                        return;
                       },
                       child: const SizedBox.shrink(),
-                    ),
-                  );
+                    );
+              
                 },
               )
             ],

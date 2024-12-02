@@ -1,14 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/repository/lucky_wheel_repository_impl.dart';
-import 'package:flutter_application_1/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:universal_html/html.dart';
 import 'lucky_wheel_state.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 part 'lucky_wheel_view_model.g.dart';
@@ -31,25 +26,19 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
     // Đăng ký topic your/topic và lắng nghe khi có message tới
     // Khi có message tới data sẽ trả về cho callback từ đó se lấy data từ callback để mà xử lý cho từng subsribe
-    mqttService.subscribe(
-      'KENBAR/1',
-      callback: (data) async {
-        print('here connect oke');
-        GiftReceivedModel gift = GiftReceivedModel.fromJson(data);
-        await getInfoWhenReloadPage(gift);
-        if (state.isShowGiftResult == true) {
-          reloadPageLuckWheel();
-          return;
-        }
-        // else {
-        //   await Future.delayed(const Duration(milliseconds: 0), () {
-        //     reloadPageLuckWheel();
-        //     return;
-        //   });
-        // }
-      },
-    );
-    // getGiftLocal();
+    // mqttService.subscribe(
+    //   'KENBAR/1',
+    //   callback: (data) async {
+    //     print('here connect oke');
+    //     GiftReceivedModel gift = GiftReceivedModel.fromJson(data);
+    //     await getInfoWhenReloadPage(gift);
+    //     if (state.isShowGiftResult == true) {
+    //       reloadPageLuckWheel();
+    //       return;
+    //     }
+
+    //   },
+    // );
     isInit = true;
   }
 
@@ -82,7 +71,6 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   Future getInfoWhenReloadPage(GiftReceivedModel data) async {
     try {
-      print('here viewmodel ${data}');
       EasyLoading.show(status: "Loading...");
 
       state = state.copyWith(gift: data);
@@ -107,7 +95,6 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
       isShowGiftResult: false,
       isSpinLuckyheel: false,
     );
-    print('isCheckBarcode onload: ${state.isCheckBarcode}');
   }
 
   void disposeController() {
@@ -146,7 +133,6 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     try {
       var data = await repo.getGiftReceived();
       state = state.copyWith(listGiftReceived: data);
-      print('here: view model ${state.listGiftReceived.length}');
     } catch (e) {
       log("error: $e", name: 'getGift');
     }
@@ -155,13 +141,11 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   getBarcode(String barcode) async {
     reloadPageLuckWheel();
     var data = await repo.getGiftsFormBarcode(barcode);
-    print('isCheckBarcode vm1: ${state.isCheckBarcode}');
 
     state = state.copyWith(gift: data, isCheckBarcode: true);
-    print('isCheckBarcode viewmodel ${state.isCheckBarcode}');
-  }
-  setOnCheckBarcode(){
-    state = state.copyWith(isCheckBarcode: false);
   }
 
+  setOnCheckBarcode() {
+    state = state.copyWith(isCheckBarcode: false);
+  }
 }
