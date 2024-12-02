@@ -11,6 +11,8 @@ class LuckyWheelDataSource {
       'https://be.vinkingtea.com/api/KenBarVoucher/get-kenbar-vouchers';
   final urlGetGiftReceived = 'https://be.vinkingtea.com/api/Gifts/get-gifts';
 
+  final urlGetGiftFormBarcode =
+      'https://be.vinkingtea.com/api/Order/create-gift';
   LuckyWheelDataSource() {
     dio.interceptors.add(LogInterceptor(
       request: true,
@@ -44,9 +46,7 @@ class LuckyWheelDataSource {
   Future<List<GiftReceivedModel>> getGiftReceived() async {
     try {
       var response = await dio.get(urlGetGiftReceived);
-      print('aaaa 1 ${response}');
       if (response.statusCode == 200) {
-        print('aaaa datasource: $response');
         Map<String, dynamic> userMap = response.data;
         return (userMap['data'] as List<dynamic>)
             .map((item) => GiftReceivedModel.fromJson(item))
@@ -56,5 +56,10 @@ class LuckyWheelDataSource {
       print('Error: $e');
     }
     return [];
+  }
+
+  Future<GiftReceivedModel> getGiftsFormBarcode(String barcode) async {
+    var response = await dio.get('${urlGetGiftFormBarcode}/$barcode');
+    return GiftReceivedModel.fromJson(response.data['data']);
   }
 }

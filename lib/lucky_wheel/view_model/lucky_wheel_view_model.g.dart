@@ -7,7 +7,7 @@ part of 'lucky_wheel_view_model.dart';
 // **************************************************************************
 
 String _$luckyWheelViewModelHash() =>
-    r'1ee5597f27ba188f3717b23124a1ba3f4a9dc9d3';
+    r'47a97cdce8f7a84f1d00dcd96b4e6cbed74700c5';
 
 /// See also [LuckyWheelViewModel].
 @ProviderFor(LuckyWheelViewModel)

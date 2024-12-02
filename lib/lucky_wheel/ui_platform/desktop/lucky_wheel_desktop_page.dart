@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/tab_list_gift_received.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
+import 'package:flutter_barcode_listener/flutter_barcode_listener.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 import 'components/components.dart';
 
 class LuckyWheelDesktopPage extends ConsumerWidget {
@@ -10,6 +13,8 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
   const LuckyWheelDesktopPage({super.key, required this.controllerPhone});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var _barcode = '';
+    ValueNotifier<bool> visible = ValueNotifier<bool>(false);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -79,6 +84,35 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
                   );
                 }),
               ),
+              Consumer(
+                builder: (context, ref, child) {
+                  return VisibilityDetector(
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      visible.value = info.visibleFraction > 0;
+                    },
+                    key: Key('visible-detector-key'),
+                    child: BarcodeKeyboardListener(
+                      bufferDuration: const Duration(milliseconds: 200),
+                      onBarcodeScanned: (barcode) {
+                        //    if (!visible.value) return;
+                        var isCheckBarcode =
+                            ref.watch(luckyWheelViewModelProvider.select(
+                          (value) => value.isCheckBarcode,
+                        ));
+                        print('isCheckBarcode: $isCheckBarcode');
+                        if (isCheckBarcode == false) {
+                          print('isCheckBarcode: $isCheckBarcode');
+                          return ref
+                              .read(luckyWheelViewModelProvider.notifier)
+                              .getBarcode(barcode);
+                        }
+                        return Fluttertoast.showToast(msg: 'đợi chút');
+                      },
+                      child: const SizedBox.shrink(),
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ),

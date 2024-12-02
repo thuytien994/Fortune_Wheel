@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
+import 'package:flutter_barcode_listener/flutter_barcode_listener.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screenshot/screenshot.dart';
@@ -144,7 +145,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                  const  SizedBox(
+                                    const SizedBox(
                                       width: 40,
                                     ),
                                     _showImageGift(item: listItem[i]),

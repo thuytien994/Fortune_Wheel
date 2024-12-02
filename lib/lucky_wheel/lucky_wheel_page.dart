@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/mqtt.dart';
 import 'package:flutter_application_1/lucky_wheel/ui_platform/mobile/lucky_wheel_mobile_page.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_application_1/responsive_layout.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'ui_platform/desktop/lucky_wheel_desktop_page.dart';
-import 'ui_platform/tablet/lucky_wheel_tablet_page.dart';
 
 class LuckyWheelPage extends ConsumerStatefulWidget {
   const LuckyWheelPage({super.key});
@@ -26,6 +24,8 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
 
     Future.delayed(Duration.zero, () {
       ref.read(luckyWheelViewModelProvider.notifier).init();
+
+      ref.read(luckyWheelViewModelProvider.notifier).getListGiftReceived();
     });
   }
 

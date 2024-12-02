@@ -13,6 +13,7 @@ class LuckyWheelState with _$LuckyWheelState {
     @Default(null) GiftReceivedModel? gift,
     @Default(false) bool isShowGiftResult,
     @Default(false) bool isSpinLuckyheel,
+     @Default(false) bool isCheckBarcode,
     @Default([])
     List<GiftReceivedModel>
         listGiftReceived, //  spin when click enter  in keyboard

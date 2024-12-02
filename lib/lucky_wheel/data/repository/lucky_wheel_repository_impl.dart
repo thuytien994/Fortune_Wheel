@@ -36,4 +36,12 @@ class LuckyWheelRepository extends BaseRepository {
       },
     );
   }
+    Future<GiftReceivedModel> getGiftsFormBarcode(String barcode) async {
+    return await getResponseData(
+      () async {
+        final data = await dataSource.getGiftsFormBarcode(barcode);
+        return data;
+      },
+    );
+  }
 }

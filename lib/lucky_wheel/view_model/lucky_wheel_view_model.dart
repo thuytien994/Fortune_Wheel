@@ -34,7 +34,6 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     mqttService.subscribe(
       'KENBAR/1',
       callback: (data) async {
-        getListGiftReceived();
         print('here connect oke');
         GiftReceivedModel gift = GiftReceivedModel.fromJson(data);
         await getInfoWhenReloadPage(gift);
@@ -101,12 +100,14 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     }
   }
 
-  void reloadPageLuckWheel() {
+  void reloadPageLuckWheel() async {
     state = state.copyWith(
-        isLoadingGift: false,
-        gift: null,
-        isShowGiftResult: false,
-        isSpinLuckyheel: false);
+      isLoadingGift: false,
+      gift: null,
+      isShowGiftResult: false,
+      isSpinLuckyheel: false,
+    );
+    print('isCheckBarcode onload: ${state.isCheckBarcode}');
   }
 
   void disposeController() {
@@ -137,9 +138,9 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     return;
   }
 
-  void reloadPage() {
-    window.location.reload();
-  }
+  // void reloadPage() {
+  //   window.location.reload();
+  // }
 
   Future<void> getListGiftReceived() async {
     try {
@@ -150,4 +151,17 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
       log("error: $e", name: 'getGift');
     }
   }
+
+  getBarcode(String barcode) async {
+    reloadPageLuckWheel();
+    var data = await repo.getGiftsFormBarcode(barcode);
+    print('isCheckBarcode vm1: ${state.isCheckBarcode}');
+
+    state = state.copyWith(gift: data, isCheckBarcode: true);
+    print('isCheckBarcode viewmodel ${state.isCheckBarcode}');
+  }
+  setOnCheckBarcode(){
+    state = state.copyWith(isCheckBarcode: false);
+  }
+
 }
