@@ -58,8 +58,14 @@ class LuckyWheelDataSource {
     return [];
   }
 
-  Future<GiftReceivedModel> getGiftsFormBarcode(String barcode) async {
-    var response = await dio.get('${urlGetGiftFormBarcode}/$barcode');
-    return GiftReceivedModel.fromJson(response.data['data']);
+  Future<GiftReceivedModel?> getGiftsFormBarcode(String barcode) async {
+    try {
+      var response = await dio.get('${urlGetGiftFormBarcode}/$barcode');
+      return GiftReceivedModel.fromJson(response.data['data']);
+    } catch (e) {
+      print('catch: $e');
+      
+    }
+    return null;
   }
 }

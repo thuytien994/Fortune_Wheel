@@ -22,6 +22,7 @@ mixin _$LuckyWheelState {
   bool get isShowGiftResult => throw _privateConstructorUsedError;
   bool get isSpinLuckyheel => throw _privateConstructorUsedError;
   bool get isCheckBarcode => throw _privateConstructorUsedError;
+  String? get errorMessage => throw _privateConstructorUsedError;
   List<GiftReceivedModel> get listGiftReceived =>
       throw _privateConstructorUsedError;
 
@@ -45,6 +46,7 @@ abstract class $LuckyWheelStateCopyWith<$Res> {
       bool isShowGiftResult,
       bool isSpinLuckyheel,
       bool isCheckBarcode,
+      String? errorMessage,
       List<GiftReceivedModel> listGiftReceived});
 }
 
@@ -69,6 +71,7 @@ class _$LuckyWheelStateCopyWithImpl<$Res, $Val extends LuckyWheelState>
     Object? isShowGiftResult = null,
     Object? isSpinLuckyheel = null,
     Object? isCheckBarcode = null,
+    Object? errorMessage = freezed,
     Object? listGiftReceived = null,
   }) {
     return _then(_value.copyWith(
@@ -96,6 +99,10 @@ class _$LuckyWheelStateCopyWithImpl<$Res, $Val extends LuckyWheelState>
           ? _value.isCheckBarcode
           : isCheckBarcode // ignore: cast_nullable_to_non_nullable
               as bool,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       listGiftReceived: null == listGiftReceived
           ? _value.listGiftReceived
           : listGiftReceived // ignore: cast_nullable_to_non_nullable
@@ -119,6 +126,7 @@ abstract class _$$LuckyWheelStateImplCopyWith<$Res>
       bool isShowGiftResult,
       bool isSpinLuckyheel,
       bool isCheckBarcode,
+      String? errorMessage,
       List<GiftReceivedModel> listGiftReceived});
 }
 
@@ -141,6 +149,7 @@ class __$$LuckyWheelStateImplCopyWithImpl<$Res>
     Object? isShowGiftResult = null,
     Object? isSpinLuckyheel = null,
     Object? isCheckBarcode = null,
+    Object? errorMessage = freezed,
     Object? listGiftReceived = null,
   }) {
     return _then(_$LuckyWheelStateImpl(
@@ -168,6 +177,10 @@ class __$$LuckyWheelStateImplCopyWithImpl<$Res>
           ? _value.isCheckBarcode
           : isCheckBarcode // ignore: cast_nullable_to_non_nullable
               as bool,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       listGiftReceived: null == listGiftReceived
           ? _value._listGiftReceived
           : listGiftReceived // ignore: cast_nullable_to_non_nullable
@@ -186,6 +199,7 @@ class _$LuckyWheelStateImpl implements _LuckyWheelState {
       this.isShowGiftResult = false,
       this.isSpinLuckyheel = false,
       this.isCheckBarcode = false,
+      this.errorMessage = null,
       final List<GiftReceivedModel> listGiftReceived = const []})
       : _listGift = listGift,
         _listGiftReceived = listGiftReceived;
@@ -214,6 +228,9 @@ class _$LuckyWheelStateImpl implements _LuckyWheelState {
   @override
   @JsonKey()
   final bool isCheckBarcode;
+  @override
+  @JsonKey()
+  final String? errorMessage;
   final List<GiftReceivedModel> _listGiftReceived;
   @override
   @JsonKey()
@@ -226,7 +243,7 @@ class _$LuckyWheelStateImpl implements _LuckyWheelState {
 
   @override
   String toString() {
-    return 'LuckyWheelState(listGift: $listGift, isLoadingGift: $isLoadingGift, gift: $gift, isShowGiftResult: $isShowGiftResult, isSpinLuckyheel: $isSpinLuckyheel, isCheckBarcode: $isCheckBarcode, listGiftReceived: $listGiftReceived)';
+    return 'LuckyWheelState(listGift: $listGift, isLoadingGift: $isLoadingGift, gift: $gift, isShowGiftResult: $isShowGiftResult, isSpinLuckyheel: $isSpinLuckyheel, isCheckBarcode: $isCheckBarcode, errorMessage: $errorMessage, listGiftReceived: $listGiftReceived)';
   }
 
   @override
@@ -244,6 +261,8 @@ class _$LuckyWheelStateImpl implements _LuckyWheelState {
                 other.isSpinLuckyheel == isSpinLuckyheel) &&
             (identical(other.isCheckBarcode, isCheckBarcode) ||
                 other.isCheckBarcode == isCheckBarcode) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
             const DeepCollectionEquality()
                 .equals(other._listGiftReceived, _listGiftReceived));
   }
@@ -257,6 +276,7 @@ class _$LuckyWheelStateImpl implements _LuckyWheelState {
       isShowGiftResult,
       isSpinLuckyheel,
       isCheckBarcode,
+      errorMessage,
       const DeepCollectionEquality().hash(_listGiftReceived));
 
   /// Create a copy of LuckyWheelState
@@ -277,6 +297,7 @@ abstract class _LuckyWheelState implements LuckyWheelState {
       final bool isShowGiftResult,
       final bool isSpinLuckyheel,
       final bool isCheckBarcode,
+      final String? errorMessage,
       final List<GiftReceivedModel> listGiftReceived}) = _$LuckyWheelStateImpl;
 
   @override
@@ -291,6 +312,8 @@ abstract class _LuckyWheelState implements LuckyWheelState {
   bool get isSpinLuckyheel;
   @override
   bool get isCheckBarcode;
+  @override
+  String? get errorMessage;
   @override
   List<GiftReceivedModel> get listGiftReceived;
 

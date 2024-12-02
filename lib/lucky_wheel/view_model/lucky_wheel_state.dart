@@ -1,5 +1,4 @@
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/voucher_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -14,6 +13,7 @@ class LuckyWheelState with _$LuckyWheelState {
     @Default(false) bool isShowGiftResult,
     @Default(false) bool isSpinLuckyheel,
      @Default(false) bool isCheckBarcode,
+     @Default(null) String? errorMessage,
     @Default([])
     List<GiftReceivedModel>
         listGiftReceived, //  spin when click enter  in keyboard

@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
-import 'package:flutter_barcode_listener/flutter_barcode_listener.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -249,16 +248,6 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
       size: 75.r,
     );
 
-    switch (item.id) {
-      case 'B0B5670B': // mayman
-        {
-          return wb = _showImageVoucher(url: item.image ?? '', size: 50);
-        }
-      case 'B0B554C0': // ly kenbar
-        {
-          return wb = _showImageVoucher(url: item.image ?? '', size: 90);
-        }
-    }
     return wb;
   }
 

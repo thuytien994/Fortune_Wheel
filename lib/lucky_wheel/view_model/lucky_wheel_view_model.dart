@@ -90,11 +90,11 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   void reloadPageLuckWheel() async {
     state = state.copyWith(
-      isLoadingGift: false,
-      gift: null,
-      isShowGiftResult: false,
-      isSpinLuckyheel: false,
-    );
+        isLoadingGift: false,
+        gift: null,
+        isShowGiftResult: false,
+        isSpinLuckyheel: false,
+        errorMessage: null);
   }
 
   void disposeController() {
@@ -142,7 +142,11 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     reloadPageLuckWheel();
     var data = await repo.getGiftsFormBarcode(barcode);
 
-    state = state.copyWith(gift: data, isCheckBarcode: true);
+    if (data != null) {
+      state = state.copyWith(gift: data, isCheckBarcode: true);
+    } else {
+      state = state.copyWith(errorMessage: 'Phần quà đã được nhận!!!');
+    }
   }
 
   setOnCheckBarcode() {

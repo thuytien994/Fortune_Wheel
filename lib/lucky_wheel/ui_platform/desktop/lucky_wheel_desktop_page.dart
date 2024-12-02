@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/lucky_widget.dart';
 import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/tab_list_gift_received.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_barcode_listener/flutter_barcode_listener.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 import 'components/components.dart';
 
 class LuckyWheelDesktopPage extends ConsumerWidget {
@@ -13,8 +12,6 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
   const LuckyWheelDesktopPage({super.key, required this.controllerPhone});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var _barcode = '';
-    ValueNotifier<bool> visible = ValueNotifier<bool>(false);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -30,7 +27,7 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
             ),
           ),
           child: Stack(
-            //alignment: Alignment.center,
+            alignment: Alignment.center,
             children: [
               Consumer(
                 builder: (context, ref, child) {
@@ -86,26 +83,50 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
               ),
               Consumer(
                 builder: (context, ref, child) {
-                  return 
-                 BarcodeKeyboardListener(
-                      bufferDuration: const Duration(milliseconds: 200),
-                      onBarcodeScanned: (barcode) {
-                        //    if (!visible.value) return;
-                        var isCheckBarcode =
-                            ref.watch(luckyWheelViewModelProvider.select(
-                          (value) => value.isCheckBarcode,
-                        ));
-                        if (isCheckBarcode == false) {
-                          print('isCheckBarcode: $isCheckBarcode');
-                          return ref
-                              .read(luckyWheelViewModelProvider.notifier)
-                              .getBarcode(barcode);
-                        }
-                        return;
-                      },
-                      child: const SizedBox.shrink(),
-                    );
-              
+                  return BarcodeKeyboardListener(
+                    bufferDuration: const Duration(milliseconds: 200),
+                    onBarcodeScanned: (barcode) {
+                      //    if (!visible.value) return;
+                      var isCheckBarcode =
+                          ref.watch(luckyWheelViewModelProvider.select(
+                        (value) => value.isCheckBarcode,
+                      ));
+                      if (isCheckBarcode == false) {
+                        print('isCheckBarcode: $isCheckBarcode');
+                        return ref
+                            .read(luckyWheelViewModelProvider.notifier)
+                            .getBarcode(barcode);
+                      }
+                      return;
+                    },
+                    child: const SizedBox.shrink(),
+                  );
+                },
+              ),
+              Consumer(
+                builder: (context, ref, child) {
+                  var messageError =
+                      ref.watch(luckyWheelViewModelProvider.select(
+                    (value) => value.errorMessage,
+                  ));
+                  if (messageError == null) {
+                    return const SizedBox.shrink();
+                  }
+                  return Positioned(
+                      top: MediaQuery.sizeOf(context).height * 0.08,
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Text(
+                          messageError,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(color: Colors.black, fontSize: 30),
+                        ),
+                      ));
                 },
               )
             ],
