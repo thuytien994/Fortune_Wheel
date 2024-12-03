@@ -156,12 +156,6 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   }
 
   connectMQTT() {
-    //  print(state.gift.toString());
-    print('shopid: ${state.gift?.shopId}');
-    GiftReceivedModel a = GiftReceivedModel();
-
-    // a.shopId = 1;
-    // a.gift = 'Thuy Tien';
     mqttService.publishMessage(state.gift ?? GiftReceivedModel());
   }
 }

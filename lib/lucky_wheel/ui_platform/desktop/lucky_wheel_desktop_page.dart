@@ -128,7 +128,7 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
                         ),
                       ));
                 },
-              )
+              ),
             ],
           ),
         ),

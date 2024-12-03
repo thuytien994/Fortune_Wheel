@@ -38,15 +38,12 @@ class MQTTManager {
 
   Future<void> publishMessage(GiftReceivedModel gift) async {
     final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
+
     String jsonGift = jsonEncode(gift.toJson());
-    builder.addString(jsonGift);
-    print('haha${jsonEncode(gift.toJson())} ');
-    Map<String, dynamic> valueMap = jsonDecode(jsonEncode(gift.toJson()));
-    GiftReceivedModel giftt = GiftReceivedModel.fromJson(valueMap);
-    print('oke ${giftt.gift}');
+    builder.addUTF8String(jsonGift);
     client.publishMessage(
-        "KENBAR/${gift.shopId}", // Topic
-        MqttQos.atMostOnce, // QoS level
+        "KENBAR/${1}", // Topic
+        MqttQos.exactlyOnce, // QoS level
         builder.payload! // Payload
         );
     print('Message sent: $gift');

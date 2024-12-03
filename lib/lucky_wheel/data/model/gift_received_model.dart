@@ -11,7 +11,16 @@ class GiftReceivedModel {
   int? giftId;
   int? kenbarVoucherId;
   int? shopId;
-  GiftReceivedModel();
+  GiftReceivedModel({
+    this.orderName,
+    this.gift,
+    this.customerName,
+    this.phoneNumber,
+    this.image,
+    this.giftId,
+    this.kenbarVoucherId,
+    this.shopId,
+  });
   factory GiftReceivedModel.fromJson(Map<String, dynamic> json) =>
       _$GiftReceivedModelFromJson(json);
 
