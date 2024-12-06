@@ -11,6 +11,8 @@ class GiftReceivedModel {
   int? giftId;
   int? kenbarVoucherId;
   int? shopId;
+  bool? isUsed;
+
   GiftReceivedModel({
     this.orderName,
     this.gift,
@@ -20,6 +22,7 @@ class GiftReceivedModel {
     this.giftId,
     this.kenbarVoucherId,
     this.shopId,
+    this.isUsed,
   });
   factory GiftReceivedModel.fromJson(Map<String, dynamic> json) =>
       _$GiftReceivedModelFromJson(json);
@@ -37,6 +40,7 @@ class GiftReceivedModel {
             phoneNumber == other.phoneNumber &&
             image == other.image &&
             giftId == other.giftId &&
+            isUsed == other.isUsed &&
             kenbarVoucherId == other.kenbarVoucherId;
   }
 }

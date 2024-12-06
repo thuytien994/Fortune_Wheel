@@ -7,15 +7,17 @@ part of 'gift_received_model.dart';
 // **************************************************************************
 
 GiftReceivedModel _$GiftReceivedModelFromJson(Map<String, dynamic> json) =>
-    GiftReceivedModel()
-      ..orderName = json['orderName'] as String?
-      ..gift = json['gift'] as String?
-      ..customerName = json['customerName'] as String?
-      ..phoneNumber = json['phoneNumber'] as String?
-      ..image = json['image'] as String?
-      ..giftId = (json['giftId'] as num?)?.toInt()
-      ..kenbarVoucherId = (json['kenbarVoucherId'] as num?)?.toInt()
-      ..shopId = (json['shopId'] as num?)?.toInt();
+    GiftReceivedModel(
+      orderName: json['orderName'] as String?,
+      gift: json['gift'] as String?,
+      customerName: json['customerName'] as String?,
+      phoneNumber: json['phoneNumber'] as String?,
+      image: json['image'] as String?,
+      giftId: (json['giftId'] as num?)?.toInt(),
+      kenbarVoucherId: (json['kenbarVoucherId'] as num?)?.toInt(),
+      shopId: (json['shopId'] as num?)?.toInt(),
+      isUsed: json['isUsed'] as bool?,
+    );
 
 Map<String, dynamic> _$GiftReceivedModelToJson(GiftReceivedModel instance) =>
     <String, dynamic>{
@@ -27,4 +29,5 @@ Map<String, dynamic> _$GiftReceivedModelToJson(GiftReceivedModel instance) =>
       'giftId': instance.giftId,
       'kenbarVoucherId': instance.kenbarVoucherId,
       'shopId': instance.shopId,
+      'isUsed': instance.isUsed,
     };

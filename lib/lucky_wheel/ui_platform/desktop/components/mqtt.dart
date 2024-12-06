@@ -47,6 +47,7 @@ class MQTTManager {
         MqttQos.exactlyOnce, // QoS level
         builder.payload! // Payload
         );
+    print(jsonGift);
   }
 
   // Đăng ký vào một chủ đề
