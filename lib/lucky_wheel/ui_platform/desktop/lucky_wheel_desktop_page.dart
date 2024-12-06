@@ -92,7 +92,6 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
                         (value) => value.isCheckBarcode,
                       ));
                       if (isCheckBarcode == false) {
-                        print('isCheckBarcode: $isCheckBarcode');
                         return ref
                             .read(luckyWheelViewModelProvider.notifier)
                             .getBarcode(barcode);

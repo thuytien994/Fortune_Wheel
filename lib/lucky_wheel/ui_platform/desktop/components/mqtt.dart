@@ -8,14 +8,16 @@ class MQTTManager {
 
   Future<void> connect() async {
     // Tạo client MQTT và cấu hình kết nối qua WebSocket
-    client =
-        MqttBrowserClient("wss://broker.hivemq.com/mqtt", "clientId-flenRjSuFm")
-          ..port = 8884 // Cổng WebSocket (ví dụ cho EMQX hoặc Mosquitto)
-          ..logging(on: true);
+    String clientId =
+        'flutter_mqtt_client_${DateTime.now().millisecondsSinceEpoch}';
+    client = MqttBrowserClient(
+        "wss://broker.hivemq.com/mqtt", "$clientId-flenRjSuFm")
+      ..port = 8884 // Cổng WebSocket (ví dụ cho EMQX hoặc Mosquitto)
+      ..logging(on: true);
 
     // Cấu hình kết nối (có thể sử dụng username, password nếu cần)
     final connectMessage = MqttConnectMessage()
-        .withClientIdentifier("clientId-flenRjSuFm")
+        .withClientIdentifier("$clientId-flenRjSuFm")
         .startClean();
 
     client.connectionMessage = connectMessage;
@@ -38,22 +40,20 @@ class MQTTManager {
 
   Future<void> publishMessage(GiftReceivedModel gift) async {
     final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
-
     String jsonGift = jsonEncode(gift.toJson());
-    builder.addUTF8String(jsonGift);
+    builder.addUTF8String(jsonGift.toString());
     client.publishMessage(
-        "KENBAR/${1}", // Topic
+        "KENBAR/${gift.shopId}", // Topic
         MqttQos.exactlyOnce, // QoS level
         builder.payload! // Payload
         );
-    print('Message sent: $gift');
   }
 
   // Đăng ký vào một chủ đề
   Future<void> subscribe(String topic,
       {required Function(Map<String, dynamic> data) callback}) async {
     // Kiểm tra xem client đã kết nối chưa
-    if (client?.connectionStatus?.state != MqttConnectionState.connected) {
+    if (client.connectionStatus?.state != MqttConnectionState.connected) {
       print('hear Không thể đăng ký vì client chưa kết nối!');
       return;
     }
