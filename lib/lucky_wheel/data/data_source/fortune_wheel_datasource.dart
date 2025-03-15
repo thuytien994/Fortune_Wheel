@@ -27,9 +27,9 @@ class LuckyWheelDataSource {
     return data;
   }
 
-  Future<List<GiftModel>> getGifts() async {
+  Future<List<GiftModel>> getGifts(int shopId) async {
     try {
-      var response = await dio.get(urlgetVoucher);
+      var response = await dio.get("$urlgetVoucher/$shopId");
       if (response.statusCode == 200) {
         Map<String, dynamic> userMap = response.data;
         return (userMap['data'] as List<dynamic>)
@@ -57,9 +57,10 @@ class LuckyWheelDataSource {
     return [];
   }
 
-  Future<GiftReceivedModel?> getGiftsFormBarcode(String barcode) async {
+  Future<GiftReceivedModel?> getGiftsFormBarcode(
+      String barcode, int shopId) async {
     try {
-      var response = await dio.get('${urlGetGiftFormBarcode}/$barcode');
+      var response = await dio.get('$urlGetGiftFormBarcode/$barcode/$shopId');
       return GiftReceivedModel.fromJson(response.data['data']);
     } catch (e) {
       print('catch: $e');

@@ -24,6 +24,7 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     prefs = await SharedPreferences.getInstance();
     if (isInit) return;
     getGift();
+    getListGiftReceived();
 
     // Đăng ký topic your/topic và lắng nghe khi có message tới
     // Khi có message tới data sẽ trả về cho callback từ đó se lấy data từ callback để mà xử lý cho từng subsribe
@@ -45,9 +46,8 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   void getGift() async {
     try {
-      print('showgift ${state.gift}');
       state = state.copyWith(isLoadingGift: true);
-      final data = await repo.getGifts();
+      final data = await repo.getGifts(state.shopId);
       state = state.copyWith(
         listGift: data,
         isLoadingGift: false,
@@ -142,7 +142,7 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   getBarcode(String barcode) async {
     reloadPageLuckWheel();
-    var data = await repo.getGiftsFormBarcode(barcode);
+    var data = await repo.getGiftsFormBarcode(barcode, state.shopId);
 
     if (data != null) {
       state = state.copyWith(gift: data, isCheckBarcode: true);
@@ -157,5 +157,9 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   connectMQTT() {
     mqttService.publishMessage(state.gift ?? GiftReceivedModel());
+  }
+
+  void setShopId(int shopId) {
+    state = state.copyWith(shopId: shopId);
   }
 }

@@ -9,6 +9,7 @@ import 'components/components.dart';
 class LuckyWheelDesktopPage extends ConsumerWidget {
 //  final TextEditingController controllerName;
   final TextEditingController controllerPhone;
+
   const LuckyWheelDesktopPage({super.key, required this.controllerPhone});
   @override
   Widget build(BuildContext context, WidgetRef ref) {

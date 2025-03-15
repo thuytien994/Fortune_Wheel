@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/lucky_wheel/ui_platform/mobile/lucky_wheel_mobile_page.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_application_1/responsive_layout.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ui_platform/desktop/lucky_wheel_desktop_page.dart';
 
 class LuckyWheelPage extends ConsumerStatefulWidget {
-  const LuckyWheelPage({super.key});
+  final int shopId;
+  const LuckyWheelPage({super.key, required this.shopId});
 
   @override
   LuckyWheelPageState createState() => LuckyWheelPageState();
@@ -25,7 +25,7 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
     Future.delayed(Duration.zero, () {
       ref.read(luckyWheelViewModelProvider.notifier).init();
 
-      ref.read(luckyWheelViewModelProvider.notifier).getListGiftReceived();
+      ref.read(luckyWheelViewModelProvider.notifier).setShopId(widget.shopId);
     });
   }
 
@@ -38,7 +38,6 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
 
   @override
   void dispose() {
-    //ref.read(luckyWheelViewModelProvider.notifier).disposeController();
     controllerPhone.dispose();
     super.dispose();
   }
@@ -47,16 +46,18 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
   Widget build(BuildContext context) {
     super.build(context);
     return ResponsiveLayout(
-      mobileLayout: LuckyWheelMobilePage(
-        //  controllerName: controllerName,
-        controllerPhone: controllerPhone,
+      mobileLayout: const Center(
+        child: Text(
+          "Chưa hỗ trợ cho màn hình nhỏ",
+          style: TextStyle(fontSize: 16),
+        ),
       ),
       tabletLayout: LuckyWheelDesktopPage(
         //   controllerName: controllerName,
+
         controllerPhone: controllerPhone,
       ),
       desktopLayout: LuckyWheelDesktopPage(
-        //     controllerName: controllerName,
         controllerPhone: controllerPhone,
       ),
     );

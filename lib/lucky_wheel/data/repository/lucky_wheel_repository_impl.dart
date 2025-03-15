@@ -9,10 +9,10 @@ class LuckyWheelRepository extends BaseRepository {
 
   LuckyWheelRepository();
 
-  Future<List<GiftModel>> getGifts() async {
+  Future<List<GiftModel>> getGifts(int shopId) async {
     return await getResponseData(
       () async {
-        final data = await dataSource.getGifts();
+        final data = await dataSource.getGifts(shopId);
         return data;
       },
     );
@@ -35,10 +35,12 @@ class LuckyWheelRepository extends BaseRepository {
       },
     );
   }
-    Future<GiftReceivedModel?> getGiftsFormBarcode(String barcode) async {
+
+  Future<GiftReceivedModel?> getGiftsFormBarcode(
+      String barcode, int shopId) async {
     return await getResponseData(
       () async {
-        final data = await dataSource.getGiftsFormBarcode(barcode);
+        final data = await dataSource.getGiftsFormBarcode(barcode, shopId);
         return data;
       },
     );
