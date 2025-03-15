@@ -6,13 +6,12 @@ final dio = Dio();
 
 class LuckyWheelDataSource {
   static const urlSign =
-      'https://be.vinkingtea.com/api/customer/create-customer-lucky-wheel';
+      'https://be.k2pos.vn/api/customer/create-customer-lucky-wheel';
   final urlgetVoucher =
-      'https://be.vinkingtea.com/api/KenBarVoucher/get-kenbar-vouchers';
-  final urlGetGiftReceived = 'https://be.vinkingtea.com/api/Gifts/get-gifts';
+      'https://be.k2pos.vn/api/KenBarVoucher/get-kenbar-vouchers';
+  final urlGetGiftReceived = 'https://be.k2pos.vn/api/Gifts/get-gifts';
 
-  final urlGetGiftFormBarcode =
-      'https://be.vinkingtea.com/api/Order/create-gift';
+  final urlGetGiftFormBarcode = 'https://be.k2pos.vn/api/Order/create-gift';
   LuckyWheelDataSource() {
     dio.interceptors.add(LogInterceptor(
       request: true,
@@ -64,7 +63,6 @@ class LuckyWheelDataSource {
       return GiftReceivedModel.fromJson(response.data['data']);
     } catch (e) {
       print('catch: $e');
-      
     }
     return null;
   }
