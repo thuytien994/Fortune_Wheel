@@ -18,10 +18,10 @@ class LuckyWheelRepository extends BaseRepository {
     );
   }
 
-  Future<GiftReceivedModel> signInLuckyWheel(String phone) async {
+  Future<GiftReceivedModel> signInLuckyWheel(String phone, int shopId) async {
     return await getResponseData(
       () async {
-        final data = await dataSource.singInLuckyWheel(phone);
+        final data = await dataSource.singInLuckyWheel(phone, shopId);
         return data;
       },
     );

@@ -5,6 +5,7 @@ import 'package:flutter_application_1/lucky_wheel/data/repository/lucky_wheel_re
 import 'package:flutter_application_1/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'lucky_wheel_state.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 part 'lucky_wheel_view_model.g.dart';
@@ -62,8 +63,9 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     try {
       EasyLoading.show(status: "Loading...");
 
-      var data = await repo.signInLuckyWheel(phone);
+      var data = await repo.signInLuckyWheel(phone, state.shopId);
       state = state.copyWith(gift: data);
+
       EasyLoading.dismiss();
     } catch (e) {
       log("error: $e", name: 'getGift');
@@ -83,7 +85,7 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     }
   }
 
-  showGiftResult() {
+  void showGiftResult() {
     if (state.gift != null) {
       state = state.copyWith(isShowGiftResult: true);
       connectMQTT();
@@ -92,11 +94,12 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   void reloadPageLuckWheel() async {
     state = state.copyWith(
-        isLoadingGift: false,
-        gift: null,
-        isShowGiftResult: false,
-        isSpinLuckyheel: false,
-        errorMessage: null);
+      isLoadingGift: false,
+      gift: null,
+      isShowGiftResult: false,
+      isSpinLuckyheel: false,
+      errorMessage: null,
+    );
   }
 
   void disposeController() {
@@ -127,10 +130,6 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     return;
   }
 
-  // void reloadPage() {
-  //   window.location.reload();
-  // }
-
   Future<void> getListGiftReceived() async {
     try {
       var data = await repo.getGiftReceived();
@@ -140,7 +139,7 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     }
   }
 
-  getBarcode(String barcode) async {
+  void getBarcode(String barcode) async {
     reloadPageLuckWheel();
     var data = await repo.getGiftsFormBarcode(barcode, state.shopId);
 
@@ -151,15 +150,22 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     }
   }
 
-  setOnCheckBarcode() {
+  void setOnCheckBarcode() {
     state = state.copyWith(isCheckBarcode: false);
   }
 
-  connectMQTT() {
+  void connectMQTT() {
     mqttService.publishMessage(state.gift ?? GiftReceivedModel());
   }
 
   void setShopId(int shopId) {
     state = state.copyWith(shopId: shopId);
+  }
+
+  Future<void> launchUrlWeb(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw Exception('Không mở được $url');
+    }
   }
 }

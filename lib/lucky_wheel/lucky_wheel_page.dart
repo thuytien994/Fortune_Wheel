@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_application_1/responsive_layout.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'ui_platform/desktop/lucky_wheel_desktop_page.dart';
+import 'ui_platform/mobile/lucky_wheel_mobile_page.dart';
 
 class LuckyWheelPage extends ConsumerStatefulWidget {
   final int shopId;
@@ -29,7 +29,6 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
     });
   }
 
-  connect() async {}
 
   @override
   void didChangeDependencies() {
@@ -46,14 +45,11 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
   Widget build(BuildContext context) {
     super.build(context);
     return ResponsiveLayout(
-      mobileLayout: const Center(
-        child: Text(
-          "Chưa hỗ trợ cho màn hình nhỏ",
-          style: TextStyle(fontSize: 16),
-        ),
+      mobileLayout: LuckyWheelMobilePage(
+        controllerPhone: TextEditingController(),
       ),
       tabletLayout: LuckyWheelDesktopPage(
-        //   controllerName: controllerName,
+        //   controllerName: controllerName,8936123375881
 
         controllerPhone: controllerPhone,
       ),

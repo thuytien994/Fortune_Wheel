@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TabResultSpin extends ConsumerWidget {
   final GiftReceivedModel resultSpin;
@@ -41,24 +43,15 @@ class TabResultSpin extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 0.8,
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Chúc mừng bạn ${resultSpin.orderName}',
-                        overflow: TextOverflow.clip,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 25,
-                              color: Colors.white,
-                            ),
-                      ),
+                    const SizedBox(
+                      height: 10,
                     ),
-                    resultSpin.kenbarVoucherId == 'B0B5670B'
-                        ? Padding(
+                    resultSpin.code == 'B0B5670B'
+                        ? // chúc may măn lần sau
+                        Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
-                              '',
+                              resultSpin.giftDescription ?? "",
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -69,10 +62,30 @@ class TabResultSpin extends ConsumerWidget {
                                       fontSize: 25),
                             ),
                           )
+                        : Container(
+                            width: MediaQuery.sizeOf(context).width * 0.8,
+                            alignment: Alignment.center,
+                            child: Text(
+                              resultSpin.orderName != null
+                                  ? 'Chúc mừng bạn ${resultSpin.orderName}'
+                                  : "Chúc mừng bạn quay trúng",
+                              overflow: TextOverflow.clip,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    fontSize: 25,
+                                    color: Colors.white,
+                                  ),
+                            ),
+                          ),
+                    resultSpin.code == 'B0B5670B'
+                        ? const SizedBox.shrink()
                         : Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
-                              'Nhận được ${resultSpin.gift}',
+                              '${resultSpin.giftDescription}',
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -168,34 +181,61 @@ class TabResultSpin extends ConsumerWidget {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () => ref
-                    .read(luckyWheelViewModelProvider.notifier)
-                    .reloadPageLuckWheel(),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
+              RichText(
+                text: TextSpan(
                   children: [
-                    Text(
-                      'Quay tiếp',
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                    TextSpan(
+                      text: "Theo dõi kenbar: ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                    TextSpan(
+                      text: "Tại đây",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 16,
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.w600),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          ref
+                              .read(luckyWheelViewModelProvider.notifier)
+                              .launchUrlWeb("https://kenbar.vn/");
+                        },
                     ),
                   ],
                 ),
               ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // ElevatedButton(
+              //   style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              //   onPressed: () => ref
+              //       .read(luckyWheelViewModelProvider.notifier)
+              //       .reloadPageLuckWheel(),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: [
+              //       Text(
+              //         'Quay tiếp',
+              //         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              //               fontWeight: FontWeight.w700,
+              //               color: Colors.white,
+              //             ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               const SizedBox(
                 height: 20,
               ),
-
-              const SizedBox(
-                height: 20,
-              )
             ],
           )
         ],

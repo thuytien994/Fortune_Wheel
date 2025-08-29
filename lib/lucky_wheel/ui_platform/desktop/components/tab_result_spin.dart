@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/animated_widget.dart/snow_filling_anima.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -29,7 +28,6 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _setAnimationBtnSpin();
   }
@@ -41,7 +39,6 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
         CurvedAnimation(parent: controllerSnow, curve: Curves.linear)
           ..addStatusListener(
             (status) {
-              print(status);
               if (status == AnimationStatus.completed) {
                 controllerSnow.repeat();
               }
@@ -72,14 +69,6 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // Positioned(
-            //   bottom: 2.r,
-            //   child: Image.asset(
-            //     'assets/images/gif_firework3.gif',
-            //     width: 500.r,
-            //     height: 500.r,
-            //   ),
-            // ),
             Positioned(
               left: 40.r,
               top: 5.r,

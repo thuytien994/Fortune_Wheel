@@ -141,8 +141,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                       RotatedBox(
                                           quarterTurns: 1,
                                           child: _showNameGift(
-                                              id:
-                                                  listItem[i].id??0,
+                                              id: listItem[i].id ?? 0,
                                               index: i,
                                               context: context)),
                                     ],
@@ -153,7 +152,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                       Consumer(
                         builder: (context, ref, child) {
                           var giftCode = ref.watch(luckyWheelViewModelProvider
-                              .select((value) => value.gift?.kenbarVoucherId));
+                              .select((value) => value.gift?.id));
                           return Align(
                             alignment: Alignment.center,
                             child: GestureDetector(
@@ -177,6 +176,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                     .select((value) => value.isShowGiftResult));
                 final gift = ref.watch(
                     luckyWheelViewModelProvider.select((value) => value.gift));
+
                 if (isShowGiftResult == true) {
                   return TabResultSpin(
                     resultSpin: gift ?? GiftReceivedModel(),
@@ -195,8 +195,6 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   Widget _showImageGift({required GiftModel item}) {
     var wb = _imageVoucherWidget(url: item.image ?? '', size: 60);
 
-
-  
     return wb;
   }
 
@@ -214,15 +212,13 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   }
 
   void _onSpinLuckyheel(int id) async {
+    print("here: ${id}");
     final index = listItem.indexWhere((e) => e.id == id);
     controllerStream.add(index); // update item selected
   }
 
   Widget _showNameGift(
-      {required int id,
-      required int index,
-      required BuildContext context}) {
-   
+      {required int id, required int index, required BuildContext context}) {
     return Text(listItem[index].giftDescription!.toUpperCase(),
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 14,

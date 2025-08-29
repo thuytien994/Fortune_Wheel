@@ -66,9 +66,6 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
     if (widget.vouchers.length != oldWidget.vouchers.length) {
       listItem = widget.vouchers;
     }
-    // if (widget.initValueGift != oldWidget.initValueGift) {
-    //   initValueGift = widget.initValueGift;
-    // }
   }
 
   _setAnimationBtnSpin() {

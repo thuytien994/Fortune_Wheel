@@ -113,20 +113,21 @@ class LuckyWheelDesktopPage extends ConsumerWidget {
                     return const SizedBox.shrink();
                   }
                   return Positioned(
-                      top: MediaQuery.sizeOf(context).height * 0.08,
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.7),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Text(
-                          messageError,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(color: Colors.black, fontSize: 30),
-                        ),
-                      ));
+                    top: MediaQuery.sizeOf(context).height * 0.08,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.7),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        messageError,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: Colors.black, fontSize: 30),
+                      ),
+                    ),
+                  );
                 },
               ),
             ],
