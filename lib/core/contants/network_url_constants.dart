@@ -11,4 +11,6 @@ class NetworkUrlConstants {
       "${baseURLStag}KenBarVoucher/get-kenbar-vouchers";
   static const String urlGetGiftReceived = "${baseURLStag}Gifts/get-gifts";
   static const String urlGetGiftFormBarcode = '${baseURLStag}Order/create-gift';
+  static const String urlGetActiveLuckySpins =
+      '${baseURLStag}luckySpin/active-lucky-spins';
 }

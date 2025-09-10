@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/data/repository/lucky_wheel_repository_impl.dart';
+import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
+import 'package:flutter_application_1/lucky_wheel_new/data/repository/lucky_wheel_repository_impl.dart';
 import 'package:flutter_application_1/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,6 +26,7 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     if (isInit) return;
     getGift();
     getListGiftReceived();
+    getActiveLuckySpins();
 
     // Đăng ký topic your/topic và lắng nghe khi có message tới
     // Khi có message tới data sẽ trả về cho callback từ đó se lấy data từ callback để mà xử lý cho từng subsribe
@@ -155,7 +156,7 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   }
 
   void connectMQTT() {
-    // mqttService.publishMessage(state.gift ?? GiftReceivedModel());
+    mqttService.publishMessage(state.gift ?? GiftReceivedModel());
   }
 
   void setShopId(int shopId) {
@@ -166,6 +167,15 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw Exception('Không mở được $url');
+    }
+  }
+
+  Future<void> getActiveLuckySpins() async {
+    try {
+      var data = await repo.getActiveLuckySpins(12);
+      state = state.copyWith(luckyWheel: data);
+    } catch (e) {
+      log("error: $e", name: 'getGift');
     }
   }
 }
