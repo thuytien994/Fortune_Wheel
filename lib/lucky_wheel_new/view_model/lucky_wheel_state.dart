@@ -20,5 +20,6 @@ class LuckyWheelState with _$LuckyWheelState {
     List<GiftReceivedModel>
         listGiftReceived, //  spin when click enter  in keyboard
     LuckyWheelModel? luckyWheel,
+    
   }) = _LuckyWheelState;
 }

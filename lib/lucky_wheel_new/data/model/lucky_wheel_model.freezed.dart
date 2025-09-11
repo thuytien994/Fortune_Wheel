@@ -33,6 +33,7 @@ mixin _$LuckyWheelModel {
   String? get spinButtonImage => throw _privateConstructorUsedError;
   DateTime? get createdDate => throw _privateConstructorUsedError;
   DateTime? get updateDate => throw _privateConstructorUsedError;
+  String? get gameType => throw _privateConstructorUsedError;
   List<LuckyWheelPriceModel> get luckyPrizeModel =>
       throw _privateConstructorUsedError;
 
@@ -66,6 +67,7 @@ abstract class $LuckyWheelModelCopyWith<$Res> {
       String? spinButtonImage,
       DateTime? createdDate,
       DateTime? updateDate,
+      String? gameType,
       List<LuckyWheelPriceModel> luckyPrizeModel});
 }
 
@@ -97,6 +99,7 @@ class _$LuckyWheelModelCopyWithImpl<$Res, $Val extends LuckyWheelModel>
     Object? spinButtonImage = freezed,
     Object? createdDate = freezed,
     Object? updateDate = freezed,
+    Object? gameType = freezed,
     Object? luckyPrizeModel = null,
   }) {
     return _then(_value.copyWith(
@@ -152,6 +155,10 @@ class _$LuckyWheelModelCopyWithImpl<$Res, $Val extends LuckyWheelModel>
           ? _value.updateDate
           : updateDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      gameType: freezed == gameType
+          ? _value.gameType
+          : gameType // ignore: cast_nullable_to_non_nullable
+              as String?,
       luckyPrizeModel: null == luckyPrizeModel
           ? _value.luckyPrizeModel
           : luckyPrizeModel // ignore: cast_nullable_to_non_nullable
@@ -182,6 +189,7 @@ abstract class _$$LuckyWheelModelImplCopyWith<$Res>
       String? spinButtonImage,
       DateTime? createdDate,
       DateTime? updateDate,
+      String? gameType,
       List<LuckyWheelPriceModel> luckyPrizeModel});
 }
 
@@ -211,6 +219,7 @@ class __$$LuckyWheelModelImplCopyWithImpl<$Res>
     Object? spinButtonImage = freezed,
     Object? createdDate = freezed,
     Object? updateDate = freezed,
+    Object? gameType = freezed,
     Object? luckyPrizeModel = null,
   }) {
     return _then(_$LuckyWheelModelImpl(
@@ -266,6 +275,10 @@ class __$$LuckyWheelModelImplCopyWithImpl<$Res>
           ? _value.updateDate
           : updateDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      gameType: freezed == gameType
+          ? _value.gameType
+          : gameType // ignore: cast_nullable_to_non_nullable
+              as String?,
       luckyPrizeModel: null == luckyPrizeModel
           ? _value._luckyPrizeModel
           : luckyPrizeModel // ignore: cast_nullable_to_non_nullable
@@ -276,7 +289,7 @@ class __$$LuckyWheelModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LuckyWheelModelImpl implements _LuckyWheelModel {
+class _$LuckyWheelModelImpl extends _LuckyWheelModel {
   const _$LuckyWheelModelImpl(
       {required this.id,
       this.spinName = '',
@@ -291,8 +304,10 @@ class _$LuckyWheelModelImpl implements _LuckyWheelModel {
       this.spinButtonImage,
       this.createdDate,
       this.updateDate,
+      this.gameType = "ByInputInvoide",
       final List<LuckyWheelPriceModel> luckyPrizeModel = const []})
-      : _luckyPrizeModel = luckyPrizeModel;
+      : _luckyPrizeModel = luckyPrizeModel,
+        super._();
 
   factory _$LuckyWheelModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$LuckyWheelModelImplFromJson(json);
@@ -324,6 +339,9 @@ class _$LuckyWheelModelImpl implements _LuckyWheelModel {
   final DateTime? createdDate;
   @override
   final DateTime? updateDate;
+  @override
+  @JsonKey()
+  final String? gameType;
   final List<LuckyWheelPriceModel> _luckyPrizeModel;
   @override
   @JsonKey()
@@ -335,7 +353,7 @@ class _$LuckyWheelModelImpl implements _LuckyWheelModel {
 
   @override
   String toString() {
-    return 'LuckyWheelModel(id: $id, spinName: $spinName, startDate: $startDate, endDate: $endDate, maxParticipants: $maxParticipants, shopId: $shopId, backgroundImage: $backgroundImage, color1: $color1, color2: $color2, status: $status, spinButtonImage: $spinButtonImage, createdDate: $createdDate, updateDate: $updateDate, luckyPrizeModel: $luckyPrizeModel)';
+    return 'LuckyWheelModel(id: $id, spinName: $spinName, startDate: $startDate, endDate: $endDate, maxParticipants: $maxParticipants, shopId: $shopId, backgroundImage: $backgroundImage, color1: $color1, color2: $color2, status: $status, spinButtonImage: $spinButtonImage, createdDate: $createdDate, updateDate: $updateDate, gameType: $gameType, luckyPrizeModel: $luckyPrizeModel)';
   }
 
   @override
@@ -363,6 +381,8 @@ class _$LuckyWheelModelImpl implements _LuckyWheelModel {
                 other.createdDate == createdDate) &&
             (identical(other.updateDate, updateDate) ||
                 other.updateDate == updateDate) &&
+            (identical(other.gameType, gameType) ||
+                other.gameType == gameType) &&
             const DeepCollectionEquality()
                 .equals(other._luckyPrizeModel, _luckyPrizeModel));
   }
@@ -384,6 +404,7 @@ class _$LuckyWheelModelImpl implements _LuckyWheelModel {
       spinButtonImage,
       createdDate,
       updateDate,
+      gameType,
       const DeepCollectionEquality().hash(_luckyPrizeModel));
 
   /// Create a copy of LuckyWheelModel
@@ -403,7 +424,7 @@ class _$LuckyWheelModelImpl implements _LuckyWheelModel {
   }
 }
 
-abstract class _LuckyWheelModel implements LuckyWheelModel {
+abstract class _LuckyWheelModel extends LuckyWheelModel {
   const factory _LuckyWheelModel(
           {required final String id,
           final String spinName,
@@ -418,8 +439,10 @@ abstract class _LuckyWheelModel implements LuckyWheelModel {
           final String? spinButtonImage,
           final DateTime? createdDate,
           final DateTime? updateDate,
+          final String? gameType,
           final List<LuckyWheelPriceModel> luckyPrizeModel}) =
       _$LuckyWheelModelImpl;
+  const _LuckyWheelModel._() : super._();
 
   factory _LuckyWheelModel.fromJson(Map<String, dynamic> json) =
       _$LuckyWheelModelImpl.fromJson;
@@ -450,6 +473,8 @@ abstract class _LuckyWheelModel implements LuckyWheelModel {
   DateTime? get createdDate;
   @override
   DateTime? get updateDate;
+  @override
+  String? get gameType;
   @override
   List<LuckyWheelPriceModel> get luckyPrizeModel;
 

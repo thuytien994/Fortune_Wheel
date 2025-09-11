@@ -3,31 +3,25 @@ part 'gift_received_model.g.dart';
 
 @JsonSerializable()
 class GiftReceivedModel {
-  String? orderName;
-  String? gift;
-  String? customerName;
+  String? prizeName;
+  String? prizeImage;
+  String? prizeID;
+  String? spinId;
+  String? userName;
   String? phoneNumber;
-  String? image;
-  int? giftId;
-  int? kenbarVoucherId;
+  String? invoiceCode;
+  String? barCode;
   int? shopId;
-  bool? isUsed;
-  String? giftDescription;
-  String? code;
-  int id;
   GiftReceivedModel({
-    this.orderName,
-    this.gift,
-    this.customerName,
+    this.prizeName,
+    this.prizeImage,
+    this.spinId,
+    this.prizeID,
+    this.barCode,
+    this.invoiceCode,
     this.phoneNumber,
-    this.image,
-    this.giftId,
-    this.kenbarVoucherId,
+    this.userName,
     this.shopId,
-    this.isUsed,
-    this.giftDescription,
-    this.code,
-    this.id = 0,
   });
   factory GiftReceivedModel.fromJson(Map<String, dynamic> json) =>
       _$GiftReceivedModelFromJson(json);
@@ -39,16 +33,13 @@ class GiftReceivedModel {
     return identical(this, other) ||
         other is GiftReceivedModel &&
             runtimeType == other.runtimeType &&
-            orderName == other.orderName &&
-            gift == other.gift &&
-            customerName == other.customerName &&
+            prizeName == other.prizeName &&
+            prizeImage == other.prizeImage &&
+            prizeID == other.prizeID &&
+            spinId == other.spinId &&
+            userName == other.userName &&
             phoneNumber == other.phoneNumber &&
-            image == other.image &&
-            giftId == other.giftId &&
-            isUsed == other.isUsed &&
-            kenbarVoucherId == other.kenbarVoucherId &&
-            giftDescription == other.giftDescription &&
-            id == other.id &&
-            code == other.code;
+            barCode == other.barCode &&
+            invoiceCode == other.invoiceCode;
   }
 }

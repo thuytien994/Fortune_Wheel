@@ -39,6 +39,7 @@ class MQTTManager {
   }
 
   Future<void> publishMessage(GiftReceivedModel gift) async {
+    print("here aaaaa: ${gift}");
     final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
     String jsonGift = jsonEncode(gift.toJson());
     builder.addUTF8String(jsonGift.toString());

@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         builder: (context, child) => const LuckyWheelPage(
-          shopId: 1,
+          shopId: 12,
         ),
-        //  builder: EasyLoading.init(),
+
         debugShowCheckedModeBanner: false,
         // home: LuckyWheelPage(
         //   shopId: 1,

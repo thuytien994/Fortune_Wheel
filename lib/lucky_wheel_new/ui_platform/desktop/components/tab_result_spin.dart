@@ -1,8 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
+import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screenshot/screenshot.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TabResultSpin extends ConsumerStatefulWidget {
@@ -118,7 +119,7 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
                                       ),
                                 ),
                                 TextSpan(
-                                  text: (widget.resultSpin.customerName)
+                                  text: (widget.resultSpin.userName)
                                           ?.toUpperCase() ??
                                       '',
                                   style: Theme.of(context)
@@ -133,44 +134,46 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
                       const SizedBox(
                         height: 8,
                       ),
-                      widget.resultSpin.kenbarVoucherId == 'B0B5670B'
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(
-                                '${widget.resultSpin.orderName}',
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                        color: Colors.amber,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 12.sp),
-                              ),
-                            )
-                          : Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(
-                                'Nhận được: ${widget.resultSpin.gift}',
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                        color: Colors.amber,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 12.sp),
-                              ),
-                            ),
+                      // widget.resultSpin.kenbarVoucherId == 'B0B5670B'
+                      //     ? Padding(
+                      //         padding:
+                      //             const EdgeInsets.symmetric(horizontal: 20),
+                      //         child: Text(
+                      //           '${widget.resultSpin.orderName}',
+                      //           textAlign: TextAlign.center,
+                      //           style: Theme.of(context)
+                      //               .textTheme
+                      //               .titleMedium!
+                      //               .copyWith(
+                      //                   color: Colors.amber,
+                      //                   fontWeight: FontWeight.w700,
+                      //                   fontSize: 12.sp),
+                      //         ),
+                      //       )
+                      //     :
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          'Nhận được: ${widget.resultSpin.prizeName}',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  color: Colors.amber,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 12.sp),
+                        ),
+                      ),
                       const SizedBox(
                         height: 15,
                       ),
                       Image.network(
-                        widget.resultSpin.image ?? '',
+                        widget.resultSpin.prizeImage ?? '',
                         width: 250.r,
                         height: 250.r,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const SizedBox(),
                       ),
                     ],
                   ),
@@ -178,6 +181,35 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
                 SizedBox(
                   height: 20.r,
                 ),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: "Theo dõi kenbar: ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 22,
+                          color: Colors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "Tại đây",
+                        style: const TextStyle(
+                            color: Colors.blue,
+                            fontSize: 18,
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.w600),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            ref
+                                .read(luckyWheelViewModelProvider.notifier)
+                                .launchUrlWeb("https://kenbar.vn/");
+                          },
+                      ),
+                    ],
+                  ),
+                ),
+
                 // SizedBox(
                 //   width: 200,
                 //   height: 50,

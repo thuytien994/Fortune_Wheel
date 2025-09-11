@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
+import 'package:flutter_application_1/lucky_wheel_new/data/model/info_customer.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/repository/lucky_wheel_repository_impl.dart';
 import 'package:flutter_application_1/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -24,9 +25,9 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   void init() async {
     prefs = await SharedPreferences.getInstance();
     if (isInit) return;
+    await getActiveLuckySpins();
     getGift();
     getListGiftReceived();
-    getActiveLuckySpins();
 
     // Đăng ký topic your/topic và lắng nghe khi có message tới
     // Khi có message tới data sẽ trả về cho callback từ đó se lấy data từ callback để mà xử lý cho từng subsribe
@@ -172,10 +173,39 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   Future<void> getActiveLuckySpins() async {
     try {
-      var data = await repo.getActiveLuckySpins(12);
+      var data = await repo.getActiveLuckySpins(state.shopId);
+
       state = state.copyWith(luckyWheel: data);
     } catch (e) {
       log("error: $e", name: 'getGift');
+    }
+  }
+
+  Future<void> getGiftForSpin({
+    String? phoneNumber,
+    String? userName,
+    String? barCode,
+    String? invoiceCode,
+  }) async {
+    try {
+      EasyLoading.show(status: "Đang tải");
+
+      InfoCustomer param = InfoCustomer(
+          barcode: barCode?.trim(),
+          invoiceCode: invoiceCode?.trim(),
+          phoneNumber: phoneNumber?.trim(),
+          shopId: state.shopId,
+          spinId: state.luckyWheel?.id);
+
+      var response = await repo.getGiftForSpin(param);
+
+      if (response != null) {
+        state = state.copyWith(gift: response);
+      }
+    } catch (e) {
+      EasyLoading.showError("Có lỗi sảy ra, vui lòng thử lại");
+    } finally {
+      EasyLoading.dismiss();
     }
   }
 }

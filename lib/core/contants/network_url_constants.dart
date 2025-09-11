@@ -13,4 +13,6 @@ class NetworkUrlConstants {
   static const String urlGetGiftFormBarcode = '${baseURLStag}Order/create-gift';
   static const String urlGetActiveLuckySpins =
       '${baseURLStag}luckySpin/active-lucky-spins';
+  static const String urlGetGiftForSpin =
+      '${baseURLStag}luckySpin/lucky-spin-gifts'; // Lấy quà khi nhập thông tin quay thưởng cho khách hàng
 }

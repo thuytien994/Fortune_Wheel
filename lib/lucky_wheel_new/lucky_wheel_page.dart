@@ -21,22 +21,14 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
   @override
   void initState() {
     super.initState();
-
     Future.delayed(Duration.zero, () {
       ref.read(luckyWheelViewModelProvider.notifier).init();
-
       ref.read(luckyWheelViewModelProvider.notifier).setShopId(widget.shopId);
     });
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   void dispose() {
-    controllerPhone.dispose();
     super.dispose();
   }
 
@@ -48,8 +40,7 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
         controllerPhone: TextEditingController(),
       ),
       tabletLayout: LuckyWheelDesktopPage(
-        //   controllerName: controllerName,8936123375881
-
+        //   controllerName: controllerName,
         controllerPhone: controllerPhone,
       ),
       desktopLayout: LuckyWheelDesktopPage(

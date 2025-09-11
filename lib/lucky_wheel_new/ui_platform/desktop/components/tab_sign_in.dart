@@ -3,15 +3,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TabScreenSignIn extends StatelessWidget {
+class TabScreenSignIn extends ConsumerStatefulWidget {
   final TextEditingController controllerPhone;
   TabScreenSignIn({
     super.key,
     required this.controllerPhone,
   });
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  @override
+  ConsumerState<TabScreenSignIn> createState() => _TabScreenSignInState();
+}
 
+class _TabScreenSignInState extends ConsumerState<TabScreenSignIn> {
+  final TextEditingController controllerPhone = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -89,9 +94,13 @@ class TabScreenSignIn extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          // await ref
+                          //     .read(luckyWheelViewModelProvider.notifier)
+                          //     .signInLuckyWheel(controllerPhone.text);
                           await ref
                               .read(luckyWheelViewModelProvider.notifier)
-                              .signInLuckyWheel(controllerPhone.text);
+                              .getGiftForSpin(
+                                  phoneNumber: controllerPhone.text);
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -101,7 +110,7 @@ class TabScreenSignIn extends StatelessWidget {
                       ),
                       child: const Text(
                         'Bắt đầu',
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(fontSize: 22),
                       ),
                     ),
                   ),

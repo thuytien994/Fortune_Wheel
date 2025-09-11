@@ -30,6 +30,7 @@ _$LuckyWheelModelImpl _$$LuckyWheelModelImplFromJson(
       updateDate: json['updateDate'] == null
           ? null
           : DateTime.parse(json['updateDate'] as String),
+      gameType: json['gameType'] as String? ?? "ByInputInvoide",
       luckyPrizeModel: (json['luckyPrizeModel'] as List<dynamic>?)
               ?.map((e) =>
                   LuckyWheelPriceModel.fromJson(e as Map<String, dynamic>))
@@ -53,6 +54,7 @@ Map<String, dynamic> _$$LuckyWheelModelImplToJson(
       'spinButtonImage': instance.spinButtonImage,
       'createdDate': instance.createdDate?.toIso8601String(),
       'updateDate': instance.updateDate?.toIso8601String(),
+      'gameType': instance.gameType,
       'luckyPrizeModel': instance.luckyPrizeModel,
     };
 

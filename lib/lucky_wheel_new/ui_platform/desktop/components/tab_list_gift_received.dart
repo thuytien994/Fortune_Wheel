@@ -85,20 +85,19 @@ class _TabListGiftReceivedState extends State<TabListGiftReceived>
     );
   }
 
-  void item(List<GiftReceivedModel> listItem) {}
-
-  item2(GiftReceivedModel gift) {
+  Widget item2(GiftReceivedModel gift) {
     showGift.value
-      ..customerName = gift.customerName
-      ..gift = gift.gift
-      ..image = gift.image
+      ..userName = gift.userName
+      ..prizeName = gift.prizeName
+      ..prizeImage = gift.prizeImage
       ..phoneNumber = gift.phoneNumber;
 
-    return Container(
+    return SizedBox(
       child: ValueListenableBuilder(
-          valueListenable: showGift,
-          builder: (context, value, child) => ShowGiftReceived(
-              animation: animationBtnSpin, gift: showGift.value)),
+        valueListenable: showGift,
+        builder: (context, value, child) =>
+            ShowGiftReceived(animation: animationBtnSpin, gift: showGift.value),
+      ),
     );
   }
 }

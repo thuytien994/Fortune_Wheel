@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/core/util/color_util.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_model.dart';
+import 'package:flutter_application_1/lucky_wheel_new/data/model/lucky_wheel_model.dart';
 import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,10 +13,10 @@ import 'package:screenshot/screenshot.dart';
 import 'components.dart';
 
 class LuckyWidget extends ConsumerStatefulWidget {
-  final List<GiftModel> vouchers;
+  final LuckyWheelModel luckyWheelData;
   const LuckyWidget({
     super.key,
-    required this.vouchers,
+    required this.luckyWheelData,
   });
 
   @override
@@ -32,13 +34,17 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   int timeSpin = 15;
   ScreenshotController screenshotController = ScreenshotController();
   bool onSpinLuckyheel = false; // Create a player
-
+  late LuckyWheelModel luckyWheelData;
+  late Color colorSpin1;
+  late Color colorSpin2;
   @override
   void initState() {
     super.initState();
-    listItem = widget.vouchers;
+    luckyWheelData = widget.luckyWheelData;
     _setAnimationBtnSpin();
     ServicesBinding.instance.keyboard.addHandler(_handlerBoardKey);
+    colorSpin1 = getHexToColor(luckyWheelData.color1);
+    colorSpin2 = getHexToColor(luckyWheelData.color2);
   }
 
   bool _handlerBoardKey(KeyEvent event) {
@@ -55,6 +61,13 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
     return true;
   }
 
+  Color getHexToColor(String? hex) {
+    if (hex != null) {
+      return ColorUtil.hexToColor(hex);
+    }
+    return Colors.white;
+  }
+
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
@@ -63,12 +76,13 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   @override
   void didUpdateWidget(LuckyWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.vouchers.length != oldWidget.vouchers.length) {
-      listItem = widget.vouchers;
+    if (widget.luckyWheelData.luckyPrizeModel.length !=
+        oldWidget.luckyWheelData.luckyPrizeModel.length) {
+      luckyWheelData = widget.luckyWheelData;
     }
   }
 
-  _setAnimationBtnSpin() {
+  void _setAnimationBtnSpin() {
     controllerAnimation =
         AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animationBtnSpin =
@@ -137,16 +151,16 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                               .setOnCheckBarcode();
                         },
                         items: [
-                          for (int i = 0; i < listItem.length; i++)
+                          for (int i = 0;
+                              i < luckyWheelData.luckyPrizeModel.length;
+                              i++)
                             FortuneItem(
                                 style: FortuneItemStyle(
-                                  borderColor: Colors.black,
-                                  borderWidth: 0,
-                                  textAlign: TextAlign.center,
-                                  color: i % 2 != 0
-                                      ? const Color(0x02C731).withOpacity(1)
-                                      : const Color(0xFFF97F).withOpacity(1),
-                                ),
+                                    borderColor: Colors.black,
+                                    borderWidth: 0,
+                                    textAlign: TextAlign.center,
+                                    color:
+                                        i % 2 != 0 ? colorSpin1 : colorSpin2),
                                 child: Padding(
                                   padding: EdgeInsets.only(
                                       top: 50.r, bottom: 50.r, right: 0.r),
@@ -157,16 +171,19 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                       Expanded(
                                           child: Container(
                                         alignment: Alignment.centerRight,
-                                        child:
-                                            _showImageGift(item: listItem[i]),
+                                        child: _showImageGift(
+                                            item: luckyWheelData
+                                                .luckyPrizeModel[i]),
                                       )),
                                       RotatedBox(
                                           quarterTurns: 1,
                                           child: _showNameGift(
-                                              giftDescription:
-                                                  listItem[i].giftDescription ??
-                                                      '',
-                                              code: listItem[i].id ?? 0,
+                                              giftDescription: luckyWheelData
+                                                      .luckyPrizeModel[i]
+                                                      .prizeName ??
+                                                  '',
+                                              code: luckyWheelData
+                                                  .luckyPrizeModel[i].id,
                                               index: i,
                                               context: context)),
                                     ],
@@ -197,10 +214,11 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                     ),
                     Consumer(
                       builder: (context, ref, child) {
-                        var data = ref.watch(luckyWheelViewModelProvider.select(
+                        var giftReceived =
+                            ref.watch(luckyWheelViewModelProvider.select(
                           (value) => value.gift,
                         ));
-                        if (data == null) {
+                        if (giftReceived == null) {
                           return const SizedBox.shrink();
                         }
                         return Align(
@@ -240,39 +258,41 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
     );
   }
 
-  _showImageGift({required GiftModel item}) {
+  Widget _showImageGift({required LuckyWheelPriceModel item}) {
     var wb = _showImageVoucher(
-      url: item.image ?? '',
+      url: item.prizeImage,
       size: 75.r,
     );
 
     return wb;
   }
 
-  _showImageVoucher({
-    required String url,
+  Widget _showImageVoucher({
+    required String? url,
     required double size,
   }) {
+    if (url == null || url.isEmpty) {
+      return const SizedBox();
+    }
     return RotatedBox(
-        quarterTurns: 1,
-        child: Image.network(
-          url,
-          width: size,
-          height: size,
-        ));
+      quarterTurns: 1,
+      child: Image.network(
+        url,
+        width: size,
+        height: size,
+      ),
+    );
   }
 
-  _onSpinLuckyheel() async {
-    var id = ref.watch(luckyWheelViewModelProvider).gift?.kenbarVoucherId;
-    print('hear gift recieved:  ${id}');
-    final index = listItem.indexWhere((e) => e.id == id);
-    print('here idSpin : $index');
+  void _onSpinLuckyheel() async {
+    var id = ref.watch(luckyWheelViewModelProvider).gift?.prizeID;
+    final index = luckyWheelData.luckyPrizeModel.indexWhere((e) => e.id == id);
     controllerStream.add(index); // update item selected
     ref.read(luckyWheelViewModelProvider.notifier).onSpinLuckyheel();
   }
 
   Widget _showNameGift(
-      {required int code,
+      {required String code,
       required int index,
       required String giftDescription,
       required BuildContext context}) {

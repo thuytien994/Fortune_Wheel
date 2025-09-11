@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_model.dart';
+import 'package:flutter_application_1/lucky_wheel_new/data/model/lucky_wheel_model.dart';
 import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:screenshot/screenshot.dart';
 import 'components.dart';
 
 class LuckyWidget extends ConsumerStatefulWidget {
-  final List<GiftModel> vouchers;
+  final LuckyWheelModel luckyWheelData;
   const LuckyWidget({
     super.key,
-    required this.vouchers,
+    required this.luckyWheelData,
   });
 
   @override
@@ -25,24 +27,24 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   late Animation<double> animationBtnSpin;
   late AnimationController controllerAnimation;
   var controllerStream = StreamController<int>();
-  GiftModel? spinResult;
+  GiftReceivedModel? spinResult;
   List<GiftModel> listItem = [];
-  String? initValueGift;
   Widget btnSpin = Container();
   int timeSpin = 15;
   ScreenshotController screenshotController = ScreenshotController();
+  bool onSpinLuckyheel = false; // Create a player
+  late LuckyWheelModel luckyWheelData;
   @override
   void initState() {
     super.initState();
-    listItem = widget.vouchers;
-
+    luckyWheelData = widget.luckyWheelData;
     _setAnimationBtnSpin();
     ServicesBinding.instance.keyboard.addHandler(_handlerBoardKey);
   }
 
   bool _handlerBoardKey(KeyEvent event) {
     var result = ref.watch(luckyWheelViewModelProvider);
-    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.enter) {
+    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.space) {
       if (result.gift != null && result.isSpinLuckyheel == false) {
         _onSpinLuckyheel();
       }
@@ -62,9 +64,13 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   @override
   void didUpdateWidget(LuckyWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (widget.luckyWheelData.luckyPrizeModel.length !=
+        oldWidget.luckyWheelData.luckyPrizeModel.length) {
+      luckyWheelData = widget.luckyWheelData;
+    }
   }
 
-  _setAnimationBtnSpin() {
+  void _setAnimationBtnSpin() {
     controllerAnimation =
         AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animationBtnSpin =
@@ -86,106 +92,125 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   void dispose() {
     controllerAnimation.dispose();
     controllerStream.close();
+
+    ServicesBinding.instance.keyboard.removeHandler(_handlerBoardKey);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(
-        minWidth: MediaQuery.of(context).size.width,
-        minHeight: MediaQuery.of(context).size.height,
-      ),
+    var result = ref.watch(luckyWheelViewModelProvider);
+
+    return SizedBox.expand(
       child: Stack(
-        alignment: Alignment.center,
         children: [
           Positioned(
-            right: 0,
-            top: 10,
+            top: MediaQuery.sizeOf(context).height * 0.05,
+            right: MediaQuery.sizeOf(context).height * 0.1,
             child: Container(
-              height: MediaQuery.sizeOf(context).height * 0.68,
-              width: MediaQuery.sizeOf(context).width * 0.45,
-              alignment: Alignment.center,
+              height: MediaQuery.sizeOf(context).height * 0.8,
+              width: MediaQuery.sizeOf(context).height * 0.8,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/mam.png'),
-                ),
+                    image: AssetImage('assets/images/mam.png'),
+                    fit: BoxFit.contain),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(35),
+                padding: EdgeInsets.all(38.r),
                 child: Stack(
                   children: [
-                    FortuneWheel(
-                      indicators: const [],
-                      animateFirst: false,
-                      selected: controllerStream.stream,
-                      duration: Duration(seconds: timeSpin),
-                      styleStrategy: FortuneBar.kDefaultStyleStrategy,
-                      onAnimationEnd: () {
-                        ref
-                            .read(luckyWheelViewModelProvider.notifier)
-                            .showGiftResult();
-                      },
-                      items: [
-                        for (int i = 0; i < listItem.length; i++)
-                          FortuneItem(
-                              style: FortuneItemStyle(
-                                borderColor: Colors.black,
-                                borderWidth: 0,
-                                textAlign: TextAlign.center,
-                                color: i % 2 != 0
-                                    ? const Color(0x02C731).withOpacity(1)
-                                    : const Color(0xFFF97F).withOpacity(1),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 50, bottom: 50, right: 5),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const SizedBox(
-                                      width: 40,
-                                    ),
-                                    _showImageGift(item: listItem[i]),
-                                    RotatedBox(
-                                        quarterTurns: 1,
-                                        child: _showNameGift(
-                                            id: listItem[i].id ?? 0,
-                                            index: i,
-                                            context: context)),
-                                  ],
+                    Positioned(
+                      child: FortuneWheel(
+                        indicators: const [],
+                        animateFirst: false,
+                        selected: controllerStream.stream,
+                        duration: Duration(seconds: timeSpin),
+                        styleStrategy: FortuneBar.kDefaultStyleStrategy,
+                        rotationCount: 70,
+                        onAnimationEnd: () {
+                          ref
+                              .read(luckyWheelViewModelProvider.notifier)
+                              .showGiftResult();
+                          ref
+                              .read(luckyWheelViewModelProvider.notifier)
+                              .getListGiftReceived();
+                          ref
+                              .read(luckyWheelViewModelProvider.notifier)
+                              .setOnCheckBarcode();
+                        },
+                        items: [
+                          for (int i = 0;
+                              i < luckyWheelData.luckyPrizeModel.length;
+                              i++)
+                            FortuneItem(
+                                style: FortuneItemStyle(
+                                  borderColor: Colors.black,
+                                  borderWidth: 0,
+                                  textAlign: TextAlign.center,
+                                  color: i % 2 != 0
+                                      ? const Color(0x02C731).withOpacity(1)
+                                      : const Color(0xFFF97F).withOpacity(1),
                                 ),
-                              )
-                              // Stack(
-                              //   alignment: Alignment.center,
-                              //   children: [
-                              //     Align(
-                              //       alignment: Alignment.centerRight,
-                              //       child: RotatedBox(
-                              //           quarterTurns: 1,
-                              //           child: _showNameGift(
-                              //               code: listItem[i].kenbarVoucherId,
-                              //               index: i,
-                              //               context: context)),
-                              //     ),
-                              //     _showImageGift(item: listItem[i])
-                              //   ],
-                              // ),
-                              ),
-                      ],
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 50.r, bottom: 50.r, right: 0.r),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                          child: Container(
+                                        alignment: Alignment.centerRight,
+                                        child: _showImageGift(
+                                            item: luckyWheelData
+                                                .luckyPrizeModel[i]),
+                                      )),
+                                      RotatedBox(
+                                          quarterTurns: 1,
+                                          child: _showNameGift(
+                                              giftDescription: luckyWheelData
+                                                      .luckyPrizeModel[i]
+                                                      .prizeName ??
+                                                  '',
+                                              code: luckyWheelData
+                                                  .luckyPrizeModel[i].id,
+                                              index: i,
+                                              context: context)),
+                                    ],
+                                  ),
+                                )
+
+                                // Stack(
+                                //   alignment: Alignment.center,
+                                //   children: [
+                                //     Align(
+                                //       alignment: Alignment.centerRight,
+                                //       child: RotatedBox(
+                                //           quarterTurns: 1,
+                                //           child: _showNameGift(
+                                //               giftDescription: listItem[i]
+                                //                       .giftDescription ??
+                                //                   '',
+                                //               code: listItem[i].id ?? 0,
+                                //               index: i,
+                                //               context: context)),
+                                //     ),
+                                //     _showImageGift(item: listItem[i])
+                                //   ],
+                                // ),
+                                ),
+                        ],
+                      ),
                     ),
                     Consumer(
                       builder: (context, ref, child) {
-                        final gift = ref.watch(
-                          luckyWheelViewModelProvider
-                              .select((value) => value.gift),
-                        );
-
-                        if (gift == null) {
+                        var giftReceived =
+                            ref.watch(luckyWheelViewModelProvider.select(
+                          (value) => value.gift,
+                        ));
+                        if (giftReceived == null) {
                           return const SizedBox.shrink();
                         }
-
                         return Align(
                           alignment: Alignment.center,
                           child: GestureDetector(
@@ -207,13 +232,10 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                 luckyWheelViewModelProvider
                     .select((value) => value.isShowGiftResult),
               );
-              final gift = ref.watch(
-                luckyWheelViewModelProvider.select((value) => value.gift),
-              );
 
               if (isShowGiftResult) {
                 return TabResultSpin(
-                  resultSpin: gift ?? GiftReceivedModel(),
+                  resultSpin: result.gift ?? GiftReceivedModel(),
                   screenshotController: screenshotController,
                 );
               }
@@ -226,44 +248,54 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
     );
   }
 
-  _showImageGift({required GiftModel item}) {
+  Widget _showImageGift({required LuckyWheelPriceModel item}) {
     var wb = _showImageVoucher(
-      url: item.image ?? '',
-      size: 80,
+      url: item.prizeImage,
+      size: 75.r,
     );
 
     return wb;
   }
 
-  _showImageVoucher({
-    required String url,
+  Widget _showImageVoucher({
+    required String? url,
     required double size,
   }) {
+    if (url == null || url.isEmpty) {
+      return const SizedBox();
+    }
     return RotatedBox(
-        quarterTurns: 1,
-        child: Image.network(
-          url,
-          width: size,
-          height: size,
-        ));
+      quarterTurns: 1,
+      child: Image.network(
+        url,
+        width: size,
+        height: size,
+      ),
+    );
   }
 
   _onSpinLuckyheel() async {
-    var id = ref.read(luckyWheelViewModelProvider
-        .select((value) => value.gift?.kenbarVoucherId));
-    final index = listItem.indexWhere((e) => e.id == id);
+    var id = ref.watch(luckyWheelViewModelProvider).gift?.prizeID;
+    final index =
+        luckyWheelData.luckyPrizeModel.indexWhere((e) => e.spinId == id);
     controllerStream.add(index); // update item selected
     ref.read(luckyWheelViewModelProvider.notifier).onSpinLuckyheel();
   }
 
   Widget _showNameGift(
-      {required int id, required int index, required BuildContext context}) {
-    return Text(listItem[index].giftDescription!.toUpperCase(),
-        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: index % 2 == 0
-                ? const Color(0x1BAD6F).withOpacity(1)
-                : Colors.white.withOpacity(1)));
+      {required String code,
+      required int index,
+      required String giftDescription,
+      required BuildContext context}) {
+    return Padding(
+      padding: EdgeInsets.only(top: 15.r),
+      child: Text((giftDescription).toUpperCase(),
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 5.5.sp,
+              fontWeight: FontWeight.bold,
+              color: index % 2 == 0
+                  ? const Color(0x1BAD6F).withOpacity(1)
+                  : Colors.white.withOpacity(1))),
+    );
   }
 }

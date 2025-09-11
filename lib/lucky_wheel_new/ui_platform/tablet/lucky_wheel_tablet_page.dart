@@ -57,9 +57,7 @@ class LuckyWheelTabletPage extends ConsumerWidget {
                         ),
                       );
                     }
-                    return LuckyWidget(
-                      vouchers: listGift,
-                    );
+                    return Text("");
                   },
                 ),
               ),

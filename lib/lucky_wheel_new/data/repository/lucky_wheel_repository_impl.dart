@@ -1,6 +1,7 @@
 import 'package:flutter_application_1/core/gateway/remote/remote/base_repository.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_model.dart';
+import 'package:flutter_application_1/lucky_wheel_new/data/model/info_customer.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/lucky_wheel_model.dart';
 
 import '../data_source/fortune_wheel_datasource.dart';
@@ -51,6 +52,15 @@ class LuckyWheelRepository extends BaseRepository {
     return await getResponseData(
       () async {
         final data = await dataSource.getActiveLuckySpins(shopId);
+        return data;
+      },
+    );
+  }
+
+  Future<GiftReceivedModel?> getGiftForSpin(InfoCustomer param) async {
+    return await getResponseData(
+      () async {
+        final data = await dataSource.getGiftForSpin(param);
         return data;
       },
     );

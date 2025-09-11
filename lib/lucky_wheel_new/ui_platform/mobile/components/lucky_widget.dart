@@ -152,12 +152,15 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                       Consumer(
                         builder: (context, ref, child) {
                           var giftCode = ref.watch(luckyWheelViewModelProvider
-                              .select((value) => value.gift?.id));
+                              .select((value) => value.gift?.prizeID));
+                          if (giftCode == null) {
+                            return const SizedBox();
+                          }
                           return Align(
                             alignment: Alignment.center,
                             child: GestureDetector(
                               onTap: () {
-                                _onSpinLuckyheel(giftCode ?? 0);
+                                _onSpinLuckyheel(giftCode);
                               },
                               behavior: HitTestBehavior.opaque,
                               child: SpinAnimaBtn(animation: animationBtnSpin),
@@ -211,7 +214,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
         ));
   }
 
-  void _onSpinLuckyheel(int id) async {
+  void _onSpinLuckyheel(String id) async {
     print("here: ${id}");
     final index = listItem.indexWhere((e) => e.id == id);
     controllerStream.add(index); // update item selected

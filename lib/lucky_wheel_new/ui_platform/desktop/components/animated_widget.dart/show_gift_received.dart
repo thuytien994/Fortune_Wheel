@@ -16,13 +16,11 @@ class ShowGiftReceived extends AnimatedWidget {
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
-      // width: MediaQuery.sizeOf(context).height * 0.4,
       padding: const EdgeInsets.only(bottom: 8, left: 36, right: 36, top: 8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9),
           color: Colors.white.withOpacity(0.8),
           border: Border.all(width: 0.5)),
-
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -34,9 +32,12 @@ class ShowGiftReceived extends AnimatedWidget {
               color: Colors.amber.withOpacity(opacity.evaluate(animation)),
             ),
             child: Image.network(
-              gift.image ?? '',
+              gift.prizeImage ?? '',
               height: sizeImage.evaluate(animation),
               width: sizeImage.evaluate(animation),
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.face);
+              },
             ),
           ),
           const SizedBox(width: 20),
@@ -47,7 +48,7 @@ class ShowGiftReceived extends AnimatedWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  gift.gift ?? '',
+                  gift.prizeName ?? '',
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
@@ -60,7 +61,7 @@ class ShowGiftReceived extends AnimatedWidget {
                   height: 0,
                 ),
                 Text(
-                  (gift.phoneNumber ?? '092238891229').substring(0, 6) + 'xxxx',
+                  '${(gift.phoneNumber ?? '092238891229').substring(0, 6)}xxxx',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.black.withOpacity(
@@ -91,7 +92,7 @@ class ShowGiftReceived extends AnimatedWidget {
                                 color: Colors.black
                                     .withOpacity(opacity.evaluate(animation)))),
                         TextSpan(
-                            text: gift.orderName ?? 'Tieen',
+                            text: gift.userName ?? '',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!

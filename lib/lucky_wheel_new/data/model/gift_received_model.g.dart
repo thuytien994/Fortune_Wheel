@@ -8,32 +8,26 @@ part of 'gift_received_model.dart';
 
 GiftReceivedModel _$GiftReceivedModelFromJson(Map<String, dynamic> json) =>
     GiftReceivedModel(
-      orderName: json['orderName'] as String?,
-      gift: json['gift'] as String?,
-      customerName: json['customerName'] as String?,
+      prizeName: json['prizeName'] as String?,
+      prizeImage: json['prizeImage'] as String?,
+      spinId: json['spinId'] as String?,
+      prizeID: json['prizeID'] as String?,
+      barCode: json['barCode'] as String?,
+      invoiceCode: json['invoiceCode'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
-      image: json['image'] as String?,
-      giftId: (json['giftId'] as num?)?.toInt(),
-      kenbarVoucherId: (json['kenbarVoucherId'] as num?)?.toInt(),
+      userName: json['userName'] as String?,
       shopId: (json['shopId'] as num?)?.toInt(),
-      isUsed: json['isUsed'] as bool?,
-      giftDescription: json['giftDescription'] as String?,
-      code: json['code'] as String?,
-      id: (json['id'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$GiftReceivedModelToJson(GiftReceivedModel instance) =>
     <String, dynamic>{
-      'orderName': instance.orderName,
-      'gift': instance.gift,
-      'customerName': instance.customerName,
+      'prizeName': instance.prizeName,
+      'prizeImage': instance.prizeImage,
+      'prizeID': instance.prizeID,
+      'spinId': instance.spinId,
+      'userName': instance.userName,
       'phoneNumber': instance.phoneNumber,
-      'image': instance.image,
-      'giftId': instance.giftId,
-      'kenbarVoucherId': instance.kenbarVoucherId,
+      'invoiceCode': instance.invoiceCode,
+      'barCode': instance.barCode,
       'shopId': instance.shopId,
-      'isUsed': instance.isUsed,
-      'giftDescription': instance.giftDescription,
-      'code': instance.code,
-      'id': instance.id,
     };

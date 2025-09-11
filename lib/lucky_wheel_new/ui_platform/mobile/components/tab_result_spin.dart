@@ -46,46 +46,27 @@ class TabResultSpin extends ConsumerWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    resultSpin.code == 'B0B5670B'
-                        ? // chúc may măn lần sau
-                        Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              resultSpin.giftDescription ?? "",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                      color: Colors.amber,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 25),
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 0.8,
+                      alignment: Alignment.center,
+                      child: Text(
+                        resultSpin.userName != null
+                            ? 'Chúc mừng bạn ${resultSpin.userName}'
+                            : "Chúc mừng bạn quay trúng",
+                        overflow: TextOverflow.clip,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 25,
+                              color: Colors.white,
                             ),
-                          )
-                        : Container(
-                            width: MediaQuery.sizeOf(context).width * 0.8,
-                            alignment: Alignment.center,
-                            child: Text(
-                              resultSpin.orderName != null
-                                  ? 'Chúc mừng bạn ${resultSpin.orderName}'
-                                  : "Chúc mừng bạn quay trúng",
-                              overflow: TextOverflow.clip,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    fontSize: 25,
-                                    color: Colors.white,
-                                  ),
-                            ),
-                          ),
-                    resultSpin.code == 'B0B5670B'
+                      ),
+                    ),
+                    resultSpin.prizeID == 'B0B5670B'
                         ? const SizedBox.shrink()
                         : Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
-                              '${resultSpin.giftDescription}',
+                              '${resultSpin.prizeName}',
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -103,7 +84,7 @@ class TabResultSpin extends ConsumerWidget {
                       width: 80,
                       height: 80,
                       child: Image.network(
-                        resultSpin.image ?? '',
+                        resultSpin.prizeImage ?? '',
                         width: 80,
                         height: 80,
                       ),
@@ -186,7 +167,7 @@ class TabResultSpin extends ConsumerWidget {
               RichText(
                 text: TextSpan(
                   children: [
-                    TextSpan(
+                    const TextSpan(
                       text: "Theo dõi kenbar: ",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -196,7 +177,7 @@ class TabResultSpin extends ConsumerWidget {
                     ),
                     TextSpan(
                       text: "Tại đây",
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.blue,
                           fontSize: 16,
                           decoration: TextDecoration.underline,
