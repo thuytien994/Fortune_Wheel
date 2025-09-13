@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/lucky_wheel_new/lucky_wheel_page.dart';
-import 'package:flutter_application_1/lucky_wheel_new/ui_platform/desktop/components/mqtt.dart';
+import 'package:flutter_application_1/lucky_wheel/lucky_wheel_page.dart';
+import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/mqtt.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,27 +28,28 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        builder: (context, child) => const LuckyWheelPage(
-          shopId: 12,
-        ),
+      child:
+          //  MaterialApp(
+          //   builder: (context, child) => const LuckyWheelPage(
+          //     shopId: 1,
+          //   ),
 
+          //   debugShowCheckedModeBanner: false,
+          //   // home: LuckyWheelPage(
+          //   //   shopId: 1,
+          //   // ),s
+          // ),
+          MaterialApp.router(
+        title: 'Spin Kenbar',
         debugShowCheckedModeBanner: false,
-        // home: LuckyWheelPage(
-        //   shopId: 1,
-        // ),s
+        builder: EasyLoading.init(),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        routerConfig: _router,
+        //builder: (context, child) => const LuckyWheelPage(),
       ),
-      //     MaterialApp.router(
-      //   title: 'Spin Kenbar',
-      //   debugShowCheckedModeBanner: false,
-      //  builder: EasyLoading.init(),
-      //   theme: ThemeData(
-      //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      //     useMaterial3: true,
-      //   ),
-      //   routerConfig: _router,
-      //   //builder: (context, child) => const LuckyWheelPage(),
-      // ),
     );
   }
 }
