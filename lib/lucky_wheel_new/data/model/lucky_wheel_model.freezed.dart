@@ -20,21 +20,39 @@ LuckyWheelModel _$LuckyWheelModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LuckyWheelModel {
+  @JsonKey(name: 'id')
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'spinName')
   String get spinName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'startDate')
   DateTime? get startDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'endDate')
   DateTime? get endDate => throw _privateConstructorUsedError;
-  int? get maxParticipants => throw _privateConstructorUsedError;
+  @JsonKey(name: 'maxSpinPerDay')
+  int? get maxSpinPerDay => throw _privateConstructorUsedError;
+  @JsonKey(name: 'shopId')
   int get shopId => throw _privateConstructorUsedError;
-  String? get backgroundImage => throw _privateConstructorUsedError;
-  String? get color1 => throw _privateConstructorUsedError;
-  String? get color2 => throw _privateConstructorUsedError;
-  String? get status => throw _privateConstructorUsedError;
-  String? get spinButtonImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'backgroundImage')
+  String get backgroundImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'backgroundImageMobile')
+  String get backgroundImageMobile => throw _privateConstructorUsedError;
+  @JsonKey(name: 'color1')
+  String get color1 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'status')
+  String get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'color2')
+  String get color2 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'createdDate')
   DateTime? get createdDate => throw _privateConstructorUsedError;
-  DateTime? get updateDate => throw _privateConstructorUsedError;
-  String? get gameType => throw _privateConstructorUsedError;
-  List<LuckyWheelPriceModel> get luckyPrizeModel =>
+  @JsonKey(name: 'spinButtonImage')
+  String get spinButtonImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'gameType')
+  String get gameType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'platform')
+  String get platform => throw _privateConstructorUsedError;
+  @JsonKey(name: 'logoImage')
+  String get logoImage => throw _privateConstructorUsedError;
+  List<LuckyPrizeDataModel> get luckyPrizeModel =>
       throw _privateConstructorUsedError;
 
   /// Serializes this LuckyWheelModel to a JSON map.
@@ -54,21 +72,23 @@ abstract class $LuckyWheelModelCopyWith<$Res> {
       _$LuckyWheelModelCopyWithImpl<$Res, LuckyWheelModel>;
   @useResult
   $Res call(
-      {String id,
-      String spinName,
-      DateTime? startDate,
-      DateTime? endDate,
-      int? maxParticipants,
-      int shopId,
-      String? backgroundImage,
-      String? color1,
-      String? color2,
-      String? status,
-      String? spinButtonImage,
-      DateTime? createdDate,
-      DateTime? updateDate,
-      String? gameType,
-      List<LuckyWheelPriceModel> luckyPrizeModel});
+      {@JsonKey(name: 'id') String id,
+      @JsonKey(name: 'spinName') String spinName,
+      @JsonKey(name: 'startDate') DateTime? startDate,
+      @JsonKey(name: 'endDate') DateTime? endDate,
+      @JsonKey(name: 'maxSpinPerDay') int? maxSpinPerDay,
+      @JsonKey(name: 'shopId') int shopId,
+      @JsonKey(name: 'backgroundImage') String backgroundImage,
+      @JsonKey(name: 'backgroundImageMobile') String backgroundImageMobile,
+      @JsonKey(name: 'color1') String color1,
+      @JsonKey(name: 'status') String status,
+      @JsonKey(name: 'color2') String color2,
+      @JsonKey(name: 'createdDate') DateTime? createdDate,
+      @JsonKey(name: 'spinButtonImage') String spinButtonImage,
+      @JsonKey(name: 'gameType') String gameType,
+      @JsonKey(name: 'platform') String platform,
+      @JsonKey(name: 'logoImage') String logoImage,
+      List<LuckyPrizeDataModel> luckyPrizeModel});
 }
 
 /// @nodoc
@@ -90,16 +110,18 @@ class _$LuckyWheelModelCopyWithImpl<$Res, $Val extends LuckyWheelModel>
     Object? spinName = null,
     Object? startDate = freezed,
     Object? endDate = freezed,
-    Object? maxParticipants = freezed,
+    Object? maxSpinPerDay = freezed,
     Object? shopId = null,
-    Object? backgroundImage = freezed,
-    Object? color1 = freezed,
-    Object? color2 = freezed,
-    Object? status = freezed,
-    Object? spinButtonImage = freezed,
+    Object? backgroundImage = null,
+    Object? backgroundImageMobile = null,
+    Object? color1 = null,
+    Object? status = null,
+    Object? color2 = null,
     Object? createdDate = freezed,
-    Object? updateDate = freezed,
-    Object? gameType = freezed,
+    Object? spinButtonImage = null,
+    Object? gameType = null,
+    Object? platform = null,
+    Object? logoImage = null,
     Object? luckyPrizeModel = null,
   }) {
     return _then(_value.copyWith(
@@ -119,50 +141,58 @@ class _$LuckyWheelModelCopyWithImpl<$Res, $Val extends LuckyWheelModel>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      maxParticipants: freezed == maxParticipants
-          ? _value.maxParticipants
-          : maxParticipants // ignore: cast_nullable_to_non_nullable
+      maxSpinPerDay: freezed == maxSpinPerDay
+          ? _value.maxSpinPerDay
+          : maxSpinPerDay // ignore: cast_nullable_to_non_nullable
               as int?,
       shopId: null == shopId
           ? _value.shopId
           : shopId // ignore: cast_nullable_to_non_nullable
               as int,
-      backgroundImage: freezed == backgroundImage
+      backgroundImage: null == backgroundImage
           ? _value.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      color1: freezed == color1
+              as String,
+      backgroundImageMobile: null == backgroundImageMobile
+          ? _value.backgroundImageMobile
+          : backgroundImageMobile // ignore: cast_nullable_to_non_nullable
+              as String,
+      color1: null == color1
           ? _value.color1
           : color1 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      color2: freezed == color2
-          ? _value.color2
-          : color2 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: freezed == status
+              as String,
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      spinButtonImage: freezed == spinButtonImage
-          ? _value.spinButtonImage
-          : spinButtonImage // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      color2: null == color2
+          ? _value.color2
+          : color2 // ignore: cast_nullable_to_non_nullable
+              as String,
       createdDate: freezed == createdDate
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      updateDate: freezed == updateDate
-          ? _value.updateDate
-          : updateDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      gameType: freezed == gameType
+      spinButtonImage: null == spinButtonImage
+          ? _value.spinButtonImage
+          : spinButtonImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      gameType: null == gameType
           ? _value.gameType
           : gameType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      platform: null == platform
+          ? _value.platform
+          : platform // ignore: cast_nullable_to_non_nullable
+              as String,
+      logoImage: null == logoImage
+          ? _value.logoImage
+          : logoImage // ignore: cast_nullable_to_non_nullable
+              as String,
       luckyPrizeModel: null == luckyPrizeModel
           ? _value.luckyPrizeModel
           : luckyPrizeModel // ignore: cast_nullable_to_non_nullable
-              as List<LuckyWheelPriceModel>,
+              as List<LuckyPrizeDataModel>,
     ) as $Val);
   }
 }
@@ -176,21 +206,23 @@ abstract class _$$LuckyWheelModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String spinName,
-      DateTime? startDate,
-      DateTime? endDate,
-      int? maxParticipants,
-      int shopId,
-      String? backgroundImage,
-      String? color1,
-      String? color2,
-      String? status,
-      String? spinButtonImage,
-      DateTime? createdDate,
-      DateTime? updateDate,
-      String? gameType,
-      List<LuckyWheelPriceModel> luckyPrizeModel});
+      {@JsonKey(name: 'id') String id,
+      @JsonKey(name: 'spinName') String spinName,
+      @JsonKey(name: 'startDate') DateTime? startDate,
+      @JsonKey(name: 'endDate') DateTime? endDate,
+      @JsonKey(name: 'maxSpinPerDay') int? maxSpinPerDay,
+      @JsonKey(name: 'shopId') int shopId,
+      @JsonKey(name: 'backgroundImage') String backgroundImage,
+      @JsonKey(name: 'backgroundImageMobile') String backgroundImageMobile,
+      @JsonKey(name: 'color1') String color1,
+      @JsonKey(name: 'status') String status,
+      @JsonKey(name: 'color2') String color2,
+      @JsonKey(name: 'createdDate') DateTime? createdDate,
+      @JsonKey(name: 'spinButtonImage') String spinButtonImage,
+      @JsonKey(name: 'gameType') String gameType,
+      @JsonKey(name: 'platform') String platform,
+      @JsonKey(name: 'logoImage') String logoImage,
+      List<LuckyPrizeDataModel> luckyPrizeModel});
 }
 
 /// @nodoc
@@ -210,16 +242,18 @@ class __$$LuckyWheelModelImplCopyWithImpl<$Res>
     Object? spinName = null,
     Object? startDate = freezed,
     Object? endDate = freezed,
-    Object? maxParticipants = freezed,
+    Object? maxSpinPerDay = freezed,
     Object? shopId = null,
-    Object? backgroundImage = freezed,
-    Object? color1 = freezed,
-    Object? color2 = freezed,
-    Object? status = freezed,
-    Object? spinButtonImage = freezed,
+    Object? backgroundImage = null,
+    Object? backgroundImageMobile = null,
+    Object? color1 = null,
+    Object? status = null,
+    Object? color2 = null,
     Object? createdDate = freezed,
-    Object? updateDate = freezed,
-    Object? gameType = freezed,
+    Object? spinButtonImage = null,
+    Object? gameType = null,
+    Object? platform = null,
+    Object? logoImage = null,
     Object? luckyPrizeModel = null,
   }) {
     return _then(_$LuckyWheelModelImpl(
@@ -239,50 +273,58 @@ class __$$LuckyWheelModelImplCopyWithImpl<$Res>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      maxParticipants: freezed == maxParticipants
-          ? _value.maxParticipants
-          : maxParticipants // ignore: cast_nullable_to_non_nullable
+      maxSpinPerDay: freezed == maxSpinPerDay
+          ? _value.maxSpinPerDay
+          : maxSpinPerDay // ignore: cast_nullable_to_non_nullable
               as int?,
       shopId: null == shopId
           ? _value.shopId
           : shopId // ignore: cast_nullable_to_non_nullable
               as int,
-      backgroundImage: freezed == backgroundImage
+      backgroundImage: null == backgroundImage
           ? _value.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      color1: freezed == color1
+              as String,
+      backgroundImageMobile: null == backgroundImageMobile
+          ? _value.backgroundImageMobile
+          : backgroundImageMobile // ignore: cast_nullable_to_non_nullable
+              as String,
+      color1: null == color1
           ? _value.color1
           : color1 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      color2: freezed == color2
-          ? _value.color2
-          : color2 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: freezed == status
+              as String,
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      spinButtonImage: freezed == spinButtonImage
-          ? _value.spinButtonImage
-          : spinButtonImage // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      color2: null == color2
+          ? _value.color2
+          : color2 // ignore: cast_nullable_to_non_nullable
+              as String,
       createdDate: freezed == createdDate
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      updateDate: freezed == updateDate
-          ? _value.updateDate
-          : updateDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      gameType: freezed == gameType
+      spinButtonImage: null == spinButtonImage
+          ? _value.spinButtonImage
+          : spinButtonImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      gameType: null == gameType
           ? _value.gameType
           : gameType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      platform: null == platform
+          ? _value.platform
+          : platform // ignore: cast_nullable_to_non_nullable
+              as String,
+      logoImage: null == logoImage
+          ? _value.logoImage
+          : logoImage // ignore: cast_nullable_to_non_nullable
+              as String,
       luckyPrizeModel: null == luckyPrizeModel
           ? _value._luckyPrizeModel
           : luckyPrizeModel // ignore: cast_nullable_to_non_nullable
-              as List<LuckyWheelPriceModel>,
+              as List<LuckyPrizeDataModel>,
     ));
   }
 }
@@ -291,21 +333,23 @@ class __$$LuckyWheelModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$LuckyWheelModelImpl extends _LuckyWheelModel {
   const _$LuckyWheelModelImpl(
-      {required this.id,
-      this.spinName = '',
-      this.startDate,
-      this.endDate,
-      this.maxParticipants,
-      required this.shopId,
-      this.backgroundImage,
-      this.color1,
-      this.color2,
-      this.status,
-      this.spinButtonImage,
-      this.createdDate,
-      this.updateDate,
-      this.gameType = "ByInputInvoide",
-      final List<LuckyWheelPriceModel> luckyPrizeModel = const []})
+      {@JsonKey(name: 'id') this.id = "",
+      @JsonKey(name: 'spinName') this.spinName = "",
+      @JsonKey(name: 'startDate') this.startDate = null,
+      @JsonKey(name: 'endDate') this.endDate = null,
+      @JsonKey(name: 'maxSpinPerDay') this.maxSpinPerDay = null,
+      @JsonKey(name: 'shopId') this.shopId = 0,
+      @JsonKey(name: 'backgroundImage') this.backgroundImage = "",
+      @JsonKey(name: 'backgroundImageMobile') this.backgroundImageMobile = "",
+      @JsonKey(name: 'color1') this.color1 = "",
+      @JsonKey(name: 'status') this.status = "",
+      @JsonKey(name: 'color2') this.color2 = "",
+      @JsonKey(name: 'createdDate') this.createdDate,
+      @JsonKey(name: 'spinButtonImage') this.spinButtonImage = "",
+      @JsonKey(name: 'gameType') this.gameType = "ByInputInvoide",
+      @JsonKey(name: 'platform') this.platform = "",
+      @JsonKey(name: 'logoImage') this.logoImage = "",
+      final List<LuckyPrizeDataModel> luckyPrizeModel = const []})
       : _luckyPrizeModel = luckyPrizeModel,
         super._();
 
@@ -313,39 +357,57 @@ class _$LuckyWheelModelImpl extends _LuckyWheelModel {
       _$$LuckyWheelModelImplFromJson(json);
 
   @override
+  @JsonKey(name: 'id')
   final String id;
   @override
-  @JsonKey()
+  @JsonKey(name: 'spinName')
   final String spinName;
   @override
+  @JsonKey(name: 'startDate')
   final DateTime? startDate;
   @override
+  @JsonKey(name: 'endDate')
   final DateTime? endDate;
   @override
-  final int? maxParticipants;
+  @JsonKey(name: 'maxSpinPerDay')
+  final int? maxSpinPerDay;
   @override
+  @JsonKey(name: 'shopId')
   final int shopId;
   @override
-  final String? backgroundImage;
+  @JsonKey(name: 'backgroundImage')
+  final String backgroundImage;
   @override
-  final String? color1;
+  @JsonKey(name: 'backgroundImageMobile')
+  final String backgroundImageMobile;
   @override
-  final String? color2;
+  @JsonKey(name: 'color1')
+  final String color1;
   @override
-  final String? status;
+  @JsonKey(name: 'status')
+  final String status;
   @override
-  final String? spinButtonImage;
+  @JsonKey(name: 'color2')
+  final String color2;
   @override
+  @JsonKey(name: 'createdDate')
   final DateTime? createdDate;
   @override
-  final DateTime? updateDate;
+  @JsonKey(name: 'spinButtonImage')
+  final String spinButtonImage;
+  @override
+  @JsonKey(name: 'gameType')
+  final String gameType;
+  @override
+  @JsonKey(name: 'platform')
+  final String platform;
+  @override
+  @JsonKey(name: 'logoImage')
+  final String logoImage;
+  final List<LuckyPrizeDataModel> _luckyPrizeModel;
   @override
   @JsonKey()
-  final String? gameType;
-  final List<LuckyWheelPriceModel> _luckyPrizeModel;
-  @override
-  @JsonKey()
-  List<LuckyWheelPriceModel> get luckyPrizeModel {
+  List<LuckyPrizeDataModel> get luckyPrizeModel {
     if (_luckyPrizeModel is EqualUnmodifiableListView) return _luckyPrizeModel;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_luckyPrizeModel);
@@ -353,7 +415,7 @@ class _$LuckyWheelModelImpl extends _LuckyWheelModel {
 
   @override
   String toString() {
-    return 'LuckyWheelModel(id: $id, spinName: $spinName, startDate: $startDate, endDate: $endDate, maxParticipants: $maxParticipants, shopId: $shopId, backgroundImage: $backgroundImage, color1: $color1, color2: $color2, status: $status, spinButtonImage: $spinButtonImage, createdDate: $createdDate, updateDate: $updateDate, gameType: $gameType, luckyPrizeModel: $luckyPrizeModel)';
+    return 'LuckyWheelModel(id: $id, spinName: $spinName, startDate: $startDate, endDate: $endDate, maxSpinPerDay: $maxSpinPerDay, shopId: $shopId, backgroundImage: $backgroundImage, backgroundImageMobile: $backgroundImageMobile, color1: $color1, status: $status, color2: $color2, createdDate: $createdDate, spinButtonImage: $spinButtonImage, gameType: $gameType, platform: $platform, logoImage: $logoImage, luckyPrizeModel: $luckyPrizeModel)';
   }
 
   @override
@@ -367,22 +429,26 @@ class _$LuckyWheelModelImpl extends _LuckyWheelModel {
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
-            (identical(other.maxParticipants, maxParticipants) ||
-                other.maxParticipants == maxParticipants) &&
+            (identical(other.maxSpinPerDay, maxSpinPerDay) ||
+                other.maxSpinPerDay == maxSpinPerDay) &&
             (identical(other.shopId, shopId) || other.shopId == shopId) &&
             (identical(other.backgroundImage, backgroundImage) ||
                 other.backgroundImage == backgroundImage) &&
+            (identical(other.backgroundImageMobile, backgroundImageMobile) ||
+                other.backgroundImageMobile == backgroundImageMobile) &&
             (identical(other.color1, color1) || other.color1 == color1) &&
-            (identical(other.color2, color2) || other.color2 == color2) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.spinButtonImage, spinButtonImage) ||
-                other.spinButtonImage == spinButtonImage) &&
+            (identical(other.color2, color2) || other.color2 == color2) &&
             (identical(other.createdDate, createdDate) ||
                 other.createdDate == createdDate) &&
-            (identical(other.updateDate, updateDate) ||
-                other.updateDate == updateDate) &&
+            (identical(other.spinButtonImage, spinButtonImage) ||
+                other.spinButtonImage == spinButtonImage) &&
             (identical(other.gameType, gameType) ||
                 other.gameType == gameType) &&
+            (identical(other.platform, platform) ||
+                other.platform == platform) &&
+            (identical(other.logoImage, logoImage) ||
+                other.logoImage == logoImage) &&
             const DeepCollectionEquality()
                 .equals(other._luckyPrizeModel, _luckyPrizeModel));
   }
@@ -395,16 +461,18 @@ class _$LuckyWheelModelImpl extends _LuckyWheelModel {
       spinName,
       startDate,
       endDate,
-      maxParticipants,
+      maxSpinPerDay,
       shopId,
       backgroundImage,
+      backgroundImageMobile,
       color1,
-      color2,
       status,
-      spinButtonImage,
+      color2,
       createdDate,
-      updateDate,
+      spinButtonImage,
       gameType,
+      platform,
+      logoImage,
       const DeepCollectionEquality().hash(_luckyPrizeModel));
 
   /// Create a copy of LuckyWheelModel
@@ -426,57 +494,79 @@ class _$LuckyWheelModelImpl extends _LuckyWheelModel {
 
 abstract class _LuckyWheelModel extends LuckyWheelModel {
   const factory _LuckyWheelModel(
-          {required final String id,
-          final String spinName,
-          final DateTime? startDate,
-          final DateTime? endDate,
-          final int? maxParticipants,
-          required final int shopId,
-          final String? backgroundImage,
-          final String? color1,
-          final String? color2,
-          final String? status,
-          final String? spinButtonImage,
-          final DateTime? createdDate,
-          final DateTime? updateDate,
-          final String? gameType,
-          final List<LuckyWheelPriceModel> luckyPrizeModel}) =
-      _$LuckyWheelModelImpl;
+      {@JsonKey(name: 'id') final String id,
+      @JsonKey(name: 'spinName') final String spinName,
+      @JsonKey(name: 'startDate') final DateTime? startDate,
+      @JsonKey(name: 'endDate') final DateTime? endDate,
+      @JsonKey(name: 'maxSpinPerDay') final int? maxSpinPerDay,
+      @JsonKey(name: 'shopId') final int shopId,
+      @JsonKey(name: 'backgroundImage') final String backgroundImage,
+      @JsonKey(name: 'backgroundImageMobile')
+      final String backgroundImageMobile,
+      @JsonKey(name: 'color1') final String color1,
+      @JsonKey(name: 'status') final String status,
+      @JsonKey(name: 'color2') final String color2,
+      @JsonKey(name: 'createdDate') final DateTime? createdDate,
+      @JsonKey(name: 'spinButtonImage') final String spinButtonImage,
+      @JsonKey(name: 'gameType') final String gameType,
+      @JsonKey(name: 'platform') final String platform,
+      @JsonKey(name: 'logoImage') final String logoImage,
+      final List<LuckyPrizeDataModel> luckyPrizeModel}) = _$LuckyWheelModelImpl;
   const _LuckyWheelModel._() : super._();
 
   factory _LuckyWheelModel.fromJson(Map<String, dynamic> json) =
       _$LuckyWheelModelImpl.fromJson;
 
   @override
+  @JsonKey(name: 'id')
   String get id;
   @override
+  @JsonKey(name: 'spinName')
   String get spinName;
   @override
+  @JsonKey(name: 'startDate')
   DateTime? get startDate;
   @override
+  @JsonKey(name: 'endDate')
   DateTime? get endDate;
   @override
-  int? get maxParticipants;
+  @JsonKey(name: 'maxSpinPerDay')
+  int? get maxSpinPerDay;
   @override
+  @JsonKey(name: 'shopId')
   int get shopId;
   @override
-  String? get backgroundImage;
+  @JsonKey(name: 'backgroundImage')
+  String get backgroundImage;
   @override
-  String? get color1;
+  @JsonKey(name: 'backgroundImageMobile')
+  String get backgroundImageMobile;
   @override
-  String? get color2;
+  @JsonKey(name: 'color1')
+  String get color1;
   @override
-  String? get status;
+  @JsonKey(name: 'status')
+  String get status;
   @override
-  String? get spinButtonImage;
+  @JsonKey(name: 'color2')
+  String get color2;
   @override
+  @JsonKey(name: 'createdDate')
   DateTime? get createdDate;
   @override
-  DateTime? get updateDate;
+  @JsonKey(name: 'spinButtonImage')
+  String get spinButtonImage;
   @override
-  String? get gameType;
+  @JsonKey(name: 'gameType')
+  String get gameType;
   @override
-  List<LuckyWheelPriceModel> get luckyPrizeModel;
+  @JsonKey(name: 'platform')
+  String get platform;
+  @override
+  @JsonKey(name: 'logoImage')
+  String get logoImage;
+  @override
+  List<LuckyPrizeDataModel> get luckyPrizeModel;
 
   /// Create a copy of LuckyWheelModel
   /// with the given fields replaced by the non-null parameter values.
@@ -486,284 +576,334 @@ abstract class _LuckyWheelModel extends LuckyWheelModel {
       throw _privateConstructorUsedError;
 }
 
-LuckyWheelPriceModel _$LuckyWheelPriceModelFromJson(Map<String, dynamic> json) {
-  return _LuckyWheelPriceModel.fromJson(json);
+LuckyPrizeDataModel _$LuckyPrizeDataModelFromJson(Map<String, dynamic> json) {
+  return _LuckyPrizeDataModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$LuckyWheelPriceModel {
-  String get id => throw _privateConstructorUsedError;
-  String get spinId => throw _privateConstructorUsedError;
-  String? get prizeName => throw _privateConstructorUsedError;
-  int? get prizeQuantity => throw _privateConstructorUsedError;
-  double? get prizeProbability => throw _privateConstructorUsedError;
-  int? get prizeOrder => throw _privateConstructorUsedError;
-  String? get prizeImage => throw _privateConstructorUsedError;
+mixin _$LuckyPrizeDataModel {
+//  @JsonKey(name: 'spinId') String? spinId,
+  @JsonKey(name: 'id')
+  String? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'prizeName')
+  String get prizeName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'prizeQuantity')
+  int get prizeQuantity => throw _privateConstructorUsedError;
+  @JsonKey(name: 'prizeProbability')
+  double get prizeProbability => throw _privateConstructorUsedError;
+  @JsonKey(name: 'prizeColor')
+  String get prizeColor => throw _privateConstructorUsedError;
+  @JsonKey(name: 'prizeImage')
+  String get prizeImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'prizeOrder')
+  int get prizeOrder => throw _privateConstructorUsedError;
+  @JsonKey(name: 'totalAmount')
+  double get totalAmount => throw _privateConstructorUsedError;
 
-  /// Serializes this LuckyWheelPriceModel to a JSON map.
+  /// Serializes this LuckyPrizeDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of LuckyWheelPriceModel
+  /// Create a copy of LuckyPrizeDataModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $LuckyWheelPriceModelCopyWith<LuckyWheelPriceModel> get copyWith =>
+  $LuckyPrizeDataModelCopyWith<LuckyPrizeDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LuckyWheelPriceModelCopyWith<$Res> {
-  factory $LuckyWheelPriceModelCopyWith(LuckyWheelPriceModel value,
-          $Res Function(LuckyWheelPriceModel) then) =
-      _$LuckyWheelPriceModelCopyWithImpl<$Res, LuckyWheelPriceModel>;
+abstract class $LuckyPrizeDataModelCopyWith<$Res> {
+  factory $LuckyPrizeDataModelCopyWith(
+          LuckyPrizeDataModel value, $Res Function(LuckyPrizeDataModel) then) =
+      _$LuckyPrizeDataModelCopyWithImpl<$Res, LuckyPrizeDataModel>;
   @useResult
   $Res call(
-      {String id,
-      String spinId,
-      String? prizeName,
-      int? prizeQuantity,
-      double? prizeProbability,
-      int? prizeOrder,
-      String? prizeImage});
+      {@JsonKey(name: 'id') String? id,
+      @JsonKey(name: 'prizeName') String prizeName,
+      @JsonKey(name: 'prizeQuantity') int prizeQuantity,
+      @JsonKey(name: 'prizeProbability') double prizeProbability,
+      @JsonKey(name: 'prizeColor') String prizeColor,
+      @JsonKey(name: 'prizeImage') String prizeImage,
+      @JsonKey(name: 'prizeOrder') int prizeOrder,
+      @JsonKey(name: 'totalAmount') double totalAmount});
 }
 
 /// @nodoc
-class _$LuckyWheelPriceModelCopyWithImpl<$Res,
-        $Val extends LuckyWheelPriceModel>
-    implements $LuckyWheelPriceModelCopyWith<$Res> {
-  _$LuckyWheelPriceModelCopyWithImpl(this._value, this._then);
+class _$LuckyPrizeDataModelCopyWithImpl<$Res, $Val extends LuckyPrizeDataModel>
+    implements $LuckyPrizeDataModelCopyWith<$Res> {
+  _$LuckyPrizeDataModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of LuckyWheelPriceModel
+  /// Create a copy of LuckyPrizeDataModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? spinId = null,
-    Object? prizeName = freezed,
-    Object? prizeQuantity = freezed,
-    Object? prizeProbability = freezed,
-    Object? prizeOrder = freezed,
-    Object? prizeImage = freezed,
+    Object? id = freezed,
+    Object? prizeName = null,
+    Object? prizeQuantity = null,
+    Object? prizeProbability = null,
+    Object? prizeColor = null,
+    Object? prizeImage = null,
+    Object? prizeOrder = null,
+    Object? totalAmount = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      spinId: null == spinId
-          ? _value.spinId
-          : spinId // ignore: cast_nullable_to_non_nullable
-              as String,
-      prizeName: freezed == prizeName
+              as String?,
+      prizeName: null == prizeName
           ? _value.prizeName
           : prizeName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      prizeQuantity: freezed == prizeQuantity
+              as String,
+      prizeQuantity: null == prizeQuantity
           ? _value.prizeQuantity
           : prizeQuantity // ignore: cast_nullable_to_non_nullable
-              as int?,
-      prizeProbability: freezed == prizeProbability
+              as int,
+      prizeProbability: null == prizeProbability
           ? _value.prizeProbability
           : prizeProbability // ignore: cast_nullable_to_non_nullable
-              as double?,
-      prizeOrder: freezed == prizeOrder
-          ? _value.prizeOrder
-          : prizeOrder // ignore: cast_nullable_to_non_nullable
-              as int?,
-      prizeImage: freezed == prizeImage
+              as double,
+      prizeColor: null == prizeColor
+          ? _value.prizeColor
+          : prizeColor // ignore: cast_nullable_to_non_nullable
+              as String,
+      prizeImage: null == prizeImage
           ? _value.prizeImage
           : prizeImage // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      prizeOrder: null == prizeOrder
+          ? _value.prizeOrder
+          : prizeOrder // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalAmount: null == totalAmount
+          ? _value.totalAmount
+          : totalAmount // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$LuckyWheelPriceModelImplCopyWith<$Res>
-    implements $LuckyWheelPriceModelCopyWith<$Res> {
-  factory _$$LuckyWheelPriceModelImplCopyWith(_$LuckyWheelPriceModelImpl value,
-          $Res Function(_$LuckyWheelPriceModelImpl) then) =
-      __$$LuckyWheelPriceModelImplCopyWithImpl<$Res>;
+abstract class _$$LuckyPrizeDataModelImplCopyWith<$Res>
+    implements $LuckyPrizeDataModelCopyWith<$Res> {
+  factory _$$LuckyPrizeDataModelImplCopyWith(_$LuckyPrizeDataModelImpl value,
+          $Res Function(_$LuckyPrizeDataModelImpl) then) =
+      __$$LuckyPrizeDataModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {String id,
-      String spinId,
-      String? prizeName,
-      int? prizeQuantity,
-      double? prizeProbability,
-      int? prizeOrder,
-      String? prizeImage});
+      {@JsonKey(name: 'id') String? id,
+      @JsonKey(name: 'prizeName') String prizeName,
+      @JsonKey(name: 'prizeQuantity') int prizeQuantity,
+      @JsonKey(name: 'prizeProbability') double prizeProbability,
+      @JsonKey(name: 'prizeColor') String prizeColor,
+      @JsonKey(name: 'prizeImage') String prizeImage,
+      @JsonKey(name: 'prizeOrder') int prizeOrder,
+      @JsonKey(name: 'totalAmount') double totalAmount});
 }
 
 /// @nodoc
-class __$$LuckyWheelPriceModelImplCopyWithImpl<$Res>
-    extends _$LuckyWheelPriceModelCopyWithImpl<$Res, _$LuckyWheelPriceModelImpl>
-    implements _$$LuckyWheelPriceModelImplCopyWith<$Res> {
-  __$$LuckyWheelPriceModelImplCopyWithImpl(_$LuckyWheelPriceModelImpl _value,
-      $Res Function(_$LuckyWheelPriceModelImpl) _then)
+class __$$LuckyPrizeDataModelImplCopyWithImpl<$Res>
+    extends _$LuckyPrizeDataModelCopyWithImpl<$Res, _$LuckyPrizeDataModelImpl>
+    implements _$$LuckyPrizeDataModelImplCopyWith<$Res> {
+  __$$LuckyPrizeDataModelImplCopyWithImpl(_$LuckyPrizeDataModelImpl _value,
+      $Res Function(_$LuckyPrizeDataModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of LuckyWheelPriceModel
+  /// Create a copy of LuckyPrizeDataModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? spinId = null,
-    Object? prizeName = freezed,
-    Object? prizeQuantity = freezed,
-    Object? prizeProbability = freezed,
-    Object? prizeOrder = freezed,
-    Object? prizeImage = freezed,
+    Object? id = freezed,
+    Object? prizeName = null,
+    Object? prizeQuantity = null,
+    Object? prizeProbability = null,
+    Object? prizeColor = null,
+    Object? prizeImage = null,
+    Object? prizeOrder = null,
+    Object? totalAmount = null,
   }) {
-    return _then(_$LuckyWheelPriceModelImpl(
-      id: null == id
+    return _then(_$LuckyPrizeDataModelImpl(
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      spinId: null == spinId
-          ? _value.spinId
-          : spinId // ignore: cast_nullable_to_non_nullable
-              as String,
-      prizeName: freezed == prizeName
+              as String?,
+      prizeName: null == prizeName
           ? _value.prizeName
           : prizeName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      prizeQuantity: freezed == prizeQuantity
+              as String,
+      prizeQuantity: null == prizeQuantity
           ? _value.prizeQuantity
           : prizeQuantity // ignore: cast_nullable_to_non_nullable
-              as int?,
-      prizeProbability: freezed == prizeProbability
+              as int,
+      prizeProbability: null == prizeProbability
           ? _value.prizeProbability
           : prizeProbability // ignore: cast_nullable_to_non_nullable
-              as double?,
-      prizeOrder: freezed == prizeOrder
-          ? _value.prizeOrder
-          : prizeOrder // ignore: cast_nullable_to_non_nullable
-              as int?,
-      prizeImage: freezed == prizeImage
+              as double,
+      prizeColor: null == prizeColor
+          ? _value.prizeColor
+          : prizeColor // ignore: cast_nullable_to_non_nullable
+              as String,
+      prizeImage: null == prizeImage
           ? _value.prizeImage
           : prizeImage // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      prizeOrder: null == prizeOrder
+          ? _value.prizeOrder
+          : prizeOrder // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalAmount: null == totalAmount
+          ? _value.totalAmount
+          : totalAmount // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LuckyWheelPriceModelImpl implements _LuckyWheelPriceModel {
-  const _$LuckyWheelPriceModelImpl(
-      {required this.id,
-      required this.spinId,
-      this.prizeName,
-      this.prizeQuantity,
-      this.prizeProbability,
-      this.prizeOrder,
-      this.prizeImage});
+class _$LuckyPrizeDataModelImpl extends _LuckyPrizeDataModel {
+  const _$LuckyPrizeDataModelImpl(
+      {@JsonKey(name: 'id') this.id,
+      @JsonKey(name: 'prizeName') this.prizeName = "",
+      @JsonKey(name: 'prizeQuantity') this.prizeQuantity = 0,
+      @JsonKey(name: 'prizeProbability') this.prizeProbability = 0,
+      @JsonKey(name: 'prizeColor') this.prizeColor = "",
+      @JsonKey(name: 'prizeImage') this.prizeImage = "",
+      @JsonKey(name: 'prizeOrder') this.prizeOrder = 0,
+      @JsonKey(name: 'totalAmount') this.totalAmount = 0})
+      : super._();
 
-  factory _$LuckyWheelPriceModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LuckyWheelPriceModelImplFromJson(json);
+  factory _$LuckyPrizeDataModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LuckyPrizeDataModelImplFromJson(json);
 
+//  @JsonKey(name: 'spinId') String? spinId,
   @override
-  final String id;
+  @JsonKey(name: 'id')
+  final String? id;
   @override
-  final String spinId;
+  @JsonKey(name: 'prizeName')
+  final String prizeName;
   @override
-  final String? prizeName;
+  @JsonKey(name: 'prizeQuantity')
+  final int prizeQuantity;
   @override
-  final int? prizeQuantity;
+  @JsonKey(name: 'prizeProbability')
+  final double prizeProbability;
   @override
-  final double? prizeProbability;
+  @JsonKey(name: 'prizeColor')
+  final String prizeColor;
   @override
-  final int? prizeOrder;
+  @JsonKey(name: 'prizeImage')
+  final String prizeImage;
   @override
-  final String? prizeImage;
+  @JsonKey(name: 'prizeOrder')
+  final int prizeOrder;
+  @override
+  @JsonKey(name: 'totalAmount')
+  final double totalAmount;
 
   @override
   String toString() {
-    return 'LuckyWheelPriceModel(id: $id, spinId: $spinId, prizeName: $prizeName, prizeQuantity: $prizeQuantity, prizeProbability: $prizeProbability, prizeOrder: $prizeOrder, prizeImage: $prizeImage)';
+    return 'LuckyPrizeDataModel(id: $id, prizeName: $prizeName, prizeQuantity: $prizeQuantity, prizeProbability: $prizeProbability, prizeColor: $prizeColor, prizeImage: $prizeImage, prizeOrder: $prizeOrder, totalAmount: $totalAmount)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LuckyWheelPriceModelImpl &&
+            other is _$LuckyPrizeDataModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.spinId, spinId) || other.spinId == spinId) &&
             (identical(other.prizeName, prizeName) ||
                 other.prizeName == prizeName) &&
             (identical(other.prizeQuantity, prizeQuantity) ||
                 other.prizeQuantity == prizeQuantity) &&
             (identical(other.prizeProbability, prizeProbability) ||
                 other.prizeProbability == prizeProbability) &&
+            (identical(other.prizeColor, prizeColor) ||
+                other.prizeColor == prizeColor) &&
+            (identical(other.prizeImage, prizeImage) ||
+                other.prizeImage == prizeImage) &&
             (identical(other.prizeOrder, prizeOrder) ||
                 other.prizeOrder == prizeOrder) &&
-            (identical(other.prizeImage, prizeImage) ||
-                other.prizeImage == prizeImage));
+            (identical(other.totalAmount, totalAmount) ||
+                other.totalAmount == totalAmount));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, spinId, prizeName,
-      prizeQuantity, prizeProbability, prizeOrder, prizeImage);
+  int get hashCode => Object.hash(runtimeType, id, prizeName, prizeQuantity,
+      prizeProbability, prizeColor, prizeImage, prizeOrder, totalAmount);
 
-  /// Create a copy of LuckyWheelPriceModel
+  /// Create a copy of LuckyPrizeDataModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LuckyWheelPriceModelImplCopyWith<_$LuckyWheelPriceModelImpl>
-      get copyWith =>
-          __$$LuckyWheelPriceModelImplCopyWithImpl<_$LuckyWheelPriceModelImpl>(
-              this, _$identity);
+  _$$LuckyPrizeDataModelImplCopyWith<_$LuckyPrizeDataModelImpl> get copyWith =>
+      __$$LuckyPrizeDataModelImplCopyWithImpl<_$LuckyPrizeDataModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LuckyWheelPriceModelImplToJson(
+    return _$$LuckyPrizeDataModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _LuckyWheelPriceModel implements LuckyWheelPriceModel {
-  const factory _LuckyWheelPriceModel(
-      {required final String id,
-      required final String spinId,
-      final String? prizeName,
-      final int? prizeQuantity,
-      final double? prizeProbability,
-      final int? prizeOrder,
-      final String? prizeImage}) = _$LuckyWheelPriceModelImpl;
+abstract class _LuckyPrizeDataModel extends LuckyPrizeDataModel {
+  const factory _LuckyPrizeDataModel(
+          {@JsonKey(name: 'id') final String? id,
+          @JsonKey(name: 'prizeName') final String prizeName,
+          @JsonKey(name: 'prizeQuantity') final int prizeQuantity,
+          @JsonKey(name: 'prizeProbability') final double prizeProbability,
+          @JsonKey(name: 'prizeColor') final String prizeColor,
+          @JsonKey(name: 'prizeImage') final String prizeImage,
+          @JsonKey(name: 'prizeOrder') final int prizeOrder,
+          @JsonKey(name: 'totalAmount') final double totalAmount}) =
+      _$LuckyPrizeDataModelImpl;
+  const _LuckyPrizeDataModel._() : super._();
 
-  factory _LuckyWheelPriceModel.fromJson(Map<String, dynamic> json) =
-      _$LuckyWheelPriceModelImpl.fromJson;
+  factory _LuckyPrizeDataModel.fromJson(Map<String, dynamic> json) =
+      _$LuckyPrizeDataModelImpl.fromJson;
 
+//  @JsonKey(name: 'spinId') String? spinId,
   @override
-  String get id;
+  @JsonKey(name: 'id')
+  String? get id;
   @override
-  String get spinId;
+  @JsonKey(name: 'prizeName')
+  String get prizeName;
   @override
-  String? get prizeName;
+  @JsonKey(name: 'prizeQuantity')
+  int get prizeQuantity;
   @override
-  int? get prizeQuantity;
+  @JsonKey(name: 'prizeProbability')
+  double get prizeProbability;
   @override
-  double? get prizeProbability;
+  @JsonKey(name: 'prizeColor')
+  String get prizeColor;
   @override
-  int? get prizeOrder;
+  @JsonKey(name: 'prizeImage')
+  String get prizeImage;
   @override
-  String? get prizeImage;
+  @JsonKey(name: 'prizeOrder')
+  int get prizeOrder;
+  @override
+  @JsonKey(name: 'totalAmount')
+  double get totalAmount;
 
-  /// Create a copy of LuckyWheelPriceModel
+  /// Create a copy of LuckyPrizeDataModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LuckyWheelPriceModelImplCopyWith<_$LuckyWheelPriceModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$LuckyPrizeDataModelImplCopyWith<_$LuckyPrizeDataModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

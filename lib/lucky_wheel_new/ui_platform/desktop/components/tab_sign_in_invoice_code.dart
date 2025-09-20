@@ -4,21 +4,19 @@ import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_vie
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TabSignInInvoiceCode extends StatefulWidget {
-  final TextEditingController invoiceCode;
-  const TabSignInInvoiceCode({super.key, required this.invoiceCode});
+  const TabSignInInvoiceCode({super.key});
 
   @override
   State<TabSignInInvoiceCode> createState() => _TabSignInInvoiceCodeState();
 }
 
 class _TabSignInInvoiceCodeState extends State<TabSignInInvoiceCode> {
-  late final TextEditingController invoiceCode;
+  late final TextEditingController invoiceCode = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
-    invoiceCode = widget.invoiceCode;
   }
 
   @override
@@ -55,18 +53,6 @@ class _TabSignInInvoiceCodeState extends State<TabSignInInvoiceCode> {
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
-            // _inputInfo(
-            //   context: context,
-            //   labelText: 'Nhập tên',
-            //   controller: TextEditingController(),
-            //   textInput: TextInputType.name,
-            //   onValidator: (value) {
-            //     if (value == null || value.isEmpty == true) {
-            //       return "Vui lòng nhập họ và tên";
-            //     }
-            //     return null;
-            //   },
-            // ),
             const SizedBox(
               height: 10,
             ),
@@ -75,7 +61,7 @@ class _TabSignInInvoiceCodeState extends State<TabSignInInvoiceCode> {
               controller: invoiceCode,
               textInput: TextInputType.text,
               onValidator: (value) {
-                if(value==null || value.trim().isEmpty){
+                if (value == null || value.trim().isEmpty) {
                   return "Vui lòng nhập mã hoá đơn";
                 }
               },

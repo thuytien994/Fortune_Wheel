@@ -7,29 +7,33 @@ part 'lucky_wheel_model.g.dart';
 class LuckyWheelModel with _$LuckyWheelModel {
   const LuckyWheelModel._();
   const factory LuckyWheelModel({
-    required String id,
-    @Default('') String spinName,
-    DateTime? startDate,
-    DateTime? endDate,
-    int? maxParticipants,
-    required int shopId,
-    String? backgroundImage,
-    String? color1,
-    String? color2,
-    String? status,
-    String? spinButtonImage,
-    DateTime? createdDate,
-    DateTime? updateDate,
-    @Default("ByInputInvoide") String? gameType,
-    @Default([]) List<LuckyWheelPriceModel> luckyPrizeModel,
+    @JsonKey(name: 'id') @Default("") String id,
+    @JsonKey(name: 'spinName') @Default("") String spinName,
+    @JsonKey(name: 'startDate') @Default(null) DateTime? startDate,
+    @JsonKey(name: 'endDate') @Default(null) DateTime? endDate,
+    @JsonKey(name: 'maxSpinPerDay') @Default(null) int? maxSpinPerDay,
+    @JsonKey(name: 'shopId') @Default(0) int shopId,
+    @JsonKey(name: 'backgroundImage') @Default("") String backgroundImage,
+    @JsonKey(name: 'backgroundImageMobile')
+    @Default("")
+    String backgroundImageMobile,
+    @JsonKey(name: 'color1') @Default("") String color1,
+    @JsonKey(name: 'status') @Default("") String status,
+    @JsonKey(name: 'color2') @Default("") String color2,
+    @JsonKey(name: 'createdDate') DateTime? createdDate,
+    @JsonKey(name: 'spinButtonImage') @Default("") String spinButtonImage,
+    @JsonKey(name: 'gameType') @Default("ByInputInvoide") String gameType,
+    @JsonKey(name: 'platform') @Default("") String platform,
+    @JsonKey(name: 'logoImage') @Default("") String logoImage,
+    @Default([]) List<LuckyPrizeDataModel> luckyPrizeModel,
   }) = _LuckyWheelModel;
 
   factory LuckyWheelModel.fromJson(Map<String, dynamic> json) =>
       _$LuckyWheelModelFromJson(json);
-  bool byInvoiceBarcode() {
-    if (gameType != "ByInvoiceBarcode") return false;
-    return true;
-  }
+  // bool byInvoiceBarcode() {
+  //   if (gameType != "ByInvoiceBarcode") return false;
+  //   return true;
+  // }
 
   bool byInputNumberPhone() {
     if (gameType != "ByInputNumberPhone") return false;
@@ -48,17 +52,21 @@ class LuckyWheelModel with _$LuckyWheelModel {
 }
 
 @freezed
-class LuckyWheelPriceModel with _$LuckyWheelPriceModel {
-  const factory LuckyWheelPriceModel({
-    required String id,
-    required String spinId,
-    String? prizeName,
-    int? prizeQuantity,
-    double? prizeProbability,
-    int? prizeOrder,
-    String? prizeImage,
-  }) = _LuckyWheelPriceModel;
+class LuckyPrizeDataModel with _$LuckyPrizeDataModel {
+  const LuckyPrizeDataModel._();
 
-  factory LuckyWheelPriceModel.fromJson(Map<String, dynamic> json) =>
-      _$LuckyWheelPriceModelFromJson(json);
+  const factory LuckyPrizeDataModel({
+    //  @JsonKey(name: 'spinId') String? spinId,
+    @JsonKey(name: 'id') String? id,
+    @JsonKey(name: 'prizeName') @Default("") String prizeName,
+    @JsonKey(name: 'prizeQuantity') @Default(0) int prizeQuantity,
+    @JsonKey(name: 'prizeProbability') @Default(0) double prizeProbability,
+    @JsonKey(name: 'prizeColor') @Default("") String prizeColor,
+    @JsonKey(name: 'prizeImage') @Default("") String prizeImage,
+    @JsonKey(name: 'prizeOrder') @Default(0) int prizeOrder,
+    @JsonKey(name: 'totalAmount') @Default(0) double totalAmount,
+  }) = _LuckyPrizeDataModel;
+
+  factory LuckyPrizeDataModel.fromJson(Map<String, dynamic> json) =>
+      _$LuckyPrizeDataModelFromJson(json);
 }

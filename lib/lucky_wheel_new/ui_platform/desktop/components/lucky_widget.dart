@@ -179,11 +179,10 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                           quarterTurns: 1,
                                           child: _showNameGift(
                                               giftDescription: luckyWheelData
-                                                      .luckyPrizeModel[i]
-                                                      .prizeName ??
-                                                  '',
+                                                  .luckyPrizeModel[i].prizeName,
                                               code: luckyWheelData
-                                                  .luckyPrizeModel[i].id,
+                                                      .luckyPrizeModel[i].id ??
+                                                  "",
                                               index: i,
                                               context: context)),
                                     ],
@@ -258,7 +257,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
     );
   }
 
-  Widget _showImageGift({required LuckyWheelPriceModel item}) {
+  Widget _showImageGift({required LuckyPrizeDataModel item}) {
     var wb = _showImageVoucher(
       url: item.prizeImage,
       size: 75.r,

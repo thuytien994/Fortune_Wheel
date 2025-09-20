@@ -8,6 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import 'lucky_wheel_new/lucky_wheel_page.dart';
+
 final MQTTManager mqttService = MQTTManager();
 void main() async {
   // HttpOverrides.global = MyHttpOverrides();
@@ -28,28 +30,27 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      child:
-          //  MaterialApp(
-          //   builder: (context, child) => const LuckyWheelPage(
-          //     shopId: 1,
-          //   ),
-
-          //   debugShowCheckedModeBanner: false,
-          //   // home: LuckyWheelPage(
-          //   //   shopId: 1,
-          //   // ),s
-          // ),
-          MaterialApp.router(
-        title: 'Spin Kenbar',
-        debugShowCheckedModeBanner: false,
-        builder: EasyLoading.init(),
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+      child: MaterialApp(
+        builder: (context, child) => const LuckyWheelPageNew(
+          shopId: 1,
         ),
-        routerConfig: _router,
-        //builder: (context, child) => const LuckyWheelPage(),
+
+        debugShowCheckedModeBanner: false,
+        // home: LuckyWheelPage(
+        //   shopId: 1,
+        // ),s
       ),
+      //     MaterialApp.router(
+      //   title: 'Spin Kenbar',
+      //   debugShowCheckedModeBanner: false,
+      //   builder: EasyLoading.init(),
+      //   theme: ThemeData(
+      //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      //     useMaterial3: true,
+      //   ),
+      //   routerConfig: _router,
+      //   //builder: (context, child) => const LuckyWheelPage(),
+      // ),
     );
   }
 }

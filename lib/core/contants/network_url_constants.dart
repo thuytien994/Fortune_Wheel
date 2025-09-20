@@ -6,13 +6,13 @@ class NetworkUrlConstants {
   static const String baseURLStag = "https://be-staging.k2pos.vn/api/";
   //lucky spin
   static const String urlSign =
-      "${baseURL}customer/create-customer-lucky-wheel";
+      "${baseURLStag}customer/create-customer-lucky-wheel";
   static const String urlgetVoucher =
-      "${baseURL}KenBarVoucher/get-kenbar-vouchers";
-  static const String urlGetGiftReceived = "${baseURL}Gifts/get-gifts";
-  static const String urlGetGiftFormBarcode = '${baseURL}Order/create-gift';
+      "${baseURLStag}KenBarVoucher/get-kenbar-vouchers";
+  static const String urlGetGiftReceived = "${baseURLStag}Gifts/get-gifts";
+  static const String urlGetGiftFormBarcode = '${baseURLStag}Order/create-gift';
   static const String urlGetActiveLuckySpins =
-      '${baseURL}luckySpin/active-lucky-spins';
+      '${baseURLStag}luckySpin/active-lucky-spins';
   static const String urlGetGiftForSpin =
-      '${baseURL}luckySpin/lucky-spin-gifts'; // Lấy quà khi nhập thông tin quay thưởng cho khách hàng
+      '${baseURLStag}luckySpin/lucky-spin-gifts'; // Lấy quà khi nhập thông tin quay thưởng cho khách hàng
 }

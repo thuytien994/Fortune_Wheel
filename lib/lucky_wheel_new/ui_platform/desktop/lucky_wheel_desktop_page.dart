@@ -31,10 +31,10 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
           var luckyWheel = ref.watch(
               luckyWheelViewModelProvider.select((value) => value.luckyWheel));
           if (luckyWheel?.backgroundImage != null) {
-            backgroundImage = NetworkImage(luckyWheel!.backgroundImage!);
+            backgroundImage = NetworkImage(luckyWheel!.backgroundImage);
           }
           if (luckyWheel == null) {
-            return reloadWidget();
+            return reloadWidget(ref: ref);
           }
           return Container(
             alignment: Alignment.center,
@@ -76,9 +76,7 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
                           .select((value) => value.gift));
                       if (gift == null) {
                         widget.controllerPhone.text = '';
-                        return TabSignInInvoiceCode(
-                          invoiceCode: widget.controllerPhone,
-                        );
+                        return TabSignInInvoiceCode();
                       }
                       return const SizedBox();
                     },
@@ -99,7 +97,7 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
                     },
                   ),
                 ),
-                if (luckyWheel.byInvoiceBarcode()) ...[
+                if (luckyWheel.byInputInvoideCode()) ...[
                   BarcodeKeyboardListener(
                     bufferDuration: const Duration(milliseconds: 200),
                     onBarcodeScanned: (barcode) {
@@ -152,25 +150,29 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
     );
   }
 
-  Widget reloadWidget() {
+  Widget reloadWidget({required WidgetRef ref}) {
     return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text("Chưa có vòng quay nào đang diễn ra"),
-          const SizedBox(
-            width: 8,
-          ),
-          IconButton(
-            onPressed: () {
-              ref.read(luckyWheelViewModelProvider.notifier).init();
-            },
-            icon: const Icon(
-              Icons.replay_outlined,
-              color: Colors.red,
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Chưa có vòng quay nào đang diễn ra"),
+            const SizedBox(
+              width: 8,
             ),
-          )
-        ],
+            IconButton(
+              onPressed: () {
+                ref
+                    .read(luckyWheelViewModelProvider.notifier)
+                    .getActiveLuckySpins();
+              },
+              icon: const Icon(
+                Icons.replay_outlined,
+                color: Colors.red,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

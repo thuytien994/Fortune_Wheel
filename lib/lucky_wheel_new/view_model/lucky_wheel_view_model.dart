@@ -22,11 +22,10 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   }
 
   void init() async {
-    prefs = await SharedPreferences.getInstance();
+    // prefs = await SharedPreferences.getInstance();
     if (isInit) return;
     await getActiveLuckySpins();
     // getGift();
-    getListGiftReceived();
 
     // Đăng ký topic your/topic và lắng nghe khi có message tới
     // Khi có message tới data sẽ trả về cho callback từ đó se lấy data từ callback để mà xử lý cho từng subsribe
