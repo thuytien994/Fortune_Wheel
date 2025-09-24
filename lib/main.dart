@@ -1,14 +1,12 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/lucky_wheel/lucky_wheel_page.dart';
 import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/mqtt.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import 'lucky_wheel_new/lucky_wheel_page.dart';
+import 'lucky_wheel_new/lucky_wheel_page_new.dart';
 
 final MQTTManager mqttService = MQTTManager();
 void main() async {
@@ -33,12 +31,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         builder: (context, child) => const LuckyWheelPageNew(
           shopId: 1,
+          orderCode: "",
         ),
-
         debugShowCheckedModeBanner: false,
-        // home: LuckyWheelPage(
-        //   shopId: 1,
-        // ),s
       ),
       //     MaterialApp.router(
       //   title: 'Spin Kenbar',
@@ -70,8 +65,25 @@ final GoRouter _router = GoRouter(
       path: '/:id',
       builder: (BuildContext context, GoRouterState state) {
         final id = state.pathParameters['id'];
-        return LuckyWheelPage(
+        final orderCode = state.uri.queryParameters['orderCode'];
+        return LuckyWheelPageNew(
           shopId: int.tryParse(id ?? '1') ?? 1,
+          orderCode: orderCode ?? "",
+        );
+      },
+    ),
+  ],
+);
+final GoRouter _router2 = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/:id',
+      builder: (BuildContext context, GoRouterState state) {
+        final id = state.pathParameters['id'];
+        final orderCode = state.uri.queryParameters['orderCode'];
+        return LuckyWheelPageNew(
+          shopId: int.tryParse(id ?? '1') ?? 1,
+          orderCode: orderCode ?? "",
         );
       },
     ),

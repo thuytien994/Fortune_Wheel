@@ -301,9 +301,10 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               fontSize: 5.5.sp,
               fontWeight: FontWeight.bold,
-              color: index % 2 == 0
-                  ? const Color(0x1BAD6F).withOpacity(1)
-                  : Colors.white.withOpacity(1))),
+              color: Colors.black)),
     );
   }
 }
+    //  index % 2 == 0
+    //               ? const Color(0x1BAD6F).withOpacity(1)
+    //               : Colors.white.withOpacity(1),

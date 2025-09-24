@@ -49,6 +49,11 @@ class LuckyWheelModel with _$LuckyWheelModel {
     if (gameType != "ByInputInvoice") return false;
     return true;
   }
+
+  bool byInputQR() {
+    if (gameType != "ByInputQR") return false;
+    return true;
+  }
 }
 
 @freezed

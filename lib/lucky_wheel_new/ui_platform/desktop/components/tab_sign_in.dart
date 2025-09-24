@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TabScreenSignIn extends ConsumerStatefulWidget {
   final TextEditingController controllerPhone;
-  TabScreenSignIn({
+  const TabScreenSignIn({
     super.key,
     required this.controllerPhone,
   });
@@ -16,12 +16,13 @@ class TabScreenSignIn extends ConsumerStatefulWidget {
 
 class _TabScreenSignInState extends ConsumerState<TabScreenSignIn> {
   final TextEditingController controllerPhone = TextEditingController();
+  final TextEditingController controllerName = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: MediaQuery.sizeOf(context).width * 0.3,
+        width: MediaQuery.sizeOf(context).width * 0.25,
         padding: const EdgeInsets.symmetric(horizontal: 24),
         decoration: BoxDecoration(
           border: Border.all(
@@ -31,95 +32,94 @@ class _TabScreenSignInState extends ConsumerState<TabScreenSignIn> {
             Radius.circular(20),
           ),
         ),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            autovalidateMode: AutovalidateMode.disabled,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Tham dự',
-                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                        color: Colors.amber,
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  'Vui lòng nhập thông tin để quay thưởng',
-                  style: TextStyle(color: Colors.white, fontSize: 22),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                // _inputInfo(
-                //   context: context,
-                //   labelText: 'Nhập tên',
-                //   controller: controllerName,
-                //   textInput: TextInputType.name,
-                //   onValidator: (value) {
-                //     if (value == null || value.isEmpty == true) {
-                //       return "Vui lòng nhập họ và tên";
-                //     }
-                //     return null;
-                //   },
-                // ),
-                const SizedBox(
-                  height: 10,
-                ),
-                _inputInfo(
-                  context: context,
-                  labelText: 'Số điện thoại',
-                  controller: controllerPhone,
-                  textInput: TextInputType.phone,
-                  onValidator: (value) => validatePhone(value ?? ''),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(11),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Consumer(
-                  builder: (context, ref, child) => SizedBox(
-                    width: 170,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          // await ref
-                          //     .read(luckyWheelViewModelProvider.notifier)
-                          //     .signInLuckyWheel(controllerPhone.text);
-                          await ref
-                              .read(luckyWheelViewModelProvider.notifier)
-                              .getGiftForSpin(
-                                  phoneNumber: controllerPhone.text);
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.pink,
-                        foregroundColor: Colors.white,
-                        textStyle: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      child: const Text(
-                        'Bắt đầu',
-                        style: TextStyle(fontSize: 22),
-                      ),
+        child: Form(
+          key: _formKey,
+          //    autovalidateMode: AutovalidateMode.disabled,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Tham dự',
+                style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                      color: Colors.amber,
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const Text(
+                'Vui lòng nhập thông tin để quay thưởng',
+                style: TextStyle(color: Colors.white, fontSize: 22),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              _inputInfo(
+                context: context,
+                labelText: 'Nhập tên',
+                controller: controllerName,
+                textInput: TextInputType.name,
+                onValidator: (value) {
+                  if (value == null || value.isEmpty == true) {
+                    return "Vui lòng nhập họ và tên";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              _inputInfo(
+                context: context,
+                labelText: 'Số điện thoại',
+                controller: controllerPhone,
+                textInput: TextInputType.phone,
+                onValidator: (value) => validatePhone(value ?? ''),
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(11),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Consumer(
+                builder: (context, ref, child) => SizedBox(
+                  width: 170,
+                  height: 60,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        // await ref
+                        //     .read(luckyWheelViewModelProvider.notifier)
+                        //     .signInLuckyWheel(controllerPhone.text);
+                        await ref
+                            .read(luckyWheelViewModelProvider.notifier)
+                            .getGiftForSpin(
+                                phoneNumber: controllerPhone.text,
+                                userName: controllerName.text);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.pink,
+                      foregroundColor: Colors.white,
+                      textStyle: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    child: const Text(
+                      'Bắt đầu',
+                      style: TextStyle(fontSize: 22),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                )
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 20,
+              )
+            ],
           ),
         ),
       ),
@@ -159,6 +159,7 @@ class _TabScreenSignInState extends ConsumerState<TabScreenSignIn> {
         inputFormatters: inputFormatters,
         style: const TextStyle(color: Colors.white, fontSize: 25),
         scrollPadding: const EdgeInsets.symmetric(vertical: 10),
+        onChanged: (value) {},
         decoration: InputDecoration(
           isDense: true,
           hintText: labelText,

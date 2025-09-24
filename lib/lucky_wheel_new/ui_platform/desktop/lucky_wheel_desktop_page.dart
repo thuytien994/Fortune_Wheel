@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_barcode_listener/flutter_barcode_listener.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'components/components.dart';
 
 class LuckyWheelDesktopPage extends ConsumerStatefulWidget {
   final TextEditingController controllerPhone;
+  final String orderCode;
 
-  const LuckyWheelDesktopPage({super.key, required this.controllerPhone});
+  const LuckyWheelDesktopPage({
+    super.key,
+    required this.controllerPhone,
+    required this.orderCode,
+  });
   @override
   ConsumerState<LuckyWheelDesktopPage> createState() =>
       _LuckyWheelDesktopPageState();
@@ -30,8 +36,9 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
         child: Consumer(builder: (context, ref, _) {
           var luckyWheel = ref.watch(
               luckyWheelViewModelProvider.select((value) => value.luckyWheel));
-          if (luckyWheel?.backgroundImage != null) {
-            backgroundImage = NetworkImage(luckyWheel!.backgroundImage);
+          if (luckyWheel?.backgroundImage != null &&
+              luckyWheel!.backgroundImage.isNotEmpty) {
+            backgroundImage = NetworkImage(luckyWheel.backgroundImage);
           }
           if (luckyWheel == null) {
             return reloadWidget(ref: ref);
@@ -45,6 +52,7 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
               image: DecorationImage(
                 fit: BoxFit.fill,
                 image: backgroundImage,
+                onError: (exception, stackTrace) {},
               ),
             ),
             child: Stack(
@@ -76,7 +84,7 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
                           .select((value) => value.gift));
                       if (gift == null) {
                         widget.controllerPhone.text = '';
-                        return TabSignInInvoiceCode();
+                        return TabSignInInvoiceCode(ref: ref);
                       }
                       return const SizedBox();
                     },
@@ -87,12 +95,13 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
                   left: 40,
                   child: Consumer(
                     builder: (context, ref, child) {
-                      return TabListGiftReceived(
-                        gifts: ref.watch(
-                          luckyWheelViewModelProvider.select(
-                            (value) => value.listGiftReceived,
-                          ),
+                      var listGifts = ref.watch(
+                        luckyWheelViewModelProvider.select(
+                          (value) => value.listGiftReceived,
                         ),
+                      );
+                      return TabListGiftReceived(
+                        gifts: listGifts,
                       );
                     },
                   ),
@@ -108,12 +117,40 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
                       if (isCheckBarcode == false) {
                         return ref
                             .read(luckyWheelViewModelProvider.notifier)
-                            .getBarcode(barcode);
+                            .getGiftForSpin(barCode: barcode);
                       }
-                      return;
                     },
                     child: const SizedBox.shrink(),
                   ),
+                ],
+                if (luckyWheel.byInputQR()) ...[
+                  if (widget.orderCode.isEmpty)
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white),
+                      child: const Text(
+                        "Chưa có mã hoá đơn",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  FutureBuilder(
+                    future: ref
+                        .read(luckyWheelViewModelProvider.notifier)
+                        .getGiftForSpin(barCode: widget.orderCode),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      }
+                      if (snapshot.hasError) {
+                        EasyLoading.showError("Có lỗi xảy ra");
+                        return const SizedBox.shrink();
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  )
                 ],
                 Consumer(
                   builder: (context, ref, child) {

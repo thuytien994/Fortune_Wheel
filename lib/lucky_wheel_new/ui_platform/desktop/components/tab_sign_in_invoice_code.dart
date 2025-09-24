@@ -4,7 +4,11 @@ import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_vie
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TabSignInInvoiceCode extends StatefulWidget {
-  const TabSignInInvoiceCode({super.key});
+  final WidgetRef ref;
+  const TabSignInInvoiceCode({
+    super.key,
+    required this.ref,
+  });
 
   @override
   State<TabSignInInvoiceCode> createState() => _TabSignInInvoiceCodeState();
@@ -76,10 +80,7 @@ class _TabSignInInvoiceCodeState extends State<TabSignInInvoiceCode> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      // await ref
-                      //     .read(luckyWheelViewModelProvider.notifier)
-                      //     .signInLuckyWheel(controllerPhone.text);
-                      await ref
+                      return ref
                           .read(luckyWheelViewModelProvider.notifier)
                           .getGiftForSpin(invoiceCode: invoiceCode.text);
                     }

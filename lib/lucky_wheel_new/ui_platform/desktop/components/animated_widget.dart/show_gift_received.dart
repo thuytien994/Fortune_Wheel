@@ -61,7 +61,7 @@ class ShowGiftReceived extends AnimatedWidget {
                   height: 0,
                 ),
                 Text(
-                  '${(gift.phoneNumber ?? '092238891229').substring(0, 6)}xxxx',
+                  gift.phoneNumber ?? '092238891229',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.black.withOpacity(

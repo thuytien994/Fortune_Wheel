@@ -8,7 +8,9 @@ import 'ui_platform/mobile/lucky_wheel_mobile_page.dart';
 
 class LuckyWheelPage extends ConsumerStatefulWidget {
   final int shopId;
-  const LuckyWheelPage({super.key, required this.shopId});
+  final String orderCode;
+  const LuckyWheelPage(
+      {super.key, required this.shopId, required this.orderCode});
 
   @override
   LuckyWheelPageState createState() => LuckyWheelPageState();
@@ -28,7 +30,6 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPage>
       ref.read(luckyWheelViewModelProvider.notifier).setShopId(widget.shopId);
     });
   }
-
 
   @override
   void didChangeDependencies() {

@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel_new/ui_platform/desktop/components/animated_widget.dart/show_gift_received.dart';
 import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../data/model/gift_received_model.dart';
+import 'animated_widget.dart/show_gift_received.dart';
 
 class TabListGiftReceived extends StatefulWidget {
   final List<GiftReceivedModel> gifts;
@@ -77,7 +78,7 @@ class _TabListGiftReceivedState extends State<TabListGiftReceived>
           return ValueListenableBuilder(
               valueListenable: _giftReceivedNotifier,
               builder: (context, value, child) {
-                return value == null ? const SizedBox() : item2(value);
+                return value == null ? const SizedBox() : item(value);
               });
         }
         return const SizedBox.shrink();
@@ -85,19 +86,7 @@ class _TabListGiftReceivedState extends State<TabListGiftReceived>
     );
   }
 
-  Widget item2(GiftReceivedModel gift) {
-    showGift.value
-      ..userName = gift.userName
-      ..prizeName = gift.prizeName
-      ..prizeImage = gift.prizeImage
-      ..phoneNumber = gift.phoneNumber;
-
-    return SizedBox(
-      child: ValueListenableBuilder(
-        valueListenable: showGift,
-        builder: (context, value, child) =>
-            ShowGiftReceived(animation: animationBtnSpin, gift: showGift.value),
-      ),
-    );
+  Widget item(GiftReceivedModel gift) {
+    return ShowGiftReceived(animation: animationBtnSpin, gift: gift);
   }
 }
