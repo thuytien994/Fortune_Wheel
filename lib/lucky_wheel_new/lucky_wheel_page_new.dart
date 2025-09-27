@@ -40,6 +40,7 @@ class LuckyWheelPageState extends ConsumerState<LuckyWheelPageNew>
     return ResponsiveLayout(
       mobileLayout: LuckyWheelMobilePage(
         controllerPhone: TextEditingController(),
+        orderCode: widget.orderCode,
       ),
       tabletLayout: LuckyWheelDesktopPage(
         //   controllerName: controllerName,

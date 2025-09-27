@@ -36,22 +36,25 @@ class LuckyWheelModel with _$LuckyWheelModel {
   // }
 
   bool byInputNumberPhone() {
-    if (gameType != "ByInputNumberPhone") return false;
+    if (gameType.toLowerCase() != "ByInputNumberPhone".toLowerCase()) {
+      return false;
+    }
+
     return true;
   }
 
   bool byLink() {
-    if (gameType != "ByLink") return false;
+    if (gameType.toLowerCase() != "ByLink".toLowerCase()) return false;
     return true;
   }
 
   bool byInputInvoideCode() {
-    if (gameType != "ByInputInvoice") return false;
+    if (gameType.toLowerCase() != "ByInputInvoice".toLowerCase()) return false;
     return true;
   }
 
   bool byInputQR() {
-    if (gameType != "ByInputQR") return false;
+    if (gameType.toLowerCase() != "ByInputQR".toLowerCase()) return false;
     return true;
   }
 }

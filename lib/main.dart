@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/lucky_wheel/lucky_wheel_page.dart';
 import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/mqtt.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -81,7 +82,7 @@ final GoRouter _router2 = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         final id = state.pathParameters['id'];
         final orderCode = state.uri.queryParameters['orderCode'];
-        return LuckyWheelPageNew(
+        return LuckyWheelPage(
           shopId: int.tryParse(id ?? '1') ?? 1,
           orderCode: orderCode ?? "",
         );

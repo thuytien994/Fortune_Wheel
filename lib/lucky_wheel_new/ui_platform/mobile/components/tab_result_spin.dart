@@ -4,7 +4,6 @@ import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_m
 import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class TabResultSpin extends ConsumerWidget {
   final GiftReceivedModel resultSpin;

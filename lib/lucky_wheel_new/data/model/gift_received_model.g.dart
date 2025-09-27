@@ -17,6 +17,7 @@ GiftReceivedModel _$GiftReceivedModelFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['phoneNumber'] as String?,
       userName: json['userName'] as String?,
       shopId: (json['shopId'] as num?)?.toInt(),
+      isReceivedGift: json['isReceivedGift'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$GiftReceivedModelToJson(GiftReceivedModel instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$GiftReceivedModelToJson(GiftReceivedModel instance) =>
       'invoiceCode': instance.invoiceCode,
       'barCode': instance.barCode,
       'shopId': instance.shopId,
+      'isReceivedGift': instance.isReceivedGift,
     };

@@ -152,6 +152,36 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
                     },
                   )
                 ],
+                if (luckyWheel.byLink()) ...[
+                  FutureBuilder(
+                    future: ref
+                        .read(luckyWheelViewModelProvider.notifier)
+                        .getGiftForSpin(invoiceCode: ""),
+                    builder: (context, constraints) {
+                      if (constraints.connectionState ==
+                          ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      }
+                      if (constraints.hasError) {
+                        return GestureDetector(
+                          onTap: () => ref
+                              .read(luckyWheelViewModelProvider.notifier)
+                              .getGiftForSpin(invoiceCode: widget.orderCode),
+                          child: const Row(
+                            children: [
+                              Text('Có lỗi xảy ra, vui lòng thử lại'),
+                              Icon(
+                                Icons.replay_outlined,
+                                color: Colors.red,
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  )
+                ],
                 Consumer(
                   builder: (context, ref, child) {
                     var messageError =

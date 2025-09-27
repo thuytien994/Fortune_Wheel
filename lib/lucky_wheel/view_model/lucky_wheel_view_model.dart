@@ -48,6 +48,7 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     try {
       state = state.copyWith(isLoadingGift: true);
       final data = await repo.getGifts(state.shopId);
+      print("here shopId: ${data.length}");
       state = state.copyWith(
         listGift: data,
         isLoadingGift: false,

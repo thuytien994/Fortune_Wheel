@@ -13,6 +13,7 @@ class LuckyWheelRepository extends BaseRepository {
     return await getResponseData(
       () async {
         final data = await dataSource.getGifts(shopId);
+        print("here giftssss: ${data.length}");
         return data;
       },
     );

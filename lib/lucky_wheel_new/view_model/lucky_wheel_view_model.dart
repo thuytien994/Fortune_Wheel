@@ -87,6 +87,7 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   void showGiftResult() {
     if (state.gift != null) {
+      print("here aaaa: ");
       state = state.copyWith(isShowGiftResult: true);
       // connectMQTT();
     }
@@ -187,7 +188,6 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   }) async {
     try {
       EasyLoading.show(status: "Đang tải");
-
       InfoCustomer param = InfoCustomer(
           barcode: barCode?.trim(),
           invoiceCode: invoiceCode?.trim(),
@@ -196,9 +196,12 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
           spinId: state.luckyWheel?.id);
 
       var response = await repo.getGiftForSpin(param);
-
       if (response != null) {
         state = state.copyWith(gift: response);
+      }
+
+      if (response?.isReceivedGift == true) {
+        showGiftResult();
       }
     } catch (e) {
       EasyLoading.showError("Có lỗi sảy ra, vui lòng thử lại");

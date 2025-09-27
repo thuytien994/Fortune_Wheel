@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_model.dart';
+import 'package:flutter_application_1/lucky_wheel_new/data/model/lucky_wheel_model.dart';
 import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,10 +10,10 @@ import 'package:screenshot/screenshot.dart';
 import 'components.dart';
 
 class LuckyWidget extends ConsumerStatefulWidget {
-  final List<GiftModel> vouchers;
+  final LuckyWheelModel luckyWheelData;
   const LuckyWidget({
     super.key,
-    required this.vouchers,
+    required this.luckyWheelData,
   });
 
   @override
@@ -25,7 +25,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   late Animation<double> animationBtnSpin;
   late AnimationController controllerAnimation;
   StreamController<int> controllerStream = StreamController<int>();
-  List<GiftModel> listItem = [];
+  late LuckyWheelModel listItem;
   String? initValueGift;
   Widget btnSpin = Container();
   int timeSpin = 10;
@@ -33,7 +33,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   @override
   void initState() {
     super.initState();
-    listItem = widget.vouchers;
+    listItem = widget.luckyWheelData;
     _setAnimationBtnSpin();
   }
 
@@ -118,7 +118,9 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                             .read(luckyWheelViewModelProvider.notifier)
                             .showGiftResult(),
                         items: [
-                          for (int i = 0; i < listItem.length; i++)
+                          for (int i = 0;
+                              i < listItem.luckyPrizeModel.length;
+                              i++)
                             FortuneItem(
                                 style: FortuneItemStyle(
                                   borderColor: Colors.black,
@@ -134,14 +136,17 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      _showImageGift(item: listItem[i]),
+                                      _showImageGift(
+                                          item: listItem.luckyPrizeModel[i]),
                                       const SizedBox(
                                         width: 5,
                                       ),
                                       RotatedBox(
                                           quarterTurns: 1,
                                           child: _showNameGift(
-                                              id: listItem[i].id ?? 0,
+                                              id: listItem
+                                                      .luckyPrizeModel[i].id ??
+                                                  '',
                                               index: i,
                                               context: context)),
                                     ],
@@ -195,8 +200,8 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
     );
   }
 
-  Widget _showImageGift({required GiftModel item}) {
-    var wb = _imageVoucherWidget(url: item.image ?? '', size: 60);
+  Widget _showImageGift({required LuckyPrizeDataModel item}) {
+    var wb = _imageVoucherWidget(url: item.prizeImage, size: 60);
 
     return wb;
   }
@@ -207,27 +212,30 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   }) {
     return RotatedBox(
         quarterTurns: 1,
-        child: Image.network(
-          url,
-          width: size,
-          height: size,
-        ));
+        child: url.isNotEmpty
+            ? Image.network(
+                url,
+                width: size,
+                height: size,
+                errorBuilder: (context, error, stackTrace) =>
+                    const SizedBox.shrink(),
+              )
+            : const SizedBox());
   }
 
   void _onSpinLuckyheel(String id) async {
-    print("here: ${id}");
-    final index = listItem.indexWhere((e) => e.id == id);
+    final index = listItem.luckyPrizeModel.indexWhere((e) => e.id == id);
     controllerStream.add(index); // update item selected
   }
 
   Widget _showNameGift(
-      {required int id, required int index, required BuildContext context}) {
-    return Text(listItem[index].giftDescription!.toUpperCase(),
+      {required String id, required int index, required BuildContext context}) {
+    return Text(listItem.luckyPrizeModel[index].prizeName.toUpperCase(),
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: index % 2 == 0
-                ? const Color(0x1BAD6F).withOpacity(1)
+                ? const Color(0x001bad6f).withOpacity(1)
                 : Colors.white.withOpacity(1)));
   }
 }
