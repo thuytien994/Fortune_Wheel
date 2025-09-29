@@ -92,8 +92,10 @@ class _TabSignInState extends State<TabSignIn> {
                     if (formKey.currentState!.validate()) {
                       await ref
                           .read(luckyWheelViewModelProvider.notifier)
-                          .signInLuckyWheel(controllerPhone.text);
+                          .getGiftForSpin(phoneNumber: controllerPhone.text);
+                          
                     }
+
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink,

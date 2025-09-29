@@ -61,82 +61,85 @@ class _LuckyWheelMobilePageState extends ConsumerState<LuckyWheelMobilePage> {
                 ),
               ),
             ),
-            if (luckyWheel.byInputNumberPhone()) ...[
-              TabSignIn(
-                controllerPhone: widget.controllerPhone,
-              ),
-            ],
-            if (luckyWheel.byInputInvoideCode()) ...[
-              Consumer(
-                builder: (context, ref, child) {
-                  final gift = ref.watch(luckyWheelViewModelProvider
-                      .select((value) => value.gift));
-
-                  if (gift == null) {
-                    widget.controllerPhone.text = '';
-                    return TabSignInInvoiceCode(ref: ref);
-                  }
-                  return const SizedBox();
-                },
-              ),
-            ],
-            if (luckyWheel.byInputQR()) ...[
-              FutureBuilder(
-                  future: ref
-                      .read(luckyWheelViewModelProvider.notifier)
-                      .getGiftForSpin(invoiceCode: widget.orderCode),
-                  builder: (context, constraints) {
-                    if (constraints.connectionState ==
-                        ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    }
-                    if (constraints.hasError) {
-                      return GestureDetector(
-                          onTap: () => ref
-                              .read(luckyWheelViewModelProvider.notifier)
-                              .getGiftForSpin(invoiceCode: widget.orderCode),
-                          child: const Row(
-                            children: [
-                              Text('Có lỗi xảy ra, vui lòng thử lại'),
-                              Icon(
-                                Icons.replay_outlined,
-                                color: Colors.red,
-                              )
-                            ],
-                          ));
-                    }
-                    return const SizedBox.shrink();
-                  })
-            ],
-            if (luckyWheel.byLink()) ...[
-              FutureBuilder(
-                future: ref
-                    .read(luckyWheelViewModelProvider.notifier)
-                    .getGiftForSpin(invoiceCode: ""),
-                builder: (context, constraints) {
-                  if (constraints.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  }
-                  if (constraints.hasError) {
-                    return GestureDetector(
-                      onTap: () => ref
+            Consumer(builder: (context, ref, _) {
+              final gift = ref.watch(
+                  luckyWheelViewModelProvider.select((value) => value.gift));
+              if (gift != null) {
+                return const SizedBox.shrink();
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (luckyWheel.byInputNumberPhone()) ...[
+                    TabSignIn(
+                      controllerPhone: widget.controllerPhone,
+                    ),
+                  ],
+                  if (luckyWheel.byInputInvoideCode()) ...[
+                    TabSignInInvoiceCode(ref: ref)
+                  ],
+                  if (luckyWheel.byInputQR()) ...[
+                    FutureBuilder(
+                        future: ref
+                            .read(luckyWheelViewModelProvider.notifier)
+                            .getGiftForSpin(invoiceCode: widget.orderCode),
+                        builder: (context, constraints) {
+                          if (constraints.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          }
+                          if (constraints.hasError) {
+                            return GestureDetector(
+                                onTap: () => ref
+                                    .read(luckyWheelViewModelProvider.notifier)
+                                    .getGiftForSpin(
+                                        invoiceCode: widget.orderCode),
+                                child: const Row(
+                                  children: [
+                                    Text('Có lỗi xảy ra, vui lòng thử lại'),
+                                    Icon(
+                                      Icons.replay_outlined,
+                                      color: Colors.red,
+                                    )
+                                  ],
+                                ));
+                          }
+                          return const SizedBox.shrink();
+                        })
+                  ],
+                  if (luckyWheel.byLink()) ...[
+                    FutureBuilder(
+                      future: ref
                           .read(luckyWheelViewModelProvider.notifier)
-                          .getGiftForSpin(invoiceCode: widget.orderCode),
-                      child: const Row(
-                        children: [
-                          Text('Có lỗi xảy ra, vui lòng thử lại'),
-                          Icon(
-                            Icons.replay_outlined,
-                            color: Colors.red,
-                          )
-                        ],
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              )
-            ]
+                          .getGiftForSpin(invoiceCode: ""),
+                      builder: (context, constraints) {
+                        if (constraints.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        }
+                        if (constraints.hasError) {
+                          return GestureDetector(
+                            onTap: () => ref
+                                .read(luckyWheelViewModelProvider.notifier)
+                                .getGiftForSpin(invoiceCode: widget.orderCode),
+                            child: const Row(
+                              children: [
+                                Text('Có lỗi xảy ra, vui lòng thử lại'),
+                                Icon(
+                                  Icons.replay_outlined,
+                                  color: Colors.red,
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
+                    )
+                  ]
+                ],
+              );
+            }),
           ],
         );
       }),

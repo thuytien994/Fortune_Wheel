@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/util/color_util.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
 import 'package:flutter_application_1/lucky_wheel_new/data/model/lucky_wheel_model.dart';
 import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
@@ -25,21 +26,27 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   late Animation<double> animationBtnSpin;
   late AnimationController controllerAnimation;
   StreamController<int> controllerStream = StreamController<int>();
-  late LuckyWheelModel listItem;
+  late LuckyWheelModel luckyWheelData;
   String? initValueGift;
   Widget btnSpin = Container();
   int timeSpin = 10;
   ScreenshotController screenshotController = ScreenshotController();
+  late Color colorSpin1;
+  late Color colorSpin2;
   @override
   void initState() {
     super.initState();
-    listItem = widget.luckyWheelData;
+    luckyWheelData = widget.luckyWheelData;
     _setAnimationBtnSpin();
+    colorSpin1 = getHexToColor(luckyWheelData.color1);
+    colorSpin2 = getHexToColor(luckyWheelData.color2);
   }
 
-  @override
-  void didChangeDependencies() async {
-    super.didChangeDependencies();
+  getHexToColor(String? hex) {
+    if (hex != null) {
+      return ColorUtil.hexToColor(hex);
+    }
+    return Colors.white;
   }
 
   @override
@@ -119,16 +126,14 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                             .showGiftResult(),
                         items: [
                           for (int i = 0;
-                              i < listItem.luckyPrizeModel.length;
+                              i < luckyWheelData.luckyPrizeModel.length;
                               i++)
                             FortuneItem(
                                 style: FortuneItemStyle(
                                   borderColor: Colors.black,
                                   borderWidth: 0,
                                   textAlign: TextAlign.center,
-                                  color: i % 2 != 0
-                                      ? const Color(0x02C731).withOpacity(1)
-                                      : const Color(0xFFF97F).withOpacity(1),
+                                  color: i % 2 != 0 ? colorSpin1 : colorSpin2,
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -137,14 +142,15 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       _showImageGift(
-                                          item: listItem.luckyPrizeModel[i]),
+                                          item: luckyWheelData
+                                              .luckyPrizeModel[i]),
                                       const SizedBox(
                                         width: 5,
                                       ),
                                       RotatedBox(
                                           quarterTurns: 1,
                                           child: _showNameGift(
-                                              id: listItem
+                                              id: luckyWheelData
                                                       .luckyPrizeModel[i].id ??
                                                   '',
                                               index: i,
@@ -224,13 +230,13 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   }
 
   void _onSpinLuckyheel(String id) async {
-    final index = listItem.luckyPrizeModel.indexWhere((e) => e.id == id);
+    final index = luckyWheelData.luckyPrizeModel.indexWhere((e) => e.id == id);
     controllerStream.add(index); // update item selected
   }
 
   Widget _showNameGift(
       {required String id, required int index, required BuildContext context}) {
-    return Text(listItem.luckyPrizeModel[index].prizeName.toUpperCase(),
+    return Text(luckyWheelData.luckyPrizeModel[index].prizeName.toUpperCase(),
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
             fontSize: 14,
             fontWeight: FontWeight.bold,
