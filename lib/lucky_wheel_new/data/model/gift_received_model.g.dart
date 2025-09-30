@@ -9,7 +9,7 @@ part of 'gift_received_model.dart';
 GiftReceivedModel _$GiftReceivedModelFromJson(Map<String, dynamic> json) =>
     GiftReceivedModel(
       prizeName: json['prizeName'] as String?,
-      prizeImage: json['prizeImage'] as String?,
+      prizeImage: json['prizeImage'] as String? ?? "",
       spinId: json['spinId'] as String?,
       prizeID: json['prizeID'] as String?,
       barCode: json['barCode'] as String?,

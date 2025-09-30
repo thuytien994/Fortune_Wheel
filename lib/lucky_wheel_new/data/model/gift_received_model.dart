@@ -4,7 +4,7 @@ part 'gift_received_model.g.dart';
 @JsonSerializable()
 class GiftReceivedModel {
   String? prizeName;
-  String? prizeImage;
+  String prizeImage;
   String? prizeID;
   String? spinId;
   String? userName;
@@ -15,7 +15,7 @@ class GiftReceivedModel {
   bool isReceivedGift;
   GiftReceivedModel({
     this.prizeName,
-    this.prizeImage,
+    this.prizeImage = "",
     this.spinId,
     this.prizeID,
     this.barCode,

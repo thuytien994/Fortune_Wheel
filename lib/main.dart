@@ -29,24 +29,25 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        builder: (context, child) => const LuckyWheelPageNew(
-          shopId: 1,
-          orderCode: "",
-        ),
+      child:
+          // MaterialApp(
+          //   builder: (context, child) => const LuckyWheelPageNew(
+          //     shopId: 1,
+          //     orderCode: "",
+          //   ),
+          //   debugShowCheckedModeBanner: false,
+          // ),
+          MaterialApp.router(
+        title: 'Spin Kenbar',
         debugShowCheckedModeBanner: false,
+        builder: EasyLoading.init(),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        routerConfig: _router,
+        //builder: (context, child) => const LuckyWheelPage(),
       ),
-      //     MaterialApp.router(
-      //   title: 'Spin Kenbar',
-      //   debugShowCheckedModeBanner: false,
-      //   builder: EasyLoading.init(),
-      //   theme: ThemeData(
-      //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      //     useMaterial3: true,
-      //   ),
-      //   routerConfig: _router,
-      //   //builder: (context, child) => const LuckyWheelPage(),
-      // ),
     );
   }
 }

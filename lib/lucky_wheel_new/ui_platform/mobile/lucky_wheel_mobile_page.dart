@@ -30,6 +30,7 @@ class _LuckyWheelMobilePageState extends ConsumerState<LuckyWheelMobilePage> {
       body: Consumer(builder: (context, ref, _) {
         var luckyWheel = ref.watch(
             luckyWheelViewModelProvider.select((value) => value.luckyWheel));
+
         if (luckyWheel?.backgroundImageMobile != null &&
             luckyWheel!.backgroundImageMobile.isNotEmpty) {
           backgroundImageMobile =
@@ -61,6 +62,12 @@ class _LuckyWheelMobilePageState extends ConsumerState<LuckyWheelMobilePage> {
                 ),
               ),
             ),
+            // if (luckyWheel.logoImage.isNotEmpty) ...[
+            //   Image.network(
+            //     luckyWheel.logoImage,
+            //     height: 400,
+            //   )
+            // ],
             Consumer(builder: (context, ref, _) {
               final gift = ref.watch(
                   luckyWheelViewModelProvider.select((value) => value.gift));
