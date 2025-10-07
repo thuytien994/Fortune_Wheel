@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_barcode_listener/flutter_barcode_listener.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:k2pos_spin/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'components/components.dart';
 
 class LuckyWheelDesktopPage extends ConsumerStatefulWidget {
@@ -41,7 +41,8 @@ class _LuckyWheelDesktopPageState extends ConsumerState<LuckyWheelDesktopPage> {
             backgroundImage = NetworkImage(luckyWheel.backgroundImage);
           }
           if (luckyWheel == null) {
-            return reloadWidget(ref: ref);
+            return const SizedBox.shrink();
+            // return reloadWidget(ref: ref);
           }
           return Container(
             alignment: Alignment.center,

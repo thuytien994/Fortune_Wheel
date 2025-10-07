@@ -1,7 +1,8 @@
-import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_model.dart';
-import 'package:flutter_application_1/lucky_wheel_new/data/model/lucky_wheel_model.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:k2pos_spin/lucky_wheel_new/data/model/gift_model.dart';
+import 'package:k2pos_spin/lucky_wheel_new/data/model/gift_received_model.dart';
+import 'package:k2pos_spin/lucky_wheel_new/data/model/lucky_wheel_model.dart';
 
 part 'lucky_wheel_state.freezed.dart';
 

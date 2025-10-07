@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_application_1/core/contants/network_url_constants.dart';
-import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_model.dart';
-import 'package:flutter_application_1/lucky_wheel_new/data/model/info_customer.dart';
-import 'package:flutter_application_1/lucky_wheel_new/data/model/lucky_wheel_model.dart';
+import 'package:k2pos_spin/core/contants/network_url_constants.dart';
+import 'package:k2pos_spin/lucky_wheel_new/data/model/gift_model.dart';
+import 'package:k2pos_spin/lucky_wheel_new/data/model/gift_received_model.dart';
+import 'package:k2pos_spin/lucky_wheel_new/data/model/info_customer.dart';
+import 'package:k2pos_spin/lucky_wheel_new/data/model/lucky_wheel_model.dart';
+
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 final dio = Dio();

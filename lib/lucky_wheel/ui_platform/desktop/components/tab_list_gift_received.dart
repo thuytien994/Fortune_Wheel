@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/animated_widget.dart/show_gift_received.dart';
-import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:k2pos_spin/lucky_wheel/data/model/gift_received_model.dart';
+import 'package:k2pos_spin/lucky_wheel/ui_platform/desktop/components/animated_widget.dart/show_gift_received.dart';
+import 'package:k2pos_spin/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 
 class TabListGiftReceived extends StatefulWidget {
   final List<GiftReceivedModel> gifts;

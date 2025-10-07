@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/lucky_widget.dart';
-import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/tab_list_gift_received.dart';
-import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_barcode_listener/flutter_barcode_listener.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../view_model/lucky_wheel_view_model.dart';
 import 'components/components.dart';
+import 'components/tab_list_gift_received.dart';
 
 class LuckyWheelDesktopPage extends ConsumerWidget {
 //  final TextEditingController controllerName;

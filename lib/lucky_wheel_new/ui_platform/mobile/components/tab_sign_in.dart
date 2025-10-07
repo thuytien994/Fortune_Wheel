@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:k2pos_spin/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 
 class TabSignIn extends StatefulWidget {
-  final TextEditingController controllerPhone;
-  const TabSignIn({super.key, required this.controllerPhone});
+  const TabSignIn({super.key});
 
   @override
   State<TabSignIn> createState() => _TabSignInState();
 }
 
 class _TabSignInState extends State<TabSignIn> {
-  late final TextEditingController controllerPhone;
+  TextEditingController controllerPhone = TextEditingController();
+
+  TextEditingController userName = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    super.initState();
-    controllerPhone = widget.controllerPhone;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,18 +51,17 @@ class _TabSignInState extends State<TabSignIn> {
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
-            // _inputInfo(
-            //   context: context,
-            //   labelText: 'Nhập tên',
-            //   controller: TextEditingController(),
-            //   textInput: TextInputType.name,
-            //   onValidator: (value) {
-            //     if (value == null || value.isEmpty == true) {
-            //       return "Vui lòng nhập họ và tên";
-            //     }
-            //     return null;
-            //   },
-            // ),
+            _inputInfo(
+              labelText: 'Nhập tên',
+              controller: userName,
+              textInput: TextInputType.name,
+              onValidator: (value) {
+                if (value == null || value.isEmpty == true) {
+                  return "Vui lòng nhập họ và tên";
+                }
+                return null;
+              },
+            ),
             const SizedBox(
               height: 10,
             ),
@@ -92,10 +87,10 @@ class _TabSignInState extends State<TabSignIn> {
                     if (formKey.currentState!.validate()) {
                       await ref
                           .read(luckyWheelViewModelProvider.notifier)
-                          .getGiftForSpin(phoneNumber: controllerPhone.text);
-                          
+                          .getGiftForSpin(
+                              phoneNumber: controllerPhone.text,
+                              userName: userName.text);
                     }
-
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink,

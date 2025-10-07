@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:k2pos_spin/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'components/components.dart';
 import 'components/tab_sign_in_invoice_code.dart';
 
 class LuckyWheelMobilePage extends ConsumerStatefulWidget {
-  final TextEditingController controllerPhone;
   final String orderCode;
 
   const LuckyWheelMobilePage({
     super.key,
-    required this.controllerPhone,
     required this.orderCode,
   });
 
@@ -37,7 +35,7 @@ class _LuckyWheelMobilePageState extends ConsumerState<LuckyWheelMobilePage> {
               NetworkImage(luckyWheel.backgroundImageMobile);
         }
         if (luckyWheel == null) {
-          return reloadWidget(ref: ref);
+          return const SizedBox.shrink();
         }
 
         return Stack(
@@ -78,9 +76,7 @@ class _LuckyWheelMobilePageState extends ConsumerState<LuckyWheelMobilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (luckyWheel.byInputNumberPhone()) ...[
-                    TabSignIn(
-                      controllerPhone: widget.controllerPhone,
-                    ),
+                    const TabSignIn(),
                   ],
                   if (luckyWheel.byInputInvoideCode()) ...[
                     TabSignInInvoiceCode(ref: ref)

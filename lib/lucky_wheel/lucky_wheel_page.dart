@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
-import 'package:flutter_application_1/responsive_layout.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:k2pos_spin/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
+import 'package:k2pos_spin/responsive_layout.dart';
 import 'ui_platform/desktop/lucky_wheel_desktop_page.dart';
 import 'ui_platform/mobile/lucky_wheel_mobile_page.dart';
 

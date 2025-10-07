@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/gift_model.dart';
-import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:screenshot/screenshot.dart';
+import '../../../data/model/gift_model.dart';
+import '../../../data/model/gift_received_model.dart';
+import '../../../view_model/lucky_wheel_view_model.dart';
 import 'components.dart';
 
 class LuckyWidget extends ConsumerStatefulWidget {
@@ -249,11 +250,11 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   }
 
   _onSpinLuckyheel() async {
-    var id = ref.read(luckyWheelViewModelProvider
-        .select((value) => value.gift?.kenbarVoucherId));
-    final index = listItem.indexWhere((e) => e.id == id);
-    controllerStream.add(index); // update item selected
-    ref.read(luckyWheelViewModelProvider.notifier).onSpinLuckyheel();
+    // var id = ref.read(luckyWheelViewModelProvider
+    //     .select((value) => value.gift?.kenbarVoucherId));
+    // final index = listItem.indexWhere((e) => e.id == id);
+    // controllerStream.add(index); // update item selected
+    // ref.read(luckyWheelViewModelProvider.notifier).onSpinLuckyheel();
   }
 
   Widget _showNameGift(

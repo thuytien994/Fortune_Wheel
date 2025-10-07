@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:k2pos_spin/lucky_wheel_new/view_model/lucky_wheel_view_model.dart';
 
 class TabScreenSignIn extends StatelessWidget {
   final TextEditingController controllerPhone;
-  TabScreenSignIn({
-    super.key,
-    required this.controllerPhone,
-  });
+  const TabScreenSignIn({super.key, required this.controllerPhone});
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Center(
       child: Container(
         width: MediaQuery.sizeOf(context).width * 0.4,
@@ -27,7 +24,7 @@ class TabScreenSignIn extends StatelessWidget {
         ),
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: formKey,
             autovalidateMode: AutovalidateMode.disabled,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -87,7 +84,7 @@ class TabScreenSignIn extends StatelessWidget {
                     height: 60,
                     child: ElevatedButton(
                       onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate()) {
                           await ref
                               .read(luckyWheelViewModelProvider.notifier)
                               .signInLuckyWheel(

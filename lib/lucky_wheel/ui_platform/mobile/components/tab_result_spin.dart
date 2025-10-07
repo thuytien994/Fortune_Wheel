@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/view_model/lucky_wheel_view_model.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:k2pos_spin/lucky_wheel/data/model/gift_received_model.dart';
+import 'package:k2pos_spin/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class TabResultSpin extends ConsumerWidget {
   final GiftReceivedModel resultSpin;
@@ -186,7 +186,7 @@ class TabResultSpin extends ConsumerWidget {
               RichText(
                 text: TextSpan(
                   children: [
-                    TextSpan(
+                    const TextSpan(
                       text: "Theo dõi kenbar: ",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -196,7 +196,7 @@ class TabResultSpin extends ConsumerWidget {
                     ),
                     TextSpan(
                       text: "Tại đây",
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.blue,
                           fontSize: 16,
                           decoration: TextDecoration.underline,

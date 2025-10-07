@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/lucky_wheel/lucky_wheel_page.dart';
-import 'package:flutter_application_1/lucky_wheel/ui_platform/desktop/components/mqtt.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:k2pos_spin/lucky_wheel/lucky_wheel_page.dart';
+import 'package:k2pos_spin/lucky_wheel_new/ui_platform/desktop/components/mqtt.dart';
 
 import 'lucky_wheel_new/lucky_wheel_page_new.dart';
 
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           //   debugShowCheckedModeBanner: false,
           // ),
           MaterialApp.router(
-        title: 'Spin Kenbar',
+        title: 'Spin K2POS',
         debugShowCheckedModeBanner: false,
         builder: EasyLoading.init(),
         theme: ThemeData(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/lucky_wheel_new/data/model/gift_received_model.dart';
+import 'package:k2pos_spin/lucky_wheel_new/data/model/gift_received_model.dart';
 
 class ShowGiftReceived extends AnimatedWidget {
   ShowGiftReceived(
@@ -32,7 +32,7 @@ class ShowGiftReceived extends AnimatedWidget {
               color: Colors.amber.withOpacity(opacity.evaluate(animation)),
             ),
             child: Image.network(
-              gift.prizeImage ?? '',
+              gift.prizeImage,
               height: sizeImage.evaluate(animation),
               width: sizeImage.evaluate(animation),
               errorBuilder: (context, error, stackTrace) {

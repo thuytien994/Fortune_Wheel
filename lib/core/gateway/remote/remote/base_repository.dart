@@ -2,9 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_application_1/core/gateway/remote/base_api_response.dart';
-import 'package:flutter_application_1/core/gateway/remote/remote/base_api_exception.dart';
-import 'package:flutter_application_1/core/gateway/remote/remote/custom_exception.dart';
+import 'package:k2pos_spin/core/gateway/remote/remote/base_api_exception.dart';
+import 'package:k2pos_spin/core/gateway/remote/remote/base_response.dart';
+import 'package:k2pos_spin/core/gateway/remote/remote/custom_exception.dart';
+
 class BaseRepository {
   Future<dynamic> getResponseData(Future<dynamic> Function() action) async {
     try {

@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:flutter_application_1/lucky_wheel/data/model/gift_received_model.dart';
-import 'package:flutter_application_1/lucky_wheel/data/repository/lucky_wheel_repository_impl.dart';
+
+import 'package:k2pos_spin/lucky_wheel/data/model/gift_received_model.dart';
+import 'package:k2pos_spin/lucky_wheel/data/repository/lucky_wheel_repository_impl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
