@@ -15,7 +15,7 @@ part 'lucky_wheel_view_model.g.dart';
 class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   final repo = LuckyWheelRepository();
   bool isInit = false;
-   String keyLocal = 'save_gift_local';
+  String keyLocal = 'save_gift_local';
   late final SharedPreferences prefs;
   @override
   LuckyWheelState build() {
@@ -197,15 +197,15 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
           shopId: state.shopId,
           spinId: state.luckyWheel?.id);
 
-
       var response = await repo.getGiftForSpin(param);
       if (response != null) {
-        state = state.copyWith(gift: response);
+        if (response.isReceivedGift == true) {
+          EasyLoading.showInfo("Người này đã quay thưởng rồi!");
+          return;
+        }
       }
 
-      if (response?.isReceivedGift == true) {
-        showGiftResult();
-      }
+      state = state.copyWith(gift: response);
     } catch (e) {
       EasyLoading.showError("Có lỗi sảy ra, vui lòng thử lại");
     } finally {

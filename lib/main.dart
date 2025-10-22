@@ -4,7 +4,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:k2pos_spin/lucky_wheel/lucky_wheel_page.dart';
 import 'package:k2pos_spin/lucky_wheel_new/ui_platform/desktop/components/mqtt.dart';
 
 import 'lucky_wheel_new/lucky_wheel_page_new.dart';
@@ -76,18 +75,4 @@ final GoRouter _router = GoRouter(
     ),
   ],
 );
-final GoRouter _router2 = GoRouter(
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/:id',
-      builder: (BuildContext context, GoRouterState state) {
-        final id = state.pathParameters['id'];
-        final orderCode = state.uri.queryParameters['orderCode'];
-        return LuckyWheelPage(
-          shopId: int.tryParse(id ?? '1') ?? 1,
-          orderCode: orderCode ?? "",
-        );
-      },
-    ),
-  ],
-);
+
