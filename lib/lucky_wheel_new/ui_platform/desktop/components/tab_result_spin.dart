@@ -131,9 +131,35 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
                                       ),
                                 )
                               ]))),
-                      const SizedBox(
-                        height: 8,
-                      ),
+
+                      if (widget.resultSpin.phoneNumber != null)
+                        RichText(
+                            overflow: TextOverflow.clip,
+                            textAlign: TextAlign.center,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                text: 'SĐT: ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      fontSize: 13.sp,
+                                      color: Colors.white,
+                                    ),
+                              ),
+                              TextSpan(
+                                text: (widget.resultSpin.phoneNumber)
+                                        ?.toUpperCase() ??
+                                    '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      fontSize: 13.sp,
+                                      color: Colors.red,
+                                    ),
+                              )
+                            ])),
                       // widget.resultSpin.kenbarVoucherId == 'B0B5670B'
                       //     ? Padding(
                       //         padding:
@@ -151,6 +177,9 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
                       //         ),
                       //       )
                       //     :
+                      const SizedBox(
+                        height: 8,
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(

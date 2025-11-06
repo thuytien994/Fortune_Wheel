@@ -124,6 +124,34 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
                                       ),
                                 )
                               ]))),
+                      if (widget.resultSpin.phoneNumber != null)
+                        RichText(
+                            overflow: TextOverflow.clip,
+                            textAlign: TextAlign.center,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                text: 'SĐT: ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      fontSize: 15.sp,
+                                      color: Colors.white,
+                                    ),
+                              ),
+                              TextSpan(
+                                text: (widget.resultSpin.phoneNumber)
+                                        ?.toUpperCase() ??
+                                    '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      fontSize: 15.sp,
+                                      color: Colors.red,
+                                    ),
+                              )
+                            ])),
                       const SizedBox(
                         height: 8,
                       ),
