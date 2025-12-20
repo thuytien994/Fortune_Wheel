@@ -57,7 +57,7 @@ class LuckyWheelTabletPage extends ConsumerWidget {
                         ),
                       );
                     }
-                    return Text("");
+                    return const Text("");
                   },
                 ),
               ),

@@ -13,7 +13,7 @@ class SnowFillingAnima extends AnimatedWidget {
     final height =
         Tween<double>(begin: 0, end: MediaQuery.sizeOf(context).height);
     final animation = listenable as Animation<double>;
-    _showWidget() {
+    showWidget() {
       return Container(
         height: 50,
         width: 50,
@@ -24,7 +24,7 @@ class SnowFillingAnima extends AnimatedWidget {
 
     List<Widget> listItem = List<Widget>.generate(
       10,
-      (index) => _showWidget(),
+      (index) => showWidget(),
     );
 
     return Stack(

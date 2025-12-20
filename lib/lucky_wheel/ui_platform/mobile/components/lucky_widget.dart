@@ -125,8 +125,8 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
                                   borderWidth: 0,
                                   textAlign: TextAlign.center,
                                   color: i % 2 != 0
-                                      ? const Color(0x02C731).withOpacity(1)
-                                      : const Color(0xFFF97F).withOpacity(1),
+                                      ? const Color(0x0002c731).withOpacity(1)
+                                      : const Color(0x00fff97f).withOpacity(1),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -212,7 +212,6 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
   }
 
   void _onSpinLuckyheel(int id) async {
-    print("here: ${id}");
     final index = listItem.indexWhere((e) => e.id == id);
     controllerStream.add(index); // update item selected
   }
@@ -224,7 +223,7 @@ class _LuckyWidgetState extends ConsumerState<LuckyWidget>
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: index % 2 == 0
-                ? const Color(0x1BAD6F).withOpacity(1)
+                ? const Color(0x001bad6f).withOpacity(1)
                 : Colors.white.withOpacity(1)));
   }
 }

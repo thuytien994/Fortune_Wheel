@@ -88,7 +88,6 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
 
   void showGiftResult() {
     if (state.gift != null) {
-      print("here aaaa: ");
       state = state.copyWith(isShowGiftResult: true);
       // connectMQTT();
     }

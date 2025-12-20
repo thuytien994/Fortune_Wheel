@@ -173,6 +173,8 @@ class TabScreenSignIn extends StatelessWidget {
   late final TextEditingController controllerPhone;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  TabScreenSignIn({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(

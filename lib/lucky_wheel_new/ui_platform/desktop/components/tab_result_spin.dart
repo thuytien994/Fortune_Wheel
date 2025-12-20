@@ -238,42 +238,27 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
                     ],
                   ),
                 ),
-
-                // SizedBox(
-                //   width: 200,
-                //   height: 50,
-                //   child: SfBarcodeGenerator(
-                //     symbology: Code128(),
-                //     barColor: Colors.black,
-                //     backgroundColor: Colors.white,
-                //     textStyle: const TextStyle(
-                //       fontSize: 80,
-                //     ),
-                //     value: resultSpin.giftCode,
-                //   ),
-                // ),
-
-                // ElevatedButton(
-                //   style: ElevatedButton.styleFrom(
-                //     backgroundColor: Colors.white,
-                //   ),
-                //   onPressed: ref
-                //       .read(luckyWheelViewModelProvider.notifier)
-                //       .reloadPageLuckWheel,
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(6.0),
-                //     child: Text(
-                //       'Quay tiếp',
-                //       textAlign: TextAlign.center,
-                //       style:
-                //           Theme.of(context).textTheme.displaySmall!.copyWith(
-                //                 fontSize: 30,
-                //                 fontWeight: FontWeight.w600,
-                //                 color: Colors.black,
-                //               ),
-                //     ),
-                //   ),
-                // ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
+                  onPressed: ref
+                      .read(luckyWheelViewModelProvider.notifier)
+                      .reloadPageLuckWheel,
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Text(
+                      'Quay tiếp',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

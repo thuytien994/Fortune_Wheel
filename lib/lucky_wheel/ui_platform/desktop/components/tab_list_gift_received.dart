@@ -94,11 +94,9 @@ class _TabListGiftReceivedState extends State<TabListGiftReceived>
       ..image = gift.image
       ..phoneNumber = gift.phoneNumber;
 
-    return Container(
-      child: ValueListenableBuilder(
-          valueListenable: showGift,
-          builder: (context, value, child) => ShowGiftReceived(
-              animation: animationBtnSpin, gift: showGift.value)),
-    );
+    return ValueListenableBuilder(
+        valueListenable: showGift,
+        builder: (context, value, child) => ShowGiftReceived(
+            animation: animationBtnSpin, gift: showGift.value));
   }
 }

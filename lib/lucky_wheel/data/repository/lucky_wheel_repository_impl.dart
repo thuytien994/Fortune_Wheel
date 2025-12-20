@@ -1,7 +1,5 @@
-
 import 'package:k2pos_spin/core/gateway/remote/remote/base_repository.dart';
 import 'package:k2pos_spin/lucky_wheel/data/model/gift_model.dart';
-
 
 import '../data_source/fortune_wheel_datasource.dart';
 import '../model/gift_received_model.dart';
@@ -15,7 +13,6 @@ class LuckyWheelRepository extends BaseRepository {
     return await getResponseData(
       () async {
         final data = await dataSource.getGifts(shopId);
-        print("here giftssss: ${data.length}");
         return data;
       },
     );

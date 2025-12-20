@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SpinAnimaBtn extends AnimatedWidget {
-  SpinAnimaBtn({
+  const SpinAnimaBtn({
     super.key,
     required Animation<double> animation,
   }) : super(listenable: animation);

@@ -23,23 +23,18 @@ class MQTTManager {
     client.connectionMessage = connectMessage;
 
     try {
-      print('MQTT: Đang kết nối...');
       await client.connect();
     } catch (e) {
-      print('MQTT: Lỗi kết nối - $e');
       client.disconnect();
     }
 
     if (client.connectionStatus!.state == MqttConnectionState.connected) {
-      print('MQTT: Kết nối thành công!');
     } else {
-      print('MQTT: Kết nối thất bại - ${client.connectionStatus}');
       client.disconnect();
     }
   }
 
   Future<void> publishMessage(GiftReceivedModel gift) async {
-    print("here aaaaa: ${gift}");
     final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
     String jsonGift = jsonEncode(gift.toJson());
     builder.addUTF8String(jsonGift.toString());
@@ -48,7 +43,6 @@ class MQTTManager {
         MqttQos.exactlyOnce, // QoS level
         builder.payload! // Payload
         );
-    print(jsonGift);
   }
 
   // Đăng ký vào một chủ đề
@@ -56,24 +50,20 @@ class MQTTManager {
       {required Function(Map<String, dynamic> data) callback}) async {
     // Kiểm tra xem client đã kết nối chưa
     if (client.connectionStatus?.state != MqttConnectionState.connected) {
-      print('hear Không thể đăng ký vì client chưa kết nối!');
       return;
     }
 
     // Đăng ký vào chủ đề với mức độ QoS là atLeastOnce
     client.subscribe(topic, MqttQos.atLeastOnce);
-    print("hear Đã đăng ký vào chủ đề: $topic");
 
     // Lắng nghe các tin nhắn từ chủ đề đã đăng ký
 
-    await client.updates
-        ?.listen((List<MqttReceivedMessage<MqttMessage?>>? messages) {
+    client.updates?.listen((List<MqttReceivedMessage<MqttMessage?>>? messages) {
       if (messages != null && messages.isNotEmpty) {
         for (var message in messages) {
           final recMess = message.payload as MqttPublishMessage;
           final messageContent =
               MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-          print('here Nhận tin nhắn từ $topic: $messageContent');
 
           Map<String, dynamic> valueMap = jsonDecode(messageContent);
           callback(valueMap);

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:k2pos_spin/core/contants/network_url_constants.dart';
 import 'package:k2pos_spin/lucky_wheel_new/data/model/gift_model.dart';
 import 'package:k2pos_spin/lucky_wheel_new/data/model/gift_received_model.dart';
@@ -50,7 +51,7 @@ class LuckyWheelDataSource {
             .toList();
       }
     } catch (e) {
-      print('Error: $e');
+      debugPrint('Error: $e');
     }
     return [];
   }
@@ -65,7 +66,7 @@ class LuckyWheelDataSource {
             .toList();
       }
     } catch (e) {
-      print('Error: $e');
+      debugPrint('Error: $e');
     }
     return [];
   }
@@ -77,7 +78,7 @@ class LuckyWheelDataSource {
           .get('${NetworkUrlConstants.urlGetGiftFormBarcode}/$barcode/$shopId');
       return GiftReceivedModel.fromJson(response.data['data']);
     } catch (e) {
-      print('catch: $e');
+      debugPrint('catch: $e');
     }
     return null;
   }
@@ -88,7 +89,7 @@ class LuckyWheelDataSource {
           .get('${NetworkUrlConstants.urlGetActiveLuckySpins}/$shopId');
       return LuckyWheelModel.fromJson(response.data['data']);
     } catch (e) {
-      print('catch: $e');
+      debugPrint('catch: $e');
     }
     return null;
   }
@@ -99,7 +100,7 @@ class LuckyWheelDataSource {
           data: data.toJson());
       return GiftReceivedModel.fromJson(response.data['data']);
     } catch (e) {
-      print('catch: $e');
+      debugPrint('catch: $e');
     }
     return null;
   }

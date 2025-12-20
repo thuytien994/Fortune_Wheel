@@ -133,37 +133,37 @@ class _LuckyWidgetState extends ConsumerState<TabResultSpin>
                       const SizedBox(
                         height: 8,
                       ),
-                      widget.resultSpin.kenbarVoucherId == 'B0B5670B'
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(
-                                '${widget.resultSpin.orderName}',
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                        color: Colors.amber,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 12.sp),
-                              ),
-                            )
-                          : Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(
-                                'Nhận được: ${widget.resultSpin.gift}',
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                        color: Colors.amber,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 12.sp),
-                              ),
-                            ),
+                      // widget.resultSpin.kenbarVoucherId == 'B0B5670B'
+                      //     ? Padding(
+                      //         padding:
+                      //             const EdgeInsets.symmetric(horizontal: 20),
+                      //         child: Text(
+                      //           '${widget.resultSpin.orderName}',
+                      //           textAlign: TextAlign.center,
+                      //           style: Theme.of(context)
+                      //               .textTheme
+                      //               .titleMedium!
+                      //               .copyWith(
+                      //                   color: Colors.amber,
+                      //                   fontWeight: FontWeight.w700,
+                      //                   fontSize: 12.sp),
+                      //         ),
+                      //       )
+                      //     : Padding(
+                      //         padding:
+                      //             const EdgeInsets.symmetric(horizontal: 20),
+                      //         child: Text(
+                      //           'Nhận được: ${widget.resultSpin.gift}',
+                      //           textAlign: TextAlign.center,
+                      //           style: Theme.of(context)
+                      //               .textTheme
+                      //               .titleMedium!
+                      //               .copyWith(
+                      //                   color: Colors.amber,
+                      //                   fontWeight: FontWeight.w700,
+                      //                   fontSize: 12.sp),
+                      //         ),
+                      //       ),
                       const SizedBox(
                         height: 15,
                       ),

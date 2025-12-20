@@ -14,7 +14,6 @@ part 'lucky_wheel_view_model.g.dart';
 class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   final repo = LuckyWheelRepository();
   bool isInit = false;
-  final String keyLocal = 'save_gift_local';
   late final SharedPreferences prefs;
   @override
   LuckyWheelState build() {
@@ -49,7 +48,6 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
     try {
       state = state.copyWith(isLoadingGift: true);
       final data = await repo.getGifts(state.shopId);
-      print("here shopId: ${data.length}");
       state = state.copyWith(
         listGift: data,
         isLoadingGift: false,
@@ -116,11 +114,15 @@ class LuckyWheelViewModel extends _$LuckyWheelViewModel {
   }
 
   Future<void> saveGiftLocal() async {
+    String keyLocal = 'save_gift_local';
+
     var jsonGift = jsonEncode(state.gift);
     await prefs.setString(keyLocal, jsonGift);
   }
 
   Future<void> getGiftLocal() async {
+    String keyLocal = 'save_gift_local';
+
     final String? action = prefs.getString(keyLocal);
     if (action != null) {
       Map<String, dynamic> valueMap = jsonDecode(action);

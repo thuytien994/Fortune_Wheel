@@ -5,14 +5,14 @@ import 'package:k2pos_spin/lucky_wheel/view_model/lucky_wheel_view_model.dart';
 
 class TabScreenSignIn extends StatelessWidget {
   final TextEditingController controllerPhone;
-  const TabScreenSignIn({
+  TabScreenSignIn({
     super.key,
     required this.controllerPhone,
   });
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     return Center(
       child: Container(
         width: MediaQuery.sizeOf(context).width * 0.4,
